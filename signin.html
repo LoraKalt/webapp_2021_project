@@ -1,172 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Sign In</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
     <header>
-        <h1>Placeholder</h1>
+        <nav class="navbar navbar-expand-md navbar-light">
+            <a class="navbar-brand" href="#">CU-Denver Social</a>
+        </nav>
     </header>
     <section>
         <article>
-            <form>
-                <fieldset class="border">
-                    <legend class="w-auto">Sign up</legend>
-                    <!--first name (required)-->
-                    <div class="form-group row">
-                        <div class="col-sm-2">
-                            <label for="txtFirstName" class="col-form-label">
-                                Name:
-                            </label>
-                        </div>
-                        <!--last name (required)-->
-                        <div class="col-sm-5">
-                            <input type="text" id="txtFirstName" name="txtFirstName" class="form-control"
-                                placeholder="First Name" required>
-                        </div>
-                        <div class="col-sm-5">
-                            <input type="text" id="txtLastName" name="txtLastName" class="form-control"
-                                placeholder="Last Name" required>
-                        </div>
-                    </div>
-                    <!--Username/Handler (required)-->
-                    <div class="form-group row">
-                        <div class="col-sm-2">
-                            <label for="txtUsername" class="col-form-label">
-                                Username:
-                            </label>
-                        </div>
-                        <div class="col-sm-10">
-                            <input type="text" id="txtUsername" name="txtUsername" class="form-control" required>
-                        </div>
-                    </div>
-                    <!--Gender-->
-                    <div>
-                        <fieldset class=" form-group">
-                            <div class="row">
-                                <div class="col-sm-2 col-form-label">Gender:</div>
+            <div class="content-container">
+                <div class="card mx-md-5 mx-3 my-3 p-3">
+                    <form>
+                        <fieldset>
+                            <legend class="w-auto">Sign In</legend>
+                            <div class="row form-group">
+                                <label for="txtEmail" class="col-sm-2 col-form-label">
+                                    Email:
+                                </label>
                                 <div class="col-sm-10">
-                                    <div class="form-check">
-                                        <input type="radio" id="rbMale" name="gender" value="male"
-                                            class="form-check-input">
-                                        <label for="rbMale" class="form-check-label">Male</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input type="radio" id="rbFemale" name="gender" value="female"
-                                            class="form-check-input">
-                                        <label for="rbFemale" class="form-check-label">Female</label>
-                                    </div>
-
-                                    <div class="form-check">
-                                        <input type="radio" id="rbOther" name="gender" value="other"
-                                            class="form-check-input">
-                                        <label for="rbOther" class="form-check-label">Other</label>
-                                    </div>
-
+                                    <input type="email" id="txtEmail" name="txtEmail" class="form-control"
+                                        placeholder="name@example.com" required>
                                 </div>
                             </div>
+                            <div class="row form-group">
+                                <label for="txtpassword" class="col-sm-2 col-form-label">
+                                    Password:
+                                </label>
+                                <div class="col-sm-10">
+                                    <input type="pwd" id="txtpassword" name="txtpassword" class="form-control" required>
+                                </div>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="cbRemember" name="cbRemember">
+                                <label for="cbRemember">Remember Me</label>
+                            </div>
+                            <div>
+                                <a href="./home.html">
+                                    <button type="submit" class="btn btn-primary">Sign In</button>
+                                </a>
+                                <button type="reset" class="btn btn-secondary">Reset</button>
+                            </div>
                         </fieldset>
-                    </div>
-                    <!--Location (optional)-->
-                    <div class="form-group row">
-                        <div class="col-sm-2">
-                            <label for="txtLocation" class="col-form-label">
-                                Location (optional):
-                            </label>
-                        </div>
-                        <div class="col-sm-10">
-                            <input type="text" id="txtLocation" name="txtLocation" class="form-control">
-                        </div>
-                    </div>
-                    <!--Email (required)-->
-                    <div class="row form-group">
-                        <label for="txtEmail" class="col-sm-2 col-form-label">
-                            Email:
-                        </label>
-                        <div class="col-sm-10">
-                            <input type="email" id="txtEmail" name="txtEmail" class="form-control"
-                                placeholder="name@example.com" required>
-                        </div>
-                    </div>
-                    <!--Password (required)-->
-                    <div class="row form-group">
-                        <label for="txtPassword" class="col-sm-2 col-form-label">
-                            Password:
-                        </label>
-                        <div class="col-sm-10">
-                            <input type="pwd" id="txtPassword" name="txtPassword" class="form-control" required>
-                        </div>
-                    </div>
-                    <!--Confirm password (required)-->
-                    <div class="row form-group">
-                        <label for="txtConfirmPassword" class="col-sm-2 col-form-label">
-                            Confirm Password:
-                        </label>
-                        <div class="col-sm-10">
-                            <input type="pwd" id="txtConfirmPassword" name="txtConfirmPassword" class="form-control" required>
-                        </div>
-                    </div>
-
-                    <!--DOB (required)-->
-                    <div class="row form-group">
-                        <label for="txtDoB" class="col-sm-2 col-form-label">
-                            Date of Birth:
-                        </label>
-                        <div class="col-sm-10">
-                            <input type="date" id="txtDoB" name="txtDoB" class="form-control" required>
-                        </div>
-
-                    </div>
-                    <!--Security Question (Required)-->
-                    <div class="form-group row">
-                        <div class="col-sm-2">
-                            <label for="txtUsername" class="col-form-label">
-                                Username:
-                            </label>
-                        </div>
-                        <div class="col-sm-10">
-                            <input type="text" id="txtUsername" name="txtUsername" class="form-control" required>
-                        </div>
-                    </div>
-                    <!--input for above-->
-                    <!--Bio (Optional)-->
-                    <div class="form-group row">
-                        <div class="col-sm-2">
-                            <label for="txtareaBio" class="col-form-label">
-                                Bio (optional):
-                            </label>
-                        </div>
-                        <div class="col-sm-10">
-                            <textarea id="txtareaBio" name="txtareaBio" class="form-control">Type here</textarea>
-                        </div>
-                    </div>
-
-                    <!--Submit Button-->
-                    <!--Reset Button-->
-                    <div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                        <button type="reset" class="btn btn-secondary">Reset</button>
-                    </div>
-
-                </fieldset>
-            </form>
+                        <a href="password.html">Forgot Password? Click here</a>
+                    </form>
+                </div>
+            </div>
         </article>
     </section>
     <footer></footer>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-    crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"
+        integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js"
+        integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>
