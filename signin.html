@@ -15,36 +15,45 @@
     <header>
         <nav class="navbar navbar-expand-md navbar-light">
             <a class="navbar-brand" href="#">CU-Denver Social</a>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" href="home.html">Home</a>
+                </li>
+            </ul>
         </nav>
     </header>
     <section>
         <article>
             <div class="content-container">
                 <div class="card mx-md-5 mx-3 my-3 p-3">
-                    <form>
+                    <form onsubmit="return validateSignIn()" id="signinForm" novalidate>
                         <fieldset>
                             <legend class="w-auto">Sign In</legend>
-                            <div class="row form-group">
-                                <label for="txtEmail" class="col-sm-2 col-form-label">
-                                    Email:
-                                </label>
-                                <div class="col-sm-10">
-                                    <input type="email" id="txtEmail" name="txtEmail" class="form-control"
-                                        placeholder="name@example.com" required>
+                            <!--Email-->
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Email:</span>
                                 </div>
+                                <input type="email" id="txtSignEmail" name="txtSignEmail" class="form-control"
+                                    placeholder="name@example.com" required>
                             </div>
-                            <div class="row form-group">
-                                <label for="txtpassword" class="col-sm-2 col-form-label">
-                                    Password:
-                                </label>
-                                <div class="col-sm-10">
-                                    <input type="pwd" id="txtpassword" name="txtpassword" class="form-control" required>
+                            <div id="divEmailError" class="text-danger invisible"></div>
+                            
+                            <!--Password (required)-->
+                            <div class="input-group mt-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Password</span>
                                 </div>
+                                <input type="password" id="txtSignPassword" name="txtSignPassword" class="form-control"
+                                    required>
                             </div>
-                            <div>
+                            <div id="divPasswordError" class="text-danger invisible"></div>
+                            <!--Remember Me checkbox-->
+                            <div class="mt-3">
                                 <input type="checkbox" id="cbRemember" name="cbRemember">
                                 <label for="cbRemember">Remember Me</label>
                             </div>
+                            <!--Submit Buttons-->
                             <div>
                                 <a href="./home.html">
                                     <button type="submit" class="btn btn-primary">Sign In</button>
@@ -52,7 +61,7 @@
                                 <button type="reset" class="btn btn-secondary">Reset</button>
                             </div>
                         </fieldset>
-                        <a href="password.html">Forgot Password? Click here</a>
+                        <a href="#">Forgot Password? Click Here!</a>
                     </form>
                 </div>
             </div>
@@ -68,6 +77,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
         crossorigin="anonymous"></script>
+    <script src="js/script.js"></script>
 </body>
 
 </html>
