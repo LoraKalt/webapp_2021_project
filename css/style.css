@@ -7,3 +7,9 @@
 .invisible {
     display: none;
 }
+
+/*Temporary - May change later*/
+.label-tag {
+    width : 100%;
+    overflow: hidden;
+}

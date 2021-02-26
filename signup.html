@@ -22,17 +22,17 @@
             </ul>
         </nav>
     </header>
-    <section>
+    <main>
         <article>
             <div class="content-container">
                 <div class="card mx-md-5 mx-3 my-3 p-3">
+                    <div class="w-auto"><h5>Sign up</h5></div>
                     <form onsubmit="return validateSignUp()" id="signUpForm" novalidate>
-                        <legend class="w-auto">Sign up</legend>
+                        
                         <!--REQUIRED INFORMATION GROUP-->
                         <!--first name (required)-->
-                        <div class form></div>
                         <div class="input-group">
-                            <div class="input-group-prepend">
+                            <div class="label-tag input-group-prepend">
                                 <span class="input-group-text">Name: </span>
                             </div>
                             <input type="text" id="txtFirstName" name="txtFirstName" class="form-control"
@@ -44,7 +44,7 @@
 
                         <!--Username/Handler (required)-->
                         <div class="input-group mt-3">
-                            <div class="input-group-prepend">
+                            <div class="label-tag input-group-prepend">
                                 <span class="input-group-text">Username: </span>
                             </div>
                             <input type="text" id="txtUsername" name="txtUsername" class="form-control" required>
@@ -53,7 +53,7 @@
 
                         <!--Email (required)-->
                         <div class="input-group mt-3">
-                            <div class="input-group-prepend">
+                            <div class="label-tag input-group-prepend">
                                 <span class="input-group-text">Email: </span>
                             </div>
                             <input type="email" id="txtEmail" name="txtEmail" class="form-control"
@@ -63,7 +63,7 @@
 
                         <!--Password (required)-->
                         <div class="input-group mt-3">
-                            <div class="input-group-prepend">
+                            <div class="label-tag input-group-prepend">
                                 <span class="input-group-text">Password:</span>
                             </div>
                             <input type="password" id="txtPassword" name="txtPassword" class="form-control" required>
@@ -71,7 +71,7 @@
 
                         <!--Confirm password (required)-->
                         <div class="input-group mt-3">
-                            <div class="input-group-prepend">
+                            <div class="label-tag input-group-prepend">
                                 <span class="input-group-text">Confirm Password:</span>
                             </div>
                             <input type="password" id="txtConfirmPassword" name="txtConfirmPassword"
@@ -81,7 +81,7 @@
 
                         <!--Security Question (Required)-->
                         <div class="input-group mt-3">
-                            <div class="input-group-prepend">
+                            <div class="label-tag input-group-prepend">
                                 <span class="input-group-text">Security Question:</span>
                             </div>
                             <select id ="cbSecurity" name="cbSecurity" class="custom-select" required>
@@ -93,7 +93,7 @@
                         </div>
                         <!--Security Answer (required)-->
                         <div class="input-group mt-3">
-                            <div class="input-group-prepend">
+                            <div class="label-tag input-group-prepend">
                                 <span class="input-group-text">Security Answer:</span>
                             </div>
                             <input type="text" id="txtAnswer" name="txtAnswer" class="form-control"
@@ -103,7 +103,7 @@
 
                         <!--DOB (required)-->
                         <div class="input-group mt-3">
-                            <div class="input-group-prepend">
+                            <div class="label-tag input-group-prepend">
                                 <span class="input-group-text">Date of Birth:</span>
                             </div>
                             <input type="date" id="txtDoB" name="txtDoB" class="form-control" required>
@@ -112,7 +112,7 @@
                         <!--BIOGRAPHY INFORMATION GROUP-->
                         <!--Gender (optional)-->
                         <div class="input-group mt-3">
-                            <div class="input-group-prepend">
+                            <div class="label-tag input-group-prepend">
                                 <span class="input-group-text">Gender (optional):</span>
                             </div>
                             <div class="col-sm-10">
@@ -137,18 +137,18 @@
 
                         <!--Location (optional)-->
                         <div class="input-group mt-3">
-                            <div class="input-group-prepend">
+                            <div class="label-tag input-group-prepend">
                                 <span class="input-group-text">Location (optional):</span>
                             </div>
                             <input type="text" id="txtLocation" name="txtLocation" class="form-control">
                         </div>
 
                         <!--Bio (Optional)-->
-                        <div class="input-group mt-3">
-                            <div class="input-group-prepend">
+                        <div class="input-group mt-3 mb-3">
+                            <div class="label-tag input-group-prepend">
                                 <span class="input-group-text">Bio (optional):</span>
                             </div>
-                            <textarea id="txtareaBio" name="txtareaBio" class="form-control" value="" placeholder="Write your bio here"></textarea>
+                            <textarea id="txtareaBio" name="txtareaBio" class="form-control" placeholder="Write your bio here"></textarea>
                         </div>
 
                         <!--Submit Button-->
@@ -162,7 +162,7 @@
                 </div>
             </div>
         </article>
-    </section>
+    </main>
     <footer></footer>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"
         integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi"
