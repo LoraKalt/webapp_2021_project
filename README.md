@@ -21,10 +21,11 @@ Website uses Bootstrap 4
 
 ---
 ### TO DO reminders:
-[x] Make sign in and sign up pages look better on super small screens (Lora).
-[ ] Work on more form checking for sign in (such as proper email address etc.)
-[ ] Work on this README file
-[ ] A footer
+
+ - [X] Make sign in and sign up pages look better on super small screens (Lora).
+- [ ] Work on more form checking for sign in (such as proper email address etc.)
+- [ ] Work on this README file
+- [ ] A footer
 
 ---
 ### Misc:
