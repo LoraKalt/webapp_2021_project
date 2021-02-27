@@ -22,7 +22,9 @@ Open any of the 3 page files (signup.html, signin.html, home.html) in any modern
 OR view in github pages:
 
 [home.html](https://lorakalt.github.io/webapp_2021_project/home.html)
+
 [signin.html](https://lorakalt.github.io/webapp_2021_project/signin.html)
+
 [signup.html](https://lorakalt.github.io/webapp_2021_project/signup.html)
 
 ## Design Choices:
