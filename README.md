@@ -9,15 +9,15 @@ todo
 ---
 ## Tasks:
 Assignment 1:
-- Lora : signup.html, signin.html + js functions for form validation
-- Dax : home.html,  (feel free to add more)
+- Lora : signup.html, signin.html + js functions for form validation, various styling
+- Dax : home.html, photography, various styling
 
 ---
 ## Guides:
-For now, the html pages are not connected except for sign in and sign up linking to home. 
+For now, the html pages are not connected except for sign in and sign up linking to home.
 
 ## Implementation:
-Website uses Bootstrap 4
+Website uses Bootstrap 5
 
 ---
 ### TO DO reminders:
