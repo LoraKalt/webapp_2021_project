@@ -19,6 +19,12 @@ Assignment 1:
 ## Usage:
 Open any of the 3 page files (signup.html, signin.html, home.html) in any modern browser (Edge, Chrome, Firefox, etc).
 
+OR view in github pages:
+
+[home.html](https://lorakalt.github.io/webapp_2021_project/home.html)
+[signin.html](https://lorakalt.github.io/webapp_2021_project/signin.html)
+[signup.html](https://lorakalt.github.io/webapp_2021_project/signup.html)
+
 ## Design Choices:
 
 UI implemented in Bootstrap for simplicity and ease of development.
