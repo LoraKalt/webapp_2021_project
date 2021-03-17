@@ -11,9 +11,9 @@ For now what is implemented is html mockups of the hompage sign-in and sign-up p
 
 ---
 ## Tasks:
-Assignment 1:
-- Lora : signup.html, signin.html + js functions for form validation, various styling
-- Dax : home.html and related components, photography, various styling
+Assignment 2:
+- Lora : part 2
+- Dax : part 1
 
 ---
 ## Usage:
@@ -32,4 +32,4 @@ OR view in github pages:
 UI implemented in Bootstrap for simplicity and ease of development.
 
 ## Implementation:
-Website uses [Bootstrap 5](https://getbootstrap.com/), html5, css3
+Website uses [Bootstrap 5](https://getbootstrap.com/), html5, css3, javascript

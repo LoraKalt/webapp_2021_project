@@ -35,31 +35,31 @@
                             <div class="label-tag input-group-prepend">
                                 <span class="input-group-text">Name: </span>
                             </div>
-                            <input type="text" id="txtFirstName" name="txtFirstName" class="form-control"
-                                placeholder="First" required>
-                            <input type="text" id="txtLastName" name="txtLastName" class="form-control"
-                                placeholder="Last" required>
+                            <input type="text" id="txtFirstName" name="txtFirstName" class="form-control char-check"
+                                placeholder="First Name" required>
+                            <input type="text" id="txtLastName" name="txtLastName" class="form-control char-check"
+                                placeholder="Last Name" required>
                         </div>
-                        <div id="divErrorName" class="text-danger invisible"></div>
+                        <div id="divErrorName" class="err-msg text-danger invisible"></div>
 
                         <!--Username/Handler (required)-->
                         <div class="input-group mt-3">
                             <div class="label-tag input-group-prepend">
                                 <span class="input-group-text">Username: </span>
                             </div>
-                            <input type="text" id="txtUsername" name="txtUsername" class="form-control" required>
+                            <input type="text" id="txtUsername" name="txtUsername" class="form-control char-check" required>
                         </div>
-                        <div id="divErrorUsername" class="text-danger invisible"></div>
+                        <div id="divErrorUsername" class="err-msg text-danger invisible"></div>
 
                         <!--Email (required)-->
                         <div class="input-group mt-3">
                             <div class="label-tag input-group-prepend">
                                 <span class="input-group-text">Email: </span>
                             </div>
-                            <input type="email" id="txtEmail" name="txtEmail" class="form-control"
+                            <input type="email" id="txtEmail" name="txtEmail" class="form-control char-check"
                                 placeholder="name@example.com" required>
                         </div>
-                        <div id="divEmailErr" class="text-danger invisible"></div>
+                        <div id="divEmailErr" class="err-msg text-danger invisible"></div>
 
                         <!--Password (required)-->
                         <div class="input-group mt-3">
@@ -68,6 +68,7 @@
                             </div>
                             <input type="password" id="txtPassword" name="txtPassword" class="form-control" required>
                         </div>
+                        <div id="divPasswordErr" class="text-danger invisible"></div>
 
                         <!--Confirm password (required)-->
                         <div class="input-group mt-3">
@@ -77,14 +78,14 @@
                             <input type="password" id="txtConfirmPassword" name="txtConfirmPassword"
                                 class="form-control" required>
                         </div>
-                        <div id="divPasswordErr" class="text-danger invisible"></div>
+                        <div id="divPasswordErr2" class="text-danger invisible"></div>
 
                         <!--Security Question (Required)-->
                         <div class="input-group mt-3">
                             <div class="label-tag input-group-prepend">
                                 <span class="input-group-text">Security Question:</span>
                             </div>
-                            <select id ="cbSecurity" name="cbSecurity" class="custom-select" required>
+                            <select id ="cbSecurity" name="cbSecurity" class="custom-select" onchange="updateSecurityAnswer()" required>
                                 <option disabled selected value="">Pick a Security Question</option>
                                 <option value="favColor">What's your favorite color?</option>
                                 <option value="firstPet">What was the name of your first pet?</option>
@@ -92,14 +93,14 @@
                             </select>
                         </div>
                         <!--Security Answer (required)-->
-                        <div class="input-group mt-3">
+                        <div id="divSecurityAnswer" class="input-group mt-3 invisible">
                             <div class="label-tag input-group-prepend">
                                 <span class="input-group-text">Security Answer:</span>
                             </div>
-                            <input type="text" id="txtAnswer" name="txtAnswer" class="form-control"
+                            <input type="text" id="txtAnswer" name="txtAnswer" class="form-control char-check"
                                 placeholder="Write Your Answer Here" required>
                         </div>
-                        <div id="divSecurityErr" class="text-danger invisible"></div>
+                        <div id="divSecurityErr" class="err-msg text-danger invisible"></div>
 
                         <!--DOB (required)-->
                         <div class="input-group mt-3">
@@ -155,9 +156,9 @@
                         <!--Reset Button-->
                         <div>
                             <button type="submit" class="btn btn-primary">Submit</button>
-                            <button type="reset" class="btn btn-secondary">Reset</button>
+                            <button type="reset" class="btn btn-secondary" onclick="clearErrorMsgs()">Reset</button>
+                            <div id="divSubmitError" class="text-danger invisible">Error: One or more inputs are invalid</div>
                         </div>
-
                     </form>
                 </div>
             </div>
