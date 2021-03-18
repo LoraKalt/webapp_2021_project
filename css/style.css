@@ -11,3 +11,7 @@
     width : 100%;
     overflow: hidden;
 }
+
+.is-invalid{
+    background-color:#FFCCCC;
+}
