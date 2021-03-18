@@ -5,31 +5,27 @@
 ---
 ## Description:
 
-A simple social media site with post, messaging, image posts, hashtags, notifications, post comments and profiles.
-
-For now what is implemented is html mockups of the hompage sign-in and sign-up pages with dummy data and some javascript for form validation.
 
 ---
 ## Tasks:
 Assignment 2:
-- Lora : part 2
-- Dax : part 1
+- Lora : [Part 2](https://github.com/LoraKalt/webapp_2021_project/tree/assignment-2) - Form Validation of Sign-up
+- Dax : [Part 1](https://github.com/dax-orion/web_apps_assignment_2_p1) - Google Books Seach API
 
 ---
-## Usage:
-Open any of the 3 page files (signup.html, signin.html, home.html) in any modern browser (Edge, Chrome, Firefox, etc).
+## Assignment 2:
+Click on the link below to view signup.html page.
 
 OR view in github pages:
 
-[home.html](https://lorakalt.github.io/webapp_2021_project/home.html)
+[signup.html](https://lorakalt.github.io/webapp_2021_project/signup.html) - Github pages were updated to work specifically on the assignment-2 branch. However if for some reason the specific branch is not being shown, either cache needs to be refreshed or needs to be downloaded to see changes. 
 
-[signin.html](https://lorakalt.github.io/webapp_2021_project/signin.html)
-
-[signup.html](https://lorakalt.github.io/webapp_2021_project/signup.html)
 
 ## Design Choices:
 
-UI implemented in Bootstrap for simplicity and ease of development.
+Javascript was chosen because it was already being worked on in assignment 1.  Invalid character check is not applied to password inputs or any optional inputs such as location and biography. This decision was made because users may want to use these characters for both location and biography. 
+
+Design decision was made to have the border turn red upon invalidation instead of the background.
 
 ## Implementation:
 Website uses [Bootstrap 5](https://getbootstrap.com/), html5, css3, javascript
