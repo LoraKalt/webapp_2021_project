@@ -26,7 +26,9 @@
         <article>
             <div class="container">
                 <div class="card mx-md-5 mx-3 my-3 p-3">
-                    <div class="w-auto"><h5>Sign up</h5></div>
+                    <div class="w-auto">
+                        <h5>Sign up</h5>
+                    </div>
                     <form onsubmit="return validateSignUp()" id="signUpForm" novalidate>
 
                         <!--REQUIRED INFORMATION GROUP-->
@@ -47,7 +49,8 @@
                             <div class="label-tag input-group-prepend">
                                 <span class="input-group-text">Username: </span>
                             </div>
-                            <input type="text" id="txtUsername" name="txtUsername" class="form-control char-check" required>
+                            <input type="text" id="txtUsername" name="txtUsername" class="form-control char-check"
+                                required>
                         </div>
                         <div id="divErrorUsername" class="err-msg text-danger invisible"></div>
 
@@ -66,9 +69,10 @@
                             <div class="label-tag input-group-prepend">
                                 <span class="input-group-text">Password:</span>
                             </div>
-                            <input type="password" id="txtPassword" name="txtPassword" class="form-control" required>
+                            <input type="password" id="txtPassword" name="txtPassword" class="form-control char-check"
+                                required>
                         </div>
-                        <div id="divPasswordErr" class="text-danger invisible"></div>
+                        <div id="divPasswordErr" class="err-msg text-danger invisible"></div>
 
                         <!--Confirm password (required)-->
                         <div class="input-group mt-3">
@@ -76,16 +80,17 @@
                                 <span class="input-group-text">Confirm Password:</span>
                             </div>
                             <input type="password" id="txtConfirmPassword" name="txtConfirmPassword"
-                                class="form-control" required>
+                                class="form-control char-check" required>
                         </div>
-                        <div id="divPasswordErr2" class="text-danger invisible"></div>
+                        <div id="divPasswordErr2" class="err-msg text-danger invisible"></div>
 
                         <!--Security Question (Required)-->
                         <div class="input-group mt-3">
                             <div class="label-tag input-group-prepend">
                                 <span class="input-group-text">Security Question:</span>
                             </div>
-                            <select id ="cbSecurity" name="cbSecurity" class="inputState form-control" onchange="updateSecurityAnswer()" required>
+                            <select id="cbSecurity" name="cbSecurity" class="inputState form-control"
+                                onchange="updateSecurityAnswer()" required>
                                 <option disabled selected value="">Pick a Security Question</option>
                                 <option value="favColor">What's your favorite color?</option>
                                 <option value="firstPet">What was the name of your first pet?</option>
@@ -141,23 +146,28 @@
                             <div class="label-tag input-group-prepend">
                                 <span class="input-group-text">Location (optional):</span>
                             </div>
-                            <input type="text" id="txtLocation" name="txtLocation" class="form-control">
+                            <input type="text" id="txtLocation" name="txtLocation" class="form-control char-check">
                         </div>
+                        <div id="divErrorLocation" class="err-msg text-danger invisible"></div>
 
                         <!--Bio (Optional)-->
                         <div class="input-group mt-3 mb-3">
                             <div class="label-tag input-group-prepend">
                                 <span class="input-group-text">Bio (optional):</span>
                             </div>
-                            <textarea id="txtareaBio" name="txtareaBio" class="form-control" placeholder="Write your bio here"></textarea>
+                            <textarea id="txtareaBio" name="txtareaBio" class="form-control char-check"
+                                placeholder="Write your bio here"></textarea>
                         </div>
+                        <div id="divErrorBio" class="err-msg text-danger invisible"></div>
+
 
                         <!--Submit Button-->
                         <!--Reset Button-->
-                        <div>
+                        <div class="mt-3">
                             <button type="submit" class="btn btn-primary">Submit</button>
                             <button type="reset" class="btn btn-secondary" onclick="clearErrorMsgs()">Reset</button>
-                            <div id="divSubmitError" class="text-danger invisible">Error: One or more inputs are invalid</div>
+                            <div id="divSubmitError" class="text-danger invisible">Error: One or more inputs are invalid
+                            </div>
                         </div>
                     </form>
                 </div>

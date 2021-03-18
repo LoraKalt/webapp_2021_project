@@ -13,7 +13,7 @@ function validateSignUp() {
     if (firstName.value == "") {
         firstName.classList.add("is-invalid");
         errorName.classList.remove("invisible");
-        errorName.innerHTML = "Required: First and last name"
+        errorName.innerHTML = "Required: First and last name";
         formIsValid = false;
     } else {
         firstName.classList.remove("is-invalid");
@@ -25,7 +25,7 @@ function validateSignUp() {
     if (lastName.value == "") {
         lastName.classList.add("is-invalid");
         errorName.classList.remove("invisible");
-        errorName.innerHTML = "Required: First and last name"
+        errorName.innerHTML = "Required: First and last name";
         formIsValid = false;
     } else {
         lastName.classList.remove("is-invalid");
@@ -209,7 +209,7 @@ function validateSignIn() {
     if (email.value == "") {
         email.classList.add("is-invalid");
         errorEmail.classList.remove("invisible");
-        errorEmail.innerHTML = "Invalid Email Input"
+        errorEmail.innerHTML = "Invalid Email Input";
         formIsValid = false;
     } else {
         email.classList.remove("is-invalid");
@@ -219,7 +219,7 @@ function validateSignIn() {
     if (password.value == "") {
         password.classList.add("is-invalid");
         errorPssd.classList.remove("invisible");
-        errorPssd.innerHTML = "Invalid Password Input"
+        errorPssd.innerHTML = "Invalid Password Input";
         formIsValid = false;
     } else {
         password.classList.remove("is-invalid");
@@ -232,7 +232,8 @@ function validateSignIn() {
  * Clears all Error Messages when called
  */
 function clearErrorMsgs() {
-    var elements = document.getElementsByTagName('input');
+    //var elements = document.getElementsByTagName('input');
+    var elements = document.querySelectorAll('input,textarea');
     var errorMsgs = document.getElementsByClassName("text-danger");
     var securityQ = document.getElementById("cbSecurity");
     for (let i = 0; i < elements.length; i++) {
