@@ -1,7 +1,13 @@
-const express = require("express"), app = express(),
-homeController = require("./controllers/homeController"),
-errorController = require("./controllers/errorController"),
-layouts = require("express-ejs-layouts");
+const mongoose = require("mongoose");
+const express = require("express"), app = express();
+
+const config = require("./config.json");
+
+const homeController = require("./controllers/homeController"),
+const errorController = require("./controllers/errorController"),
+const layouts = require("express-ejs-layouts");
+
+mongoose.connect(config.databaseUrl, {useNewUrlParser: true});
 
 app.set("port", process.env.PORT || 3000);
 

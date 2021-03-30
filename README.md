@@ -13,21 +13,23 @@ Assignment 2:
 - Dax : [Part 1](https://github.com/dax-orion/web_apps_assignment_2_p1) - Google Books Search API (Part 1)
 
 ---
-## Assignment 2:
-Click on the link below to view signup.html page.
+## Assignment 2 - Usage:
+
+1. Clone the repo.
+2. Open sign-up.html in any modern web browser.
 
 OR view in github pages:
 
-[signup.html](https://lorakalt.github.io/webapp_2021_project/signup.html) - Github pages were updated to work specifically on the assignment-2 branch. However if for some reason the specific branch is not being shown, either cache needs to be refreshed or needs to be downloaded to see changes. 
+[signup.html](https://lorakalt.github.io/webapp_2021_project/signup.html) - Github pages were updated to work specifically on the assignment-2 branch. However if for some reason the specific branch is not being shown, either cache needs to be refreshed or the repo needs to be downloaded to see changes. 
 
 
-## Assumptions (Assignment 2):
+## Design Decisions - Assignment 2:
 
-Invalid character check is not applied to password inputs or any optional inputs such as location and biography. This decision was made because users may want to use these characters for both location and biography. 
+'validateSignUp()' function runs on every form submit.
 
-## Design Decisions
+Email and password validation implemented using regex.
 
-An overview of current and future design decisions and ideas for the project.
+## Design Decisions - Overall Project:
 
 ### Technical
 
