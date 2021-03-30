@@ -1,0 +1,44 @@
+<!--WIP Right now, it's a copy/paste of the html file, still need to add some functionality to it-->
+<main>
+    <article>
+        <div class="container vh-100">
+            <div class="card mx-md-5 mx-3 my-3 p-3">
+                <div class="w-auto"><h5>Sign In</h5></div>
+                <form onsubmit="return validateSignIn()" id="signinForm" novalidate>
+                    <fieldset>
+                        <!--Email-->
+                        <div class="input-group">
+                            <div class="label-tag input-group-prepend">
+                                <span class="input-group-text">Email:</span>
+                            </div>
+                            <input type="email" id="txtSignEmail" name="txtSignEmail" class="form-control"
+                                placeholder="name@example.com" required>
+                        </div>
+                        <div id="divEmailError" class="text-danger invisible"></div>
+
+                        <!--Password (required)-->
+                        <div class="input-group mt-3">
+                            <div class="label-tag input-group-prepend">
+                                <span class="input-group-text">Password</span>
+                            </div>
+                            <input type="password" id="txtSignPassword" name="txtSignPassword" class="form-control"
+                                required>
+                        </div>
+                        <div id="divPasswordError" class="text-danger invisible"></div>
+                        <!--Remember Me checkbox-->
+                        <div class="mt-3">
+                            <input type="checkbox" id="cbRemember" name="cbRemember">
+                            <label for="cbRemember">Remember Me</label>
+                        </div>
+                        <!--Submit Buttons-->
+                        <div>
+                            <button type="submit" class="btn btn-primary">Sign In</button>
+                            <button type="reset" class="btn btn-secondary">Reset</button>
+                        </div>
+                    </fieldset>
+                    <a href="#">Forgot Password? Click Here!</a>
+                </form>
+            </div>
+        </div>
+    </article>
+</main>

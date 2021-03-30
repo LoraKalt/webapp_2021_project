@@ -1,0 +1,153 @@
+<!--WIP Right now, it's a copy/paste of the html file, still need to add some functionality to it-->
+<main>
+    <article>
+        <div class="container">
+            <div class="card mx-md-5 mx-3 my-3 p-3">
+                <div class="w-auto">
+                    <h5>Sign up</h5>
+                </div>
+                <form onsubmit="return validateSignUp()" id="signUpForm" novalidate>
+
+                    <!--REQUIRED INFORMATION GROUP-->
+                    <!--first name (required)-->
+                    <div class="input-group">
+                        <div class="label-tag input-group-prepend">
+                            <span class="input-group-text">Name: </span>
+                        </div>
+                        <input type="text" id="txtFirstName" name="txtFirstName" class="form-control char-check"
+                            placeholder="First Name" required>
+                        <input type="text" id="txtLastName" name="txtLastName" class="form-control char-check"
+                            placeholder="Last Name" required>
+                    </div>
+                    <div id="divErrorName" class="err-msg text-danger invisible"></div>
+
+                    <!--Username/Handler (required)-->
+                    <div class="input-group mt-3">
+                        <div class="label-tag input-group-prepend">
+                            <span class="input-group-text">Username: </span>
+                        </div>
+                        <input type="text" id="txtUsername" name="txtUsername" class="form-control char-check"
+                            required>
+                    </div>
+                    <div id="divErrorUsername" class="err-msg text-danger invisible"></div>
+
+                    <!--Email (required)-->
+                    <div class="input-group mt-3">
+                        <div class="label-tag input-group-prepend">
+                            <span class="input-group-text">Email: </span>
+                        </div>
+                        <input type="email" id="txtEmail" name="txtEmail" class="form-control char-check"
+                            placeholder="name@example.com" required>
+                    </div>
+                    <div id="divEmailErr" class="err-msg text-danger invisible"></div>
+
+                    <!--Password (required)-->
+                    <div class="input-group mt-3">
+                        <div class="label-tag input-group-prepend">
+                            <span class="input-group-text">Password:</span>
+                        </div>
+                        <input type="password" id="txtPassword" name="txtPassword" class="form-control char-check"
+                            required>
+                    </div>
+                    <div id="divPasswordErr" class="err-msg text-danger invisible"></div>
+
+                    <!--Confirm password (required)-->
+                    <div class="input-group mt-3">
+                        <div class="label-tag input-group-prepend">
+                            <span class="input-group-text">Confirm Password:</span>
+                        </div>
+                        <input type="password" id="txtConfirmPassword" name="txtConfirmPassword"
+                            class="form-control char-check" required>
+                    </div>
+                    <div id="divPasswordErr2" class="err-msg text-danger invisible"></div>
+
+                    <!--Security Question (Required)-->
+                    <div class="input-group mt-3">
+                        <div class="label-tag input-group-prepend">
+                            <span class="input-group-text">Security Question:</span>
+                        </div>
+                        <select id="cbSecurity" name="cbSecurity" class="inputState form-control"
+                            onchange="updateSecurityAnswer()" required>
+                            <option disabled selected value="">Pick a Security Question</option>
+                            <option value="favColor">What's your favorite color?</option>
+                            <option value="firstPet">What was the name of your first pet?</option>
+                            <option value="firstCar">What was your first car?</option>
+                        </select>
+                    </div>
+                    <!--Security Answer (required)-->
+                    <div id="divSecurityAnswer" class="input-group mt-3 invisible">
+                        <div class="label-tag input-group-prepend">
+                            <span class="input-group-text">Security Answer:</span>
+                        </div>
+                        <input type="text" id="txtAnswer" name="txtAnswer" class="form-control char-check"
+                            placeholder="Write Your Answer Here" required>
+                    </div>
+                    <div id="divSecurityErr" class="err-msg text-danger invisible"></div>
+
+                    <!--DOB (required)-->
+                    <div class="input-group mt-3">
+                        <div class="label-tag input-group-prepend">
+                            <span class="input-group-text">Date of Birth:</span>
+                        </div>
+                        <input type="date" id="txtDoB" name="txtDoB" class="form-control" required>
+                    </div>
+                    <div id="divDoBError" class="text-danger invisible"></div>
+                    <!--BIOGRAPHY INFORMATION GROUP-->
+                    <!--Gender (optional)-->
+                    <div class="input-group mt-3">
+                        <div class="label-tag input-group-prepend">
+                            <span class="input-group-text">Gender (optional):</span>
+                        </div>
+                        <div class="col-sm-10">
+                            <div class="form-check">
+                                <input type="radio" id="rbMale" name="gender" value="male" class="form-check-input">
+                                <label for="rbMale" class="form-check-label">Male</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" id="rbFemale" name="gender" value="female"
+                                    class="form-check-input">
+                                <label for="rbFemale" class="form-check-label">Female</label>
+                            </div>
+
+                            <div class="form-check">
+                                <input type="radio" id="rbOther" name="gender" value="other"
+                                    class="form-check-input">
+                                <label for="rbOther" class="form-check-label">Other</label>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!--Location (optional)-->
+                    <div class="input-group mt-3">
+                        <div class="label-tag input-group-prepend">
+                            <span class="input-group-text">Location (optional):</span>
+                        </div>
+                        <input type="text" id="txtLocation" name="txtLocation" class="form-control char-check">
+                    </div>
+                    <div id="divErrorLocation" class="err-msg text-danger invisible"></div>
+
+                    <!--Bio (Optional)-->
+                    <div class="input-group mt-3 mb-3">
+                        <div class="label-tag input-group-prepend">
+                            <span class="input-group-text">Bio (optional):</span>
+                        </div>
+                        <textarea id="txtareaBio" name="txtareaBio" class="form-control char-check"
+                            placeholder="Write your bio here"></textarea>
+                    </div>
+                    <div id="divErrorBio" class="err-msg text-danger invisible"></div>
+
+
+                    <!--Submit Button-->
+                    <!--Reset Button-->
+                    <div class="mt-3">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="reset" class="btn btn-secondary" onclick="clearErrorMsgs()">Reset</button>
+                        <div id="divSubmitError" class="text-danger invisible">Error: One or more inputs are invalid
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </article>
+</main>
