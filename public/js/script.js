@@ -239,8 +239,10 @@ function clearErrorMsgs() {
     for (let i = 0; i < elements.length; i++) {
         elements[i].classList.remove("is-invalid");
     }
-    securityQ.classList.remove("is-invalid");
-
+    if(securityQ != null){
+        securityQ.classList.remove("is-invalid");
+    }
+    
     for (let j = 0; j < errorMsgs.length; j++) {
         errorMsgs[j].classList.add("invisible");
     }

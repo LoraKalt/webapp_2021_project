@@ -12,6 +12,6 @@ const userSchema = mongoose.Schema({
     bio: {type: String, required: false},
     location: {type: String, required: false},
     gender: { type: String, enum: ['male', 'female', 'other'], required: false}
-});
+}});
 
 module.exports = mongoose.model("User", userSchema);

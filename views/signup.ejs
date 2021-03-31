@@ -6,7 +6,7 @@
                 <div class="w-auto">
                     <h5>Sign up</h5>
                 </div>
-                <form onsubmit="return validateSignUp()" id="signUpForm" novalidate>
+                <form action="/signup" method="POST" onsubmit="return validateSignUp()" id="signUpForm" novalidate>
 
                     <!--REQUIRED INFORMATION GROUP-->
                     <!--first name (required)-->
@@ -14,9 +14,9 @@
                         <div class="label-tag input-group-prepend">
                             <span class="input-group-text">Name: </span>
                         </div>
-                        <input type="text" id="txtFirstName" name="txtFirstName" class="form-control char-check"
+                        <input type="text" id="txtFirstName" name="fname" class="form-control char-check"
                             placeholder="First Name" required>
-                        <input type="text" id="txtLastName" name="txtLastName" class="form-control char-check"
+                        <input type="text" id="txtLastName" name="lname" class="form-control char-check"
                             placeholder="Last Name" required>
                     </div>
                     <div id="divErrorName" class="err-msg text-danger invisible"></div>
@@ -26,7 +26,7 @@
                         <div class="label-tag input-group-prepend">
                             <span class="input-group-text">Username: </span>
                         </div>
-                        <input type="text" id="txtUsername" name="txtUsername" class="form-control char-check"
+                        <input type="text" id="txtUsername" name="usename" class="form-control char-check"
                             required>
                     </div>
                     <div id="divErrorUsername" class="err-msg text-danger invisible"></div>
@@ -36,7 +36,7 @@
                         <div class="label-tag input-group-prepend">
                             <span class="input-group-text">Email: </span>
                         </div>
-                        <input type="email" id="txtEmail" name="txtEmail" class="form-control char-check"
+                        <input type="email" id="txtEmail" name="email" class="form-control char-check"
                             placeholder="name@example.com" required>
                     </div>
                     <div id="divEmailErr" class="err-msg text-danger invisible"></div>
@@ -46,7 +46,7 @@
                         <div class="label-tag input-group-prepend">
                             <span class="input-group-text">Password:</span>
                         </div>
-                        <input type="password" id="txtPassword" name="txtPassword" class="form-control char-check"
+                        <input type="password" id="txtPassword" name="passwordHash" class="form-control char-check"
                             required>
                     </div>
                     <div id="divPasswordErr" class="err-msg text-danger invisible"></div>
@@ -66,7 +66,7 @@
                         <div class="label-tag input-group-prepend">
                             <span class="input-group-text">Security Question:</span>
                         </div>
-                        <select id="cbSecurity" name="cbSecurity" class="inputState form-control"
+                        <select id="cbSecurity" name="securityQ" class="inputState form-control"
                             onchange="updateSecurityAnswer()" required>
                             <option disabled selected value="">Pick a Security Question</option>
                             <option value="favColor">What's your favorite color?</option>
@@ -79,7 +79,7 @@
                         <div class="label-tag input-group-prepend">
                             <span class="input-group-text">Security Answer:</span>
                         </div>
-                        <input type="text" id="txtAnswer" name="txtAnswer" class="form-control char-check"
+                        <input type="text" id="txtAnswer" name="securityQAnswer" class="form-control char-check"
                             placeholder="Write Your Answer Here" required>
                     </div>
                     <div id="divSecurityErr" class="err-msg text-danger invisible"></div>
@@ -89,7 +89,7 @@
                         <div class="label-tag input-group-prepend">
                             <span class="input-group-text">Date of Birth:</span>
                         </div>
-                        <input type="date" id="txtDoB" name="txtDoB" class="form-control" required>
+                        <input type="date" id="txtDoB" name="dateOfBirth" class="form-control" required>
                     </div>
                     <div id="divDoBError" class="text-danger invisible"></div>
                     <!--BIOGRAPHY INFORMATION GROUP-->
@@ -123,7 +123,7 @@
                         <div class="label-tag input-group-prepend">
                             <span class="input-group-text">Location (optional):</span>
                         </div>
-                        <input type="text" id="txtLocation" name="txtLocation" class="form-control char-check">
+                        <input type="text" id="txtLocation" name="location" class="form-control char-check">
                     </div>
                     <div id="divErrorLocation" class="err-msg text-danger invisible"></div>
 
@@ -132,7 +132,7 @@
                         <div class="label-tag input-group-prepend">
                             <span class="input-group-text">Bio (optional):</span>
                         </div>
-                        <textarea id="txtareaBio" name="txtareaBio" class="form-control char-check"
+                        <textarea id="txtareaBio" name="bio" class="form-control char-check"
                             placeholder="Write your bio here"></textarea>
                     </div>
                     <div id="divErrorBio" class="err-msg text-danger invisible"></div>
@@ -151,3 +151,4 @@
         </div>
     </article>
 </main>
+<script src="./js/script.js"></script>
