@@ -56,7 +56,7 @@
                         <div class="label-tag input-group-prepend">
                             <span class="input-group-text">Confirm Password:</span>
                         </div>
-                        <input type="password" id="confirmpassword" name="txtConfirmPassword"
+                        <input type="password" id="confirmpassword" name="confirmpassword"
                             class="form-control char-check" required>
                     </div>
                     <div id="divPasswordErr2" class="err-msg text-danger invisible"></div>
@@ -144,6 +144,11 @@
                         <button type="submit" class="btn btn-primary">Submit</button>
                         <button type="reset" class="btn btn-secondary" onclick="clearErrorMsgs()">Reset</button>
                         <div id="divSubmitError" class="text-danger invisible">Error: One or more inputs are invalid</div>
+                        <% if(typeof error != "undefined") { %>
+                            <div id="serverSideError" class="text-danger">
+                                <%- error %>
+                            </div>
+                        <% } %>
                     </div>
                 </form>
             </div>

@@ -1,6 +1,31 @@
 const User = require("../models/user");
 
 exports.createUser = (req, res) => {
+    let errMessage = "";
+    let result;
+
+    if(req.body.password != req.body.confirmpassword){
+        errMessage = "'Password' and 'Confirm Password' must match.";
+        res.render("signup", {error: errMessage});
+    }
+
+    if(req.body.username){
+        result = User.findOne({username: req.body.username}).exec();
+        if(result){
+            errMessage = 'A user with that username already exists, please pick a different one.';
+            res.render("signup", {error: errMessage});
+        }
+    }
+
+    if(req.body.email){
+        result = User.findOne({email: req.body.email}).exec();
+        if(result){
+            errMessage = 'A user with that email already exists. Did you mean to <a href="/signin">sign in</a>?';
+            res.render("signup", {error: errMessage});
+        }
+    
+    }
+
     let newUser = new User({
         fname: req.body.fname,
         lname: req.body.lname,
@@ -18,7 +43,12 @@ exports.createUser = (req, res) => {
     //todo: server-side validation
     newUser.save((err, user) => {
         if(err){
-            console.log(err);
+            if(err.name == 'ValidationError'){
+                for (field in err.errors) {
+                    errMessage = errMessage + err.errors[field].message + '<br>'; 
+                }
+            }
+            res.render("signup", {error: errMessage});
         }
         else {
             res.render("login");
