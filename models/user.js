@@ -5,7 +5,7 @@ const userSchema = mongoose.Schema({
     lname: {type: String, required: true},
     username: {type: String, required: true},
     email: {type: String, required: true},
-    passwordHash: {type: String, required: true},
+    password: {type: String, required: true},
     securityQ: { type: String, enum: ['favColor', 'firstPet', 'firstCar'], required: true},
     securityQAnswer: {type: String, required: true},
     dateOfBirth: {type: String, required: true,

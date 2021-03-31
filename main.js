@@ -1,4 +1,4 @@
-//const mongoose = require("mongoose");
+const mongoose = require("mongoose");
 const express = require("express"), app = express();
 
 const config = require("./config.json");
@@ -8,7 +8,7 @@ errorController = require("./controllers/errorController"),
 usersController = require("./controllers/usersController"),
 layouts = require("express-ejs-layouts");
 
-//mongoose.connect(config.databaseUrl, {useNewUrlParser: true});
+mongoose.connect(config.databaseUrl, {useNewUrlParser: true, useUnifiedTopology: true});
 
 app.set("port", process.env.PORT || 3000);
 
@@ -30,7 +30,7 @@ app.get("/home", homeController.showHome);
 app.get("/login", usersController.showLogin);
 app.get("/signup", usersController.showSignup);
 
-app.post("/signup", usersController.validate); //temporary, should be changed to createUser once form validation is implemented
+app.post("/signup", usersController.createUser); //temporary, should be changed to createUser once form validation is implemented
 app.post("/signin", usersController.findUser); // ^ Same except get user with matching email/password in database
 
 //error handling
