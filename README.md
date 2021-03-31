@@ -75,11 +75,10 @@ Website uses:
 ### View/interface
 - signup.ejs 
     - [X] add action/method to form
-    - add capability of passing error messages
+    - [ ] add capability of passing error messages
         - (errors: renders signup.ejs with errors)
 - login.ejs
     - [X] add action/method to form
-    - add capability of passing error messages
+    - [ ] add capability of passing error messages
         - (errors: renders signup.ejs with errors)
-- successful login renders home.ejs
-- CSS styling
+- [ ] successful login renders home.ejs

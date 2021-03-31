@@ -13,8 +13,8 @@ mongoose.connect(config.databaseUrl, {useNewUrlParser: true, useUnifiedTopology:
 app.set("port", process.env.PORT || 3000);
 
 app.set("view engine", "ejs");
-app.use(layouts);
 
+app.use(layouts);
 app.get("/", usersController.showLogin);
 
 app.use(express.static("public"));
@@ -30,8 +30,8 @@ app.get("/home", homeController.showHome);
 app.get("/login", usersController.showLogin);
 app.get("/signup", usersController.showSignup);
 
-app.post("/signup", usersController.createUser); //temporary, should be changed to createUser once form validation is implemented
-app.post("/login", usersController.login); // ^ Same except get user with matching email/password in database
+app.post("/signup", usersController.createUser);
+app.post("/login", usersController.login); 
 
 //error handling
 app.use(errorController.pageNotFoundError);
