@@ -53,7 +53,7 @@ exports.createUser = async (req, res) => {
             res.render("signup", { error: errMessage });
         }
         else {
-            res.render("login");
+            res.redirect('/login');
         }
     });
 }
@@ -66,7 +66,7 @@ exports.login = async (req, res) => {
         res.render("login", { error: errMessage });
     }
     else if (result.password == req.body.password) {
-        res.render("home");
+        res.redirect('/home');
     }
     else {
         errMessage = 'Wrong password.';

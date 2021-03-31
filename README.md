@@ -37,13 +37,17 @@ Assignment 2:
 ---
 
 ## Design Decisions - Assignment 3:
-<span style="color:red">todo</span>
+ - Database url is stored in a seperate config.json for easier configuration and to open up automated configuration in the future.
+ - View partial snippets used for dynamic navigation (hide menu options when not logged in).
+ - No password strength validation or password hashing for now - we plan to add both of these down the road!
+ 
+<span style="color:red">todo - add more to this!</span>
 
 ## Design Decisions - Overall Project:
 
 ### Technical
 
-Currently, the site uses plain JavaScript with HTML and CSS, down the road as we build the site out we plan to migrate to using a component based framework such as Vue.
+Site is built in Node.js with ExpressJS and EJS templating, UI built with Bootstrap, MongoDB with Mongoose used for the database,
 ### Hashtags
 
 Hashtags will function similar to most social media sites. Clicking on a hashtag will show posts by other users with that same hashtag. The posts shown will be sorted by number of likes and number of comments.
