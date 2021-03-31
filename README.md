@@ -15,18 +15,19 @@ Assignment 2:
 ---
 ## Assignment 3 - Usage:
 
-1. Clone the repo or download. If folder "node_modules" is not included, in command prompt, type:
+1. Make sure MongoBD and node.js are installed on your computer.
+2. Clone the repo or download. If folder "node_modules" is not included, in command prompt, type:
     >npm install
-
-    >npm i mongoose -S
-
-2. In command prompt, type:
+3. You also need to have nodemon installed to run the program, install it with:
+    >npm install -g nodemon
+3. The web app should connect to local mongoDB automatically, but if you need to change the url or port edit 'config.json' to modify the database url.
+4. To start the webapp, in the command prompt type:
     >npm start
-3. In a browser, go to http://localhost:3000/
-4. To fill up database with filler users, type
+5. In a browser, go to http://localhost:3000/
+6. To fill up database with filler users, type
     >node seed
 
-5. Some login test users:
+7. Some login test users:
 
 | Email | Password |
 ---| ---
