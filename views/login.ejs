@@ -6,6 +6,11 @@
                 <div class="w-auto">
                     <h5>Sign In</h5>
                 </div>
+                <% if(typeof error != "undefined") { %>
+                    <div id="serverSideError" class="text-danger">
+                        <%- error %>
+                    </div>
+                <% } %>
                 <form action="/login" method="POST" onsubmit="return validateSignIn()" id="signinForm" novalidate>
                     <fieldset>
                         <!--Email-->
@@ -23,13 +28,13 @@
                             <div class="label-tag input-group-prepend">
                                 <span class="input-group-text">Password</span>
                             </div>
-                            <input type="password" id="txtSignPassword" name="passwordHash" class="form-control"
+                            <input type="password" id="txtSignPassword" name="password" class="form-control"
                                 required>
                         </div>
                         <div id="divPasswordError" class="text-danger invisible"></div>
                         <!--Remember Me checkbox-->
                         <div class="mt-3">
-                            <input type="checkbox" id="cbRemember" name="cbRemember">
+                            <input type="checkbox" id="cbRemember" name="rememberlogin">
                             <label for="cbRemember">Remember Me</label>
                         </div>
                         <!--Submit Buttons-->

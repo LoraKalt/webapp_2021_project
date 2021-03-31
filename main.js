@@ -31,7 +31,7 @@ app.get("/login", usersController.showLogin);
 app.get("/signup", usersController.showSignup);
 
 app.post("/signup", usersController.createUser); //temporary, should be changed to createUser once form validation is implemented
-app.post("/signin", usersController.findUser); // ^ Same except get user with matching email/password in database
+app.post("/login", usersController.login); // ^ Same except get user with matching email/password in database
 
 //error handling
 app.use(errorController.pageNotFoundError);

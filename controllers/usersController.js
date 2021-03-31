@@ -1,5 +1,6 @@
 const User = require("../models/user");
 
+// User creation
 exports.createUser = (req, res) => {
     let errMessage = "";
     let result;
@@ -20,7 +21,7 @@ exports.createUser = (req, res) => {
     if(req.body.email){
         result = User.findOne({email: req.body.email}).exec();
         if(result){
-            errMessage = 'A user with that email already exists. Did you mean to <a href="/signin">sign in</a>?';
+            errMessage = 'A user with that email already exists. Did you mean to <a href="/login">sign in</a>?';
             res.render("signup", {error: errMessage});
         }
     
@@ -39,8 +40,7 @@ exports.createUser = (req, res) => {
         location: req.body.location,
         gender: req.body.gender
     });
-    //todo: client-side validation -> just needs to check to see if validateForm = false. re-renders signup
-    //todo: server-side validation
+
     newUser.save((err, user) => {
         if(err){
             if(err.name == 'ValidationError'){
@@ -56,6 +56,24 @@ exports.createUser = (req, res) => {
     });
 }
 
+// Login
+exports.login = (req, res) => {
+    console.log("Made it to login!")
+    result = await User.findOne({email: req.body.email}).exec();
+    console.log(result);
+    if(!result){
+        errMessage = 'Incorrect email.';
+        res.render("login", {error: errMessage});
+    }
+    if(result.password == req.body.password){
+        res.render("home");
+    }
+    else {
+        errMessage = 'Wrong password.';
+        res.render("login", {error: errMessage});
+    }
+}
+
 // View Renders
 exports.showLogin = (req, res) => {
     res.render("login");
@@ -64,15 +82,3 @@ exports.showLogin = (req, res) => {
 exports.showSignup = (req, res) => {
     res.render("signup");
 };
-
-//FOR TESTING PURPOSES ONLY (renders signup page with client-side validation errors) Delete when createUser does the checking
-exports.validate = (req, res) => {
-    res.render("signup");
-};
-
-//needs to find user in database, send error if not found
-exports.findUser = (req, res) => {
-    res.render("login");
-};
-
-
