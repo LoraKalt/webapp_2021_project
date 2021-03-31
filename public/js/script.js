@@ -71,7 +71,7 @@ function validateSignUp() {
 
     //Password Check:
     var password = document.getElementById("txtPassword");
-    var confirmPssd = document.getElementById("txtConfirmPassword");
+    var confirmPssd = document.getElementById("confirmpassword");
     var errorPassword = document.querySelector("#divPasswordErr");
     var errorConfirmPssd = document.querySelector("#divPasswordErr2");
 
