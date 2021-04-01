@@ -16,6 +16,7 @@ Assignment 2:
 ## Assignment 3 - Usage:
 
 1. Make sure MongoBD and node.js are installed on your computer.
+    - You can download MongoDB from [the project's official download page](https://www.mongodb.com/try/download/community).
 2. Clone the repo or download. If folder "node_modules" is not included, in command prompt, type:
     >npm install
 3. You also need to have nodemon installed to run the program, install it with:
@@ -36,18 +37,17 @@ Assignment 2:
 | jane.smith@email.com | Zyx987 |
 ---
 
-## Design Decisions - Assignment 3:
- - Database url is stored in a seperate config.json for easier configuration and to open up automated configuration in the future.
+## Design Decisions and Assumptions - Assignment 3:
+ - Database url is stored in a separate config.json for easier configuration and to open up automated configuration in the future.
  - View partial snippets used for dynamic navigation (hide menu options when not logged in).
- - No password strength validation or password hashing for now - we plan to add both of these down the road!
- 
-<span style="color:red">todo - add more to this!</span>
+ - No server-side password strength validation or password hashing for now - we plan to add both of these down the road!
+ - The root path ('/') will render login, and '/home' will render the homepage.
 
-## Design Decisions - Overall Project:
+## Design Decisions + Future Plans - Overall Project:
 
 ### Technical
 
-Site is built in Node.js with ExpressJS and EJS templating, UI built with Bootstrap, MongoDB with Mongoose used for the database,
+Site is built in Node.js with ExpressJS and EJS templating, UI built with Bootstrap, MongoDB with Mongoose used for the database.
 ### Hashtags
 
 Hashtags will function similar to most social media sites. Clicking on a hashtag will show posts by other users with that same hashtag. The posts shown will be sorted by number of likes and number of comments.
@@ -85,4 +85,4 @@ Website uses:
     - [X] add action/method to form
     - [ ] add capability of passing error messages
         - (errors: renders signup.ejs with errors)
-- [ ] successful login renders home.ejs
+- [X] successful login renders home.ejs
