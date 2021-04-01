@@ -8,9 +8,9 @@
 
 ---
 ## Tasks:
-Assignment 2:
-- Lora : main.js, views, seed.js, homeController, errorController
-- Dax : models, userController, db, server-side errors, 
+Assignment 3:
+- Lora : main.js, views, seed.js, homeController, errorController, general fixes
+- Dax : models/user.js, userController, db config, server-side errors, create/find user, general fixes
 
 ---
 ## Assignment 3 - Usage:
