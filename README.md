@@ -5,6 +5,9 @@
 ---
 ## Description:
 
+A simple social media site with post, messaging, image posts, hashtags, notifications, post comments and profiles.
+
+For now user and creation and login are functional while the main (news feed) page only contains mock data.
 
 ---
 ## Tasks:
