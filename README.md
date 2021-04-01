@@ -46,8 +46,6 @@ Assignment 2:
 ## Design Decisions + Future Plans - Overall Project:
 
 ### Technical
-
-Site is built in Node.js with ExpressJS and EJS templating, UI built with Bootstrap, MongoDB with Mongoose used for the database.
 ### Hashtags
 
 Hashtags will function similar to most social media sites. Clicking on a hashtag will show posts by other users with that same hashtag. The posts shown will be sorted by number of likes and number of comments.
