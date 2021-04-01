@@ -129,7 +129,7 @@ function validateSignUp() {
         securityQuestion.classList.remove("is-invalid");
         securityAnswer.classList.remove("is-invalid");
         securityError.classList.add("invisible");
-        formIsValid = false;
+        formIsValid = true;
     }
 
     //DoB Check
