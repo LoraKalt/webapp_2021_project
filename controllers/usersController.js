@@ -3,28 +3,33 @@ const User = require("../models/user");
 // User creation
 exports.createUser = async (req, res) => {
     let errMessage = "";
+    let errorFields = [];
     let result;
 
     if (req.body.password != req.body.confirmpassword) {
         errMessage = "'Password' and 'Confirm Password' must match.";
-        res.render("signup", { error: errMessage });
+        errorFields.push("password");
+        errorFields.push("confirmpassword");
+        res.render("signup", { error: errMessage, errorFields: errorFields });
     }
 
     if (req.body.username) {
         result = await User.findOne({ username: req.body.username }).exec().then(res => {
             if (res) {
                 errMessage = 'A user with that username already exists, please pick a different one.';
-                res.render("signup", { error: errMessage });
+                errorFields.push("username");
+                res.render("signup", { error: errMessage, errorFields: errorFields });
                 return;
             }
         });
     }
 
     if (req.body.email) {
-        result = await User.findOne({ email: req.body.email }).exec();
+        result = await User.findOne({ email: req.body.email}).exec();
         if (result) {
             errMessage = 'A user with that email already exists. Did you mean to <a href="/login">sign in</a>?';
-            res.render("signup", { error: errMessage });
+            errorFields.push("email");
+            res.render("signup", { error: errMessage, errorFields: errorFields });
             return;
         }
     }
@@ -48,9 +53,10 @@ exports.createUser = async (req, res) => {
             if (err.name == 'ValidationError') {
                 for (field in err.errors) {
                     errMessage = errMessage + err.errors[field].message + '<br>';
+                    errorFields.push(field);
                 }
             }
-            res.render("signup", { error: errMessage });
+            res.render("signup", { error: errMessage, errorFields: errorFields });
         }
         else {
             res.redirect('/login');
@@ -80,5 +86,5 @@ exports.showLogin = (req, res) => {
 };
 
 exports.showSignup = (req, res) => {
-    res.render("signup");
+    res.render("signup", { errorFields: [] });
 };
