@@ -73,16 +73,3 @@ This will show the top 3 users followed most often by users you follow.
 ## Implementation:
 Website uses:
  [Bootstrap 5](https://getbootstrap.com/), html5, css3, javascript, node.js with express, MongoDB package Mongoose.
-
----
-## TODO:
-### View/interface
-- signup.ejs 
-    - [X] add action/method to form
-    - [ ] add capability of passing error messages
-        - (errors: renders signup.ejs with errors)
-- login.ejs
-    - [X] add action/method to form
-    - [ ] add capability of passing error messages
-        - (errors: renders signup.ejs with errors)
-- [X] successful login renders home.ejs
