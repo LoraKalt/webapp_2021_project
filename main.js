@@ -69,7 +69,7 @@ router.use((req, res, next) => {
 // Home
 router.get("/home", homeController.showHome);
 
-// User creation
+// Users
 router.get("/login", usersController.login);
 router.get("/signup", usersController.signUp);
 
@@ -79,7 +79,9 @@ router.post(
     usersController.authenticate,
     usersController.handleRemember,
     commonController.redirectView
-); 
+);
+
+router.get("/users/:username", usersController.show, usersController.showView);
 
 //error handling
 router.use(errorController.pageNotFoundError);

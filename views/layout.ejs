@@ -13,8 +13,7 @@
 
 <body>
     <!--Change later to be based on user being logged in-->
-    <% var page_name;
-    if (page_name === 'home' ) {%>
+    <% if (loggedIn) {%>
         <%- include('partials/header')  %>
     <%} else {%>
         <%- include('partials/guestheader')  %>

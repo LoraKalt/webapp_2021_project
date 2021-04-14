@@ -44,6 +44,7 @@ module.exports = {
 
         req.check("email", "Invalid email!").isEmail();
         req.check("password", "Password cannot be empty!").notEmpty();
+        req.check("password", "Password and 'Confirm Password' must match!").equals("confirmpassword");
 
         req.getValidationResult().then((error) => {
             if(!error.isEmpty()) {
@@ -79,5 +80,20 @@ module.exports = {
     },
     signUp: (req, res) => {
         res.render("users/signup");
+    },
+    show: (req, res, next) => {
+        let username = req.params.username;
+        User.findOne({username: username})
+        .then(user => {
+            res.locals.displayUser = user;
+            next();
+        })
+        .catch(error => {
+            console.error(`Error fetching user by username: ${error.message}`);
+            next(error);
+        });
+    },
+    showView: (req, res) => {
+        res.render("users/show");
     }
 }

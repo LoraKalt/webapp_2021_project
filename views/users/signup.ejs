@@ -6,7 +6,7 @@
                 <div class="w-auto">
                     <h5>Sign up</h5>
                 </div>
-                <form action="/signup" method="POST" onsubmit="return validateSignUp()" id="signUpForm" novalidate>
+                <form action="/signup" method="POST" onsubmit="" id="signUpForm" novalidate>
 
                     <!--REQUIRED INFORMATION GROUP-->
                     <!--first name (required)-->
@@ -28,9 +28,13 @@
                         <div class="label-tag input-group-prepend">
                             <span class="input-group-text">Username: </span>
                         </div>
-                        <input type="text" id="txtUsername" name="username" class="form-control char-check
-                        <% if(errorFields.includes("username")) { %> is-invalid <% } %>"
-                            required>
+                        <div class="label-tag input-group-prepend">
+                            <span class="input-group-text">@</span>
+                            <input type="text" id="txtUsername" name="username" class="form-control char-check
+                            <% if(errorFields.includes("username")) { %> is-invalid <% } %>"
+                                required>
+                        </div>
+                        
                     </div>
                     <div id="divErrorUsername" class="err-msg text-danger invisible"></div>
 
