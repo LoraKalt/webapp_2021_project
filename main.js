@@ -16,6 +16,7 @@ const homeController = require("./controllers/homeController");
 const errorController = require("./controllers/errorController");
 const usersController = require("./controllers/usersController");
 const commonController = require("./controllers/commonController");
+const postController = require("./controllers/postController");
 const layouts = require("express-ejs-layouts");
 
 mongoose.connect(config.databaseUrl, {useNewUrlParser: true, useUnifiedTopology: true});
@@ -80,6 +81,15 @@ router.post(
     usersController.handleRemember,
     commonController.redirectView
 ); 
+
+//TODO: posting note: none of them are working yet, hence commented out
+// router.get("/post", postController.index, postController.indexView);
+// router.get("/post/new", postController.new);
+// router.post("/post/create",postController.create, postController.redirectView);
+
+// router.get("/post/:id", postController.show, postController.showView);
+// router.delete("/post/:id/delete", postController.delete, postController.redirectView);
+
 
 //error handling
 router.use(errorController.pageNotFoundError);
