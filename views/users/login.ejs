@@ -6,11 +6,6 @@
                 <div class="w-auto">
                     <h5>Sign In</h5>
                 </div>
-                <% if(typeof error != "undefined") { %>
-                    <div id="serverSideError" class="text-danger">
-                        <%- error %>
-                    </div>
-                <% } %>
                 <form action="/login" method="POST" onsubmit="return validateSignIn()" id="signinForm" novalidate>
                     <fieldset>
                         <!--Email-->
@@ -34,8 +29,8 @@
                         <div id="divPasswordError" class="text-danger invisible"></div>
                         <!--Remember Me checkbox-->
                         <div class="mt-3">
-                            <input type="checkbox" id="cbRemember" name="rememberlogin">
                             <label for="cbRemember">Remember Me</label>
+                            <input type="checkbox" id="cbRemember" name="rememberlogin">
                         </div>
                         <!--Submit Buttons-->
                         <div>
