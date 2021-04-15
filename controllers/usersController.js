@@ -17,7 +17,8 @@ module.exports = {
             dateOfBirth: req.body.dateOfBirth,
             bio: req.body.bio,
             location: req.body.location,
-            gender: req.body.gender
+            gender: req.body.gender,
+            posts: req.body.posts
         });
 
         User.register(newUser, req.body.password, (err, user) => {

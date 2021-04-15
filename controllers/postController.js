@@ -3,9 +3,7 @@
 const PostMsg = require("../models/postMsg"),
   getPostMsgParams = body => {
     return {
-      name: body.name,
-      username: body.username,
-      email: body.email,
+      user: body.user,
       postDate: body.postDate,
       postText: body.postText,
       multiMedia: body.multiMedia

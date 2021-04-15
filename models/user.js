@@ -13,7 +13,8 @@ const userSchema = mongoose.Schema({
     dateOfBirth: {type: String, required: [true, "'Date of Birth' is required."]},
     bio: {type: String, required: false},
     location: {type: String, required: false},
-    gender: { type: String, enum: ['male', 'female', 'other'], required: false}
+    gender: { type: String, enum: ['male', 'female', 'other'], required: false},
+    posts: [{type: mongoose.Schema.Types.ObjectId, ref: "PostMsg", required: false}]
 });
 
 userSchema.virtual("fullName").get(function() {

@@ -19,7 +19,8 @@ var users = [
         dateOfBirth: "1995-05-05",
         bio: "Just an average guy",
         location: "Denver",
-        gender: "male"
+        gender: "male",
+        posts: []
     },
     {
         fname: "Jane",
@@ -32,7 +33,8 @@ var users = [
         dateOfBirth: "2000-01-01",
         bio: "Biology Major",
         location: "Littleton",
-        gender: "female"
+        gender: "female",
+        posts: []
     },
     {
         fname: "Tester",
@@ -45,7 +47,8 @@ var users = [
         dateOfBirth: "1980-12-12",
         bio: "Just a testing user",
         location: "On the Internet",
-        gender: "other"
+        gender: "other",
+        posts: []
     }
 ];
 
@@ -70,7 +73,8 @@ users.forEach(u => {
             dateOfBirth: u.dateOfBirth,
             bio: u.bio,
             location: u.location,
-            gender: u.gender
+            gender: u.gender,
+            posts: u.posts
         })
     );
 });

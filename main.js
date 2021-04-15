@@ -85,6 +85,7 @@ router.post(
 router.get("/users/:username", usersController.show, usersController.showView);
 router.get("/users/:username/edit", usersController.show, usersController.edit);
 
+
 //TODO: posting note: none of them are working yet, hence commented out
 // router.get("/post", postController.index, postController.indexView);
 // router.get("/post/new", postController.new);
