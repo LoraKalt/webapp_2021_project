@@ -86,6 +86,7 @@ router.post(
 router.get("/users/:username", usersController.show, usersController.showView);
 router.get("/users/:username/edit", usersController.show, usersController.edit);
 
+<<<<<<< HEAD
 //Fills User with posts
 User.findOne({_id: userId})
 .populate({
@@ -106,6 +107,16 @@ router.post("/post/create", postController.create, postController.redirectView);
 
 router.get("/post/:id", postController.show, postController.showView);
 router.delete("/post/:id/delete", postController.delete, postController.redirectView);
+=======
+
+//TODO: posting note: none of them are working yet, hence commented out
+// router.get("/post", postController.index, postController.indexView);
+// router.get("/post/new", postController.new);
+// router.post("/post/create",postController.create, postController.redirectView);
+
+// router.get("/post/:id", postController.show, postController.showView);
+// router.delete("/post/:id/delete", postController.delete, postController.redirectView);
+>>>>>>> parent of 95d0978 (Updates to user creation and editing)
 
 
 //error handling
