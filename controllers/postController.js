@@ -1,12 +1,13 @@
 "use strict";
 
-const PostMsg = require("../models/postMsg"),
+const PostMsg = require("../models/message"),
   getPostMsgParams = body => {
     return {
       user: body.user,
       postDate: body.postDate,
       postText: body.postText,
-      multiMedia: body.multiMedia
+      multiMedia: body.multiMedia,
+      comments: body.comments
     };
   };
 //Still need to customize and also have some image handling
@@ -23,19 +24,18 @@ module.exports = {
       });
   },
   indexView: (req, res) => {
-    res.render("postmsgs/index");
+    res.render("home");
   },
 
   new: (req, res) => {
-    res.render("postmsgs/new");
+    res.render("home"); //assuming users create posts on their "home" page
   },
 
   create: (req, res, next) => {
-    
     let postmsgParams = getPostMsgParams(req.body);
     PostMsg.create(postmsgParams)
       .then(postmsg => {
-        res.locals.redirect = "/postmsgs"; //TODO: Change
+        res.locals.redirect = "/home"; //TODO: Change
         res.locals.postmsg = postmsg;
         next();
       })

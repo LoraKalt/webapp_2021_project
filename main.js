@@ -11,6 +11,7 @@ const passport = require("passport");
 const config = require("./config.json");
 
 User = require("./models/user");
+PostMsg = require("./models/message");
 
 const homeController = require("./controllers/homeController");
 const errorController = require("./controllers/errorController");
@@ -19,7 +20,7 @@ const commonController = require("./controllers/commonController");
 const postController = require("./controllers/postController");
 const layouts = require("express-ejs-layouts");
 
-mongoose.connect(config.databaseUrl, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(config.databaseUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.set("port", process.env.PORT || 3000);
 
@@ -40,7 +41,7 @@ app.use(connectFlash());
 
 router = express.Router();
 
-router.use(methodOverride("_method", {methods: ["POST", "GET"]}));
+router.use(methodOverride("_method", { methods: ["POST", "GET"] }));
 
 router.use(cookieParser("my_passcode"));
 router.use(expressValidator());
@@ -85,14 +86,26 @@ router.post(
 router.get("/users/:username", usersController.show, usersController.showView);
 router.get("/users/:username/edit", usersController.show, usersController.edit);
 
+//Fills User with posts
+User.findOne({_id: userId})
+.populate({
+    path: "postMsg",
+    populate: {
+        path: "comments",
+    }
+}).then(user => {
+    user.posts.push(postMsg._id);
+})
 
-//TODO: posting note: none of them are working yet, hence commented out
-// router.get("/post", postController.index, postController.indexView);
-// router.get("/post/new", postController.new);
-// router.post("/post/create",postController.create, postController.redirectView);
 
-// router.get("/post/:id", postController.show, postController.showView);
-// router.delete("/post/:id/delete", postController.delete, postController.redirectView);
+//Posts. Assuming ability to post/tweet will be on the user's home page. 
+//In this case, /post should be /home...right?
+router.get("/post", postController.index, postController.indexView);
+router.get("/post/new", postController.new);
+router.post("/post/create", postController.create, postController.redirectView);
+
+router.get("/post/:id", postController.show, postController.showView);
+router.delete("/post/:id/delete", postController.delete, postController.redirectView);
 
 
 //error handling

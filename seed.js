@@ -1,7 +1,8 @@
 "use strict";
 
 const mongoose = require("mongoose"),
-    User = require("./models/user");
+    User = require("./models/user"),
+    PostMsg = require("./models/postMsg");
 
 mongoose.connect("mongodb://localhost:27017/cu_dever_social", 
     { useNewUrlParser: true });
@@ -78,6 +79,7 @@ users.forEach(u => {
         })
     );
 });
+
 
 Promise.all(commands)
     .then(r => {
