@@ -116,12 +116,12 @@ router.post("/profile/changepassword", usersController.authRequired, usersContro
 
 //Posts. Assuming ability to post/tweet will be on the user's home page. 
 //In this case, /post should be /home...right?
-router.get("/home", postController.index, postController.indexView);
-router.get("/home", postController.new);
-router.post("/home/create", postController.create, postController.redirectView);
+router.get("/posts", postController.index, postController.indexView);
+router.get("/posts", postController.new);
+router.post("/posts/create", postController.create, postController.redirectView);
 
-router.get("/home/:id", postController.show, postController.showView);
-router.delete("/home/:id/delete", postController.delete, postController.redirectView);
+router.get("/posts/:id", postController.show, postController.showView);
+router.delete("/posts/:id/delete", postController.delete, postController.redirectView);
 
 
 //error handling

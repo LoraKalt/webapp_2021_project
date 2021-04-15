@@ -22,18 +22,18 @@ module.exports = {
       });
   },
   indexView: (req, res) => {
-    res.render("home");
+    res.render("posts/index.ejs");
   },
 
   new: (req, res) => {
-    res.render("home"); //assuming users create posts on their "home" page
+    res.render("posts/index.ejs"); //assuming users create posts on their "home" page
   },
 
   create: (req, res, next) => {
     let postmsgId = req.params.id;
     PostMsg.create(postmsgId)
       .then(postmsg => {
-        res.locals.redirect = "/home";
+        res.locals.redirect = "/posts";
         res.locals.postmsg = postmsg;
         User.findOne({ _id: req.user })
           .then(user => {
@@ -70,7 +70,7 @@ module.exports = {
   },
 
   showView: (req, res) => {
-    res.render("home/show"); //TODO: Change
+    res.render("posts/show"); //TODO: Change
   },
 
   //   edit: (req, res, next) => {
@@ -109,7 +109,7 @@ module.exports = {
     let postmsgId = req.params.id;
     PostMsg.findByIdAndRemove(postmsgId)
       .then(() => {
-        res.locals.redirect = "/home"; //TODO: Change
+        res.locals.redirect = "/posts"; //TODO: Change
         next();
       })
       .catch(error => {
