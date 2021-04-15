@@ -22,7 +22,7 @@
                     </div>
                     <div class="col-xl-1">
                         <% if (loggedIn && displayUser.username === currentUser.username) {%>
-                            <a class="btn btn-primary" href="<%= `/users/${currentUser.username}/edit` %>" role="button">Edit</a>
+                            <a class="btn btn-primary" href="/profile/edit" role="button">Edit</a>
                         <% } %>
                     </div>
                 </div>

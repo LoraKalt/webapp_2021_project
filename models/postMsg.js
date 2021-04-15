@@ -14,13 +14,12 @@ var postSchema = new Schema(
         },
         postText: {
             type: String,
-            min: [0, "Post cannot be less than 0"],
-            max: [280, "Post exceeeded max of 280 characters"]
+            min: [1, "Post cannot be empty"],
+            max: [280, "Post exceeded max of 280 characters"]
         },
         multiMedia: {
             type: String,
             data: Buffer
-
         }
     },
     {
