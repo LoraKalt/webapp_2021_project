@@ -5,6 +5,7 @@ const PostMsg = require("../models/postMsg"),
     return {
       name: body.name,
       username: body.username,
+      email: body.email,
       postDate: body.postDate,
       postText: body.postText,
       multiMedia: body.multiMedia
