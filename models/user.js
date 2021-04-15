@@ -1,8 +1,7 @@
 "use strict";
 
 const mongoose = require("mongoose");
-const passportLocalMongoose = require("passport-local-mongoose"),
-PostMsg = require("./message");
+const passportLocalMongoose = require("passport-local-mongoose");
 
 const userSchema = mongoose.Schema({
     fname: {type: String, required: [true, "'First Name' is required."]},
@@ -15,7 +14,7 @@ const userSchema = mongoose.Schema({
     bio: {type: String, required: false},
     location: {type: String, required: false},
     gender: { type: String, enum: ['male', 'female', 'other'], required: false},
-    posts: [{type: mongoose.Schema.Types.ObjectId, ref: "PostMsg"}]
+    posts: [{type: mongoose.Schema.Types.ObjectId, ref: "PostMsg", required: false}]
 });
 
 userSchema.virtual("fullName").get(function() {

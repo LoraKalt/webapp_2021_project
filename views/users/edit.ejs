@@ -3,10 +3,9 @@
         <div class="container">
             <div class="card mx-md-5 mx-3 my-3 p-3">
                 <div class="w-auto">
-                    <h5>Sign up</h5>
+                    <h5>Edit Profile: @<%= currentUser.username %> </h5>
                 </div>
-                <form action="/signup" method="POST" onsubmit="" id="signUpForm" novalidate>
-
+                <form action="/profile/update" method="POST" onsubmit="" id="signUpForm" novalidate>
                     <!--REQUIRED INFORMATION GROUP-->
                     <!--first name (required)-->
                     <div class="input-group">
@@ -15,10 +14,10 @@
                         </div>
                         <input type="text" id="txtFirstName" name="fname" class="form-control char-check
                         <% if(errorFields.includes("fname")) { %> is-invalid <% } %>"
-                            placeholder="First Name" required>
+                            value="<%= currentUser.fname %>" required>
                         <input type="text" id="txtLastName" name="lname" class="form-control char-check
                         <% if(errorFields.includes("lname")) { %> is-invalid <% } %>"
-                            placeholder="Last Name" required>
+                            value="<%= currentUser.lname %>" required>
                     </div>
                     <div id="divErrorName" class="err-msg text-danger invisible"></div>
 
@@ -29,31 +28,17 @@
                         </div>
                         <input type="email" id="txtEmail" name="email" class="form-control char-check
                         <% if(errorFields.includes("email")) { %> is-invalid <% } %>"
-                            placeholder="name@example.com" required>
+                            value="<%= currentUser.email %>" required>
                     </div>
                     <div id="divEmailErr" class="err-msg text-danger invisible"></div>
 
-                    <!--Password (required)-->
+                    <!--Password -->
                     <div class="input-group mt-3">
                         <div class="label-tag input-group-prepend">
                             <span class="input-group-text">Password:</span>
                         </div>
-                        <input type="password" id="txtPassword" name="password" class="form-control char-check
-                        <% if(errorFields.includes("password")) { %> is-invalid <% } %>"
-                            required>
+                        <a class="btn btn-primary" href="/profile/changepassword" role="button">Change Password</a>
                     </div>
-                    <div id="divPasswordErr" class="err-msg text-danger invisible"></div>
-
-                    <!--Confirm password (required)-->
-                    <div class="input-group mt-3">
-                        <div class="label-tag input-group-prepend">
-                            <span class="input-group-text">Confirm Password:</span>
-                        </div>
-                        <input type="password" id="confirmpassword" name="confirmpassword"
-                            class="form-control char-check
-                            <% if(errorFields.includes("confirmpassword")) { %> is-invalid <% } %>" required>
-                    </div>
-                    <div id="divPasswordErr2" class="err-msg text-danger invisible"></div>
 
                     <!--Security Question (Required)-->
                     <div class="input-group mt-3">
@@ -61,22 +46,31 @@
                             <span class="input-group-text">Security Question:</span>
                         </div>
                         <select id="cbSecurity" name="securityQ" class="inputState form-control 
-                        <% if(errorFields.includes("securityQ")) { %> is-invalid <% } %>"
-                            onchange="updateSecurityAnswer()" required>
-                            <option disabled selected value="">Pick a Security Question</option>
-                            <option value="favColor">What's your favorite color?</option>
-                            <option value="firstPet">What was the name of your first pet?</option>
-                            <option value="firstCar">What was your first car?</option>
+                            <% if(errorFields.includes("securityQ")) { %> is-invalid <% } %>" required
+                        >
+                            <option disabled value="">Pick a Security Question</option>
+                            <option
+                                value="favColor"
+                                <%= currentUser.securityQ === "favColor" ? "selected" : "" %>
+                            >What's your favorite color?</option>
+                            <option
+                                value="firstPet"
+                                <%= currentUser.securityQ === "firstPet" ? "selected" : "" %>
+                            >What was the name of your first pet?</option>
+                            <option
+                                value="firstCar"
+                                <%= currentUser.securityQ === "firstCar" ? "selected" : "" %>
+                            >What was your first car?</option>
                         </select>
                     </div>
                     <!--Security Answer (required)-->
-                    <div id="divSecurityAnswer" class="input-group">
+                    <div id="divSecurityAnswer" class="input-group mt-3">
                         <div class="label-tag input-group-prepend">
                             <span class="input-group-text">Security Answer:</span>
                         </div>
                         <input type="text" id="txtAnswer" name="securityQAnswer" class="form-control char-check
                         <% if(errorFields.includes("securityQAnswer")) { %> is-invalid <% } %>"
-                            placeholder="Write Your Answer Here" required>
+                            value="<%= currentUser.securityQAnswer %>" required>
                     </div>
                     <div id="divSecurityErr" class="err-msg text-danger invisible"></div>
 
@@ -86,7 +80,9 @@
                             <span class="input-group-text">Date of Birth:</span>
                         </div>
                         <input type="date" id="txtDoB" name="dateOfBirth" class="form-control
-                        <% if(errorFields.includes("dateOfBirth")) { %> is-invalid <% } %>" required>
+                            <% if(errorFields.includes("dateOfBirth")) { %> is-invalid <% } %>" required
+                            value="<%= currentUser.dateOfBirth %>"
+                        >
                     </div>
                     <div id="divDoBError" class="text-danger invisible"></div>
                     <!--BIOGRAPHY INFORMATION GROUP-->
@@ -98,18 +94,23 @@
                         <div class="col-sm-10">
                             <div class="form-check">
                                 <input type="radio" id="rbMale" name="gender" value="male" class="form-check-input
-                                <% if(errorFields.includes("gender")) { %> is-invalid <% } %>">
+                                    <% if(errorFields.includes("gender")) { %> is-invalid <% } %>"
+                                    <% if(currentUser.gender === "male") { %>checked="checked"<% } %>
+                                >
                                 <label for="rbMale" class="form-check-label">Male</label>
                             </div>
                             <div class="form-check">
-                                <input type="radio" id="rbFemale" name="gender" value="female"
-                                    class="form-check-input <% if(errorFields.includes("gender")) { %> is-invalid <% } %>">
+                                <input type="radio" id="rbFemale" name="gender" value="female" class="form-check-input 
+                                    <% if(errorFields.includes("gender")) { %> is-invalid <% } %>"
+                                    <% if(currentUser.gender === "female") { %>checked="checked"<% } %>
+                                >
                                 <label for="rbFemale" class="form-check-label">Female</label>
                             </div>
-
                             <div class="form-check">
-                                <input type="radio" id="rbOther" name="gender" value="other"
-                                    class="form-check-input <% if(errorFields.includes("gender")) { %> is-invalid <% } %>">
+                                <input type="radio" id="rbOther" name="gender" value="other" class="form-check-input
+                                    <% if(errorFields.includes("gender")) { %> is-invalid <% } %>"
+                                    <% if(currentUser.gender === "other") { %>checked="checked"<% } %>
+                                >
                                 <label for="rbOther" class="form-check-label">Other</label>
                             </div>
 
@@ -122,7 +123,8 @@
                             <span class="input-group-text">Location (optional):</span>
                         </div>
                         <input type="text" id="txtLocation" name="location" class="form-control char-check
-                        <% if(errorFields.includes("location")) { %> is-invalid <% } %>">
+                        <% if(errorFields.includes("location")) { %> is-invalid <% } %>"
+                        value="<%= currentUser.location %>">
                     </div>
                     <div id="divErrorLocation" class="err-msg text-danger invisible"></div>
 
@@ -132,8 +134,8 @@
                             <span class="input-group-text">Bio (optional):</span>
                         </div>
                         <textarea id="txtareaBio" name="bio" class="form-control char-check
-                        <% if(errorFields.includes("bio")) { %> is-invalid <% } %>"
-                            placeholder="Write your bio here"></textarea>
+                            <% if(errorFields.includes("bio")) { %> is-invalid <% } %>"
+                        ><%= currentUser.bio %></textarea>
                     </div>
                     <div id="divErrorBio" class="err-msg text-danger invisible"></div>
 
@@ -141,8 +143,7 @@
                     <!--Submit Button-->
                     <!--Reset Button-->
                     <div class="mt-3">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                        <button type="reset" class="btn btn-secondary" onclick="clearErrorMsgs()">Reset</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
                         <div id="divSubmitError" class="text-danger invisible">Error: One or more inputs are invalid</div>
                         <% if(typeof error != "undefined") { %>
                             <div id="serverSideError" class="text-danger">
@@ -155,4 +156,4 @@
         </div>
     </article>
 </main>
-<script src="./js/script.js"></script>
+<script src="/js/script.js"></script>

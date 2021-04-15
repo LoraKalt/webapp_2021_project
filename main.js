@@ -48,7 +48,7 @@ router.use(expressValidator());
 router.use(expressSession({
     secret: "my_passcode",
     cookie: {
-        maxAge: 360000
+        maxAge: 36000000
     },
     resave: false,
     saveUninitialized: true
@@ -68,11 +68,13 @@ router.use((req, res, next) => {
     next();
 });
 
+
 // Home
 router.get("/", homeController.showHome);
 
 // Users
 router.get("/login", usersController.login);
+router.get("/logout", usersController.logout, commonController.redirectView);
 router.get("/signup", usersController.signUp);
 
 router.post("/signup", usersController.create, commonController.redirectView);
@@ -84,9 +86,13 @@ router.post(
 );
 
 router.get("/users/:username", usersController.show, usersController.showView);
-router.get("/users/:username/edit", usersController.show, usersController.edit);
+router.get("/profile", usersController.authRequired, usersController.showProfile, usersController.showView);
+router.get("/profile/edit", usersController.authRequired, usersController.edit);
+router.post("/profile/update", usersController.authRequired, usersController.update, commonController.redirectView);
+router.get("/profile/changepassword", usersController.authRequired, usersController.showChangePassword);
+router.post("/profile/changepassword", usersController.authRequired, usersController.changePassword, commonController.redirectView);
+// TODO: Add user deletion.
 
-<<<<<<< HEAD
 //Fills User with posts
 User.findOne({_id: userId})
 .populate({
@@ -107,16 +113,6 @@ router.post("/post/create", postController.create, postController.redirectView);
 
 router.get("/post/:id", postController.show, postController.showView);
 router.delete("/post/:id/delete", postController.delete, postController.redirectView);
-=======
-
-//TODO: posting note: none of them are working yet, hence commented out
-// router.get("/post", postController.index, postController.indexView);
-// router.get("/post/new", postController.new);
-// router.post("/post/create",postController.create, postController.redirectView);
-
-// router.get("/post/:id", postController.show, postController.showView);
-// router.delete("/post/:id/delete", postController.delete, postController.redirectView);
->>>>>>> parent of 95d0978 (Updates to user creation and editing)
 
 
 //error handling
