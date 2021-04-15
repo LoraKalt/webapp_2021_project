@@ -1,8 +1,7 @@
 "use strict";
 
 const mongoose = require("mongoose"),
-    { Schema } = mongoose
-    Image = require("./user");
+    { Schema } = mongoose;
 
 var postSchema = new Schema(
     {

@@ -95,5 +95,8 @@ module.exports = {
     },
     showView: (req, res) => {
         res.render("users/show");
+    },
+    edit: (req, res) => {
+        res.render("users/edit");
     }
 }
