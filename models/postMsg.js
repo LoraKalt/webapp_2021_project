@@ -5,13 +5,6 @@ const mongoose = require("mongoose"),
 
 var postSchema = new Schema(
     {
-        user: {
-            type: Schema.Types.ObjectId,
-            ref: "User"
-        },
-        postDate: {
-            type: Date
-        },
         postText: {
             type: String,
             min: [1, "Post cannot be empty"],
@@ -26,5 +19,4 @@ var postSchema = new Schema(
         timestamps: true
     }
 );
-
 module.exports = mongoose.model("PostMsg", postSchema);

@@ -1,13 +1,11 @@
 "use strict";
 
-const PostMsg = require("../models/message"),
+const PostMsg = require("../models/postMsg"),
   getPostMsgParams = body => {
     return {
-      user: body.user,
-      postDate: body.postDate,
       postText: body.postText,
-      multiMedia: body.multiMedia,
-      comments: body.comments
+      //multiMedia: body.multiMedia,
+      //comments: body.comments
     };
   };
 //Still need to customize and also have some image handling
@@ -32,11 +30,18 @@ module.exports = {
   },
 
   create: (req, res, next) => {
-    let postmsgParams = getPostMsgParams(req.body);
-    PostMsg.create(postmsgParams)
+    let postmsgId = req.params.id;
+    PostMsg.create(postmsgId)
       .then(postmsg => {
-        res.locals.redirect = "/home"; //TODO: Change
+        res.locals.redirect = "/home";
         res.locals.postmsg = postmsg;
+        User.findOne({ _id: req.user })
+          .then(user => {
+            user.posts.push(postMsg._id);
+            user.save();
+            User.populate(user, "posts")
+              .then(user => console.log(user));
+          })
         next();
       })
       .catch(error => {
@@ -65,46 +70,46 @@ module.exports = {
   },
 
   showView: (req, res) => {
-    res.render("postmsgs/show"); //TODO: Change
+    res.render("home/show"); //TODO: Change
   },
 
-//   edit: (req, res, next) => {
-//     let postmsgId = req.params.id;
-//     PostMsg.findById(postmsgId)
-//       .then(postmsg => {
-//         res.render("postmsgs/edit", {
-//           postmsg: postmsg
-//         });
-//       })
-//       .catch(error => {
-//         console.log(`Error fetching postmsg by ID: ${error.message}`);
-//         next(error);
-//       });
-//   },
+  //   edit: (req, res, next) => {
+  //     let postmsgId = req.params.id;
+  //     PostMsg.findById(postmsgId)
+  //       .then(postmsg => {
+  //         res.render("postmsgs/edit", {
+  //           postmsg: postmsg
+  //         });
+  //       })
+  //       .catch(error => {
+  //         console.log(`Error fetching postmsg by ID: ${error.message}`);
+  //         next(error);
+  //       });
+  //   },
 
-//   update: (req, res, next) => {
-//     let postmsgId = req.params.id,
-//       postmsgParams = getPostMsgParams(req.body);
+  //   update: (req, res, next) => {
+  //     let postmsgId = req.params.id,
+  //       postmsgParams = getPostMsgParams(req.body);
 
-//     PostMsg.findByIdAndUpdate(postmsgId, {
-//       $set: postmsgParams
-//     })
-//       .then(postmsg => {
-//         res.locals.redirect = `/postmsgs/${postmsgId}`;
-//         res.locals.postmsg = postmsg;
-//         next();
-//       })
-//       .catch(error => {
-//         console.log(`Error updating postmsg by ID: ${error.message}`);
-//         next(error);
-//       });
-//   },
+  //     PostMsg.findByIdAndUpdate(postmsgId, {
+  //       $set: postmsgParams
+  //     })
+  //       .then(postmsg => {
+  //         res.locals.redirect = `/postmsgs/${postmsgId}`;
+  //         res.locals.postmsg = postmsg;
+  //         next();
+  //       })
+  //       .catch(error => {
+  //         console.log(`Error updating postmsg by ID: ${error.message}`);
+  //         next(error);
+  //       });
+  //   },
 
   delete: (req, res, next) => {
     let postmsgId = req.params.id;
     PostMsg.findByIdAndRemove(postmsgId)
       .then(() => {
-        res.locals.redirect = "/postmsgs"; //TODO: Change
+        res.locals.redirect = "/home"; //TODO: Change
         next();
       })
       .catch(error => {

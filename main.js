@@ -11,7 +11,7 @@ const passport = require("passport");
 const config = require("./config.json");
 
 User = require("./models/user");
-PostMsg = require("./models/message");
+PostMsg = require("./models/postMsg");
 
 const homeController = require("./controllers/homeController");
 const errorController = require("./controllers/errorController");
@@ -19,6 +19,7 @@ const usersController = require("./controllers/usersController");
 const commonController = require("./controllers/commonController");
 const postController = require("./controllers/postController");
 const layouts = require("express-ejs-layouts");
+const user = require("./models/user");
 
 mongoose.connect(config.databaseUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -70,7 +71,8 @@ router.use((req, res, next) => {
 
 
 // Home
-router.get("/", homeController.showHome);
+router.get("/", homeController.index, homeController.indexView);
+router.get("/:id", homeController.show, homeController.showView)
 
 // Users
 router.get("/login", usersController.login);
@@ -94,25 +96,32 @@ router.post("/profile/changepassword", usersController.authRequired, usersContro
 // TODO: Add user deletion.
 
 //Fills User with posts
-User.findOne({_id: userId})
-.populate({
-    path: "postMsg",
-    populate: {
-        path: "comments",
-    }
-}).then(user => {
-    user.posts.push(postMsg._id);
-})
-
+// User.findOne({_id: this._id})
+// .populate("posts")
+// .then(user => {
+//     user.posts.push(postMsg._id);
+// });
+// PostMsg.create({
+//     postText: "Hello everyone",
+//     multiMedia: null
+// }).then(postMsg => {
+//     User.findOne({})
+//     .then(user => {
+//         user.posts.push(postMsg._id);
+//         user.save();
+//         User.populate(user, "posts")
+//         .then(user => console.log(user));
+//     })
+// });
 
 //Posts. Assuming ability to post/tweet will be on the user's home page. 
 //In this case, /post should be /home...right?
-router.get("/post", postController.index, postController.indexView);
-router.get("/post/new", postController.new);
-router.post("/post/create", postController.create, postController.redirectView);
+router.get("/home", postController.index, postController.indexView);
+router.get("/home", postController.new);
+router.post("/home/create", postController.create, postController.redirectView);
 
-router.get("/post/:id", postController.show, postController.showView);
-router.delete("/post/:id/delete", postController.delete, postController.redirectView);
+router.get("/home/:id", postController.show, postController.showView);
+router.delete("/home/:id/delete", postController.delete, postController.redirectView);
 
 
 //error handling
