@@ -7,16 +7,16 @@
 
 A simple social media site with post, messaging, image posts, hashtags, notifications, post comments and profiles.
 
-For now user and creation and login are functional while the main (news feed) page only contains mock data.
+login/signup more robust with authentication and validation. Users now have ability to post and view other users posts. Cookies are implemented
 
 ---
 ## Tasks:
-Assignment 3:
-- Lora : main.js, views, seed.js, homeController, errorController, general fixes
-- Dax : models/user.js, userController, db config, server-side errors, create/find user, general fixes
+Assignment 4:
+- Lora : postController, post schema, displaying users on follow list, seed, readme, general edits
+- Dax : updating user model, CRUD for users, sessions and cookies, passport handling for login/sign up, express validator, posts (create, read, delete), general edits
 
 ---
-## Assignment 3 - Usage:
+## Assignment 4 - Usage:
 
 1. Make sure MongoBD and node.js are installed on your computer.
     - You can download MongoDB from [the project's official download page](https://www.mongodb.com/try/download/community).
@@ -40,11 +40,13 @@ Assignment 3:
 | jane.smith@email.com | Zyx987 |
 ---
 
-## Design Decisions and Assumptions - Assignment 3:
+## Design Decisions and Assumptions - Assignment 4:
  - Database url is stored in a separate config.json for easier configuration and to open up automated configuration in the future.
  - View partial snippets used for dynamic navigation (hide menu options when not logged in).
  - No server-side password strength validation or password hashing for now - we plan to add both of these down the road!
  - The root path ('/') will render login, and '/home' will render the homepage.
+ - There is no ability to post multimedia yet, but we hope to have it implemented in the final project.
+ - 
 
 ## Design Decisions + Future Plans - Overall Project:
 
@@ -68,9 +70,9 @@ Comments will function as a simple chain under posts and be displayed in the ord
 Users will be able to message each other, but only if they both follow one another.
 
 ### Who to Follow Box
-
+Temporarily displays all users in database and links to their posts. This will be changed in final project to: 
 This will show the top 3 users followed most often by users you follow.
 
 ## Implementation:
 Website uses:
- [Bootstrap 5](https://getbootstrap.com/), html5, css3, javascript, node.js with express, MongoDB package Mongoose.
+ [Bootstrap 5](https://getbootstrap.com/), html5, css3, javascript, node.js with express, MongoDB package Mongoose, express session, cookie parser, connect-flash express, express validator, and passport
