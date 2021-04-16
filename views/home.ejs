@@ -128,7 +128,7 @@
                             <h5>Who to follow</h5>
                             <% users.forEach(user => { %>
                                 <div class="d-flex justify-content-between mb-1">
-                                    <strong><a href="<%=`/${user._id}`%>" class="text-secondary"><%= user.fullName %></a></strong>
+                                    <strong><a href="<%=`/users/${user._id}`%>" class="text-secondary"><%= user.fullName %></a></strong>
                                     <button type="button" class="btn btn-outline-primary btn-sm">Follow</button>
                                 </div>
                             <% }); %>

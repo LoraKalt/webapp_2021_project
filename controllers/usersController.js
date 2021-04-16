@@ -1,6 +1,8 @@
 const passport = require("passport");
 
 const User = require("../models/user");
+const Posts = require("../models/post");
+const e = require("express");
 
 module.exports = {
     create: (req, res, next) => {
@@ -143,26 +145,57 @@ module.exports = {
         next();
     },
     signUp: (req, res) => {
-        res.render("users/signup");
+        res.render("users/new");
+    },
+    showProfile: (req, res, next) => {
+        let user = res.locals.currentUser;
+        if(!user){
+            console.log("User not found");
+            res.render("error");
+        }
+        else {
+            Posts.find().limit(5).populate({
+                path: 'user',
+                match: {username: user.username}
+            }).then(posts => {
+                res.locals.posts = posts;
+                res.locals.displayUser = user;
+                next();
+            }).catch(error => {
+                console.error(`Error getting posts for user: ${error.message}`);
+                next(error);
+            });
+        }
     },
     show: (req, res, next) => {
         let username = req.params.username;
         User.findOne({username: username})
         .then(user => {
             if(!user){
+                console.log("User not found");
                 res.render("error");
             }
-            res.locals.displayUser = user;
-            next();
+            else {
+                Posts.find().sort({'createdAt': 'desc'}).populate({
+                    path: 'user',
+                    match: {username: username}
+                }).exec((error, posts) => {
+                    if(error) {
+                        console.error(`Error getting posts for user: ${error.message}`);
+                        next(error);
+                    }
+                    else {
+                        res.locals.posts = posts;
+                        res.locals.displayUser = user;
+                        next();
+                    }
+                });
+            }
         })
         .catch(error => {
             console.error(`Error fetching user by username: ${error.message}`);
             next(error);
         });
-    },
-    showProfile: (req, res, next) => {
-        res.locals.displayUser = res.locals.currentUser;
-        next();
     },
     showView: (req, res) => {
         res.render("users/show");

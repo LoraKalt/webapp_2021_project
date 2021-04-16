@@ -11,7 +11,7 @@ const passport = require("passport");
 const config = require("./config.json");
 
 User = require("./models/user");
-PostMsg = require("./models/postMsg");
+PostMsg = require("./models/post");
 
 const homeController = require("./controllers/homeController");
 const errorController = require("./controllers/errorController");
@@ -72,7 +72,6 @@ router.use((req, res, next) => {
 
 // Home
 router.get("/", homeController.index, homeController.indexView);
-router.get("/:id", homeController.show, homeController.showView)
 
 // Users
 router.get("/login", usersController.login);
@@ -88,37 +87,18 @@ router.post(
 );
 
 router.get("/users/:username", usersController.show, usersController.showView);
+router.get("/users/:username/page/:pagenum", usersController.show, usersController.showView);
 router.get("/profile", usersController.authRequired, usersController.showProfile, usersController.showView);
+router.get("/profile/pages/:pagenum", usersController.authRequired, usersController.showProfile, usersController.showView);
 router.get("/profile/edit", usersController.authRequired, usersController.edit);
 router.post("/profile/update", usersController.authRequired, usersController.update, commonController.redirectView);
 router.get("/profile/changepassword", usersController.authRequired, usersController.showChangePassword);
 router.post("/profile/changepassword", usersController.authRequired, usersController.changePassword, commonController.redirectView);
 // TODO: Add user deletion.
 
-//Fills User with posts
-// User.findOne({_id: this._id})
-// .populate("posts")
-// .then(user => {
-//     user.posts.push(postMsg._id);
-// });
-// PostMsg.create({
-//     postText: "Hello everyone",
-//     multiMedia: null
-// }).then(postMsg => {
-//     User.findOne({})
-//     .then(user => {
-//         user.posts.push(postMsg._id);
-//         user.save();
-//         User.populate(user, "posts")
-//         .then(user => console.log(user));
-//     })
-// });
-
 //Posts. Assuming ability to post/tweet will be on the user's home page. 
 //In this case, /post should be /home...right?
-router.get("/posts", postController.index, postController.indexView);
-router.get("/posts", postController.new);
-router.post("/posts/create", postController.create, postController.redirectView);
+router.post("/posts/create", usersController.authRequired, postController.create, postController.redirectView);
 
 router.get("/posts/:id", postController.show, postController.showView);
 router.delete("/posts/:id/delete", postController.delete, postController.redirectView);
