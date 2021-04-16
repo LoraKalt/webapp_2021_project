@@ -79,22 +79,20 @@ router.get("/login", usersController.login);
 router.get("/logout", usersController.logout, commonController.redirectView);
 router.get("/signup", usersController.signUp);
 
-router.post("/signup", usersController.create, commonController.redirectView);
-router.post("/login",usersController.authenticate,commonController.redirectView);
+router.post("/signup", usersController.validate, usersController.create, commonController.redirectView);
+router.post("/login", usersController.authenticate, commonController.redirectView);
 
 router.get("/users/:username", usersController.show, usersController.showView);
-router.get("/users/:username/page/:pagenum", usersController.show, usersController.showView);
 router.get("/profile", usersController.authRequired, usersController.showProfile, usersController.showView);
-router.get("/profile/pages/:pagenum", usersController.authRequired, usersController.showProfile, usersController.showView);
 router.get("/profile/edit", usersController.authRequired, usersController.edit);
-router.post("/profile/update", usersController.authRequired, usersController.update, commonController.redirectView);
+router.post("/profile/update", usersController.validateUpdate, usersController.authRequired, usersController.update, commonController.redirectView);
 router.get("/profile/changepassword", usersController.authRequired, usersController.showChangePassword);
 router.post("/profile/changepassword", usersController.authRequired, usersController.changePassword, commonController.redirectView);
 router.delete("/profile/delete", usersController.delete, commonController.redirectView);
 
 //Posts. Assuming ability to post/tweet will be on the user's home page. 
 //In this case, /post should be /home...right?
-router.post("/posts/create", usersController.authRequired, postController.create, commonController.redirectView);
+router.post("/posts/create", usersController.authRequired, postController.validate, postController.create, commonController.redirectView);
 
 router.get("/posts/:id", postController.show, postController.showView);
 router.delete("/posts/:id/delete", usersController.authRequired, postController.delete, commonController.redirectView);

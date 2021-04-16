@@ -46,7 +46,7 @@ Assignment 4:
  - There is no ability to post multimedia yet, but we hope to have it implemented in the final project.
  - Users can view their own page at '/profile', they can view other user's pages at '/users/{username}'
  - Users can create their account and edit
- - Pagintion of posts was not implement in this version but will be implemented in final.
+ - Pagination of posts was not implement in this version but will be implemented in final.
 
 ## Design Decisions + Future Plans - Overall Project:
 

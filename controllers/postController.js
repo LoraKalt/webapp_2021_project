@@ -23,20 +23,25 @@ module.exports = {
         res.render("posts/index");
     },
     create: (req, res, next) =>{
-        let user = res.locals.currentUser;
-        let newPost = new Post({
-            postText: req.body.postText,
-            user: user._id
-        });
-        Post.create(newPost)
-        .then(course => {
-            res.locals.redirect = "/profile";
+        if(res.locals.skip){
             next();
-        })
-        .catch(error => {
-            console.error(`Error saving post: ${error.message}`);
-            next(error);
-        });
+        }
+        else {
+            let user = res.locals.currentUser;
+            let newPost = new Post({
+                postText: req.body.postText,
+                user: user._id
+            });
+            Post.create(newPost)
+            .then(course => {
+                res.locals.redirect = "/profile";
+                next();
+            })
+            .catch(error => {
+                console.error(`Error saving post: ${error.message}`);
+                next(error);
+            });
+        }
     },
     show: (req, res, next) => {
         let postId = req.params.id;
@@ -59,9 +64,9 @@ module.exports = {
         req.getValidationResult().then((error) => {
             if(!error.isEmpty()) {
                 let messages = error.array().map(e => e.msg);
-                req.flash("error", messages.join('<br>'));
-                req.skip = true;
-                res.local.redirect = "/profile";
+                req.flash("error", messages.join(' '));
+                res.locals.skip = true;
+                res.locals.redirect = "/profile";
                 next();
             }
             else {

@@ -6,7 +6,9 @@ const e = require("express");
 
 module.exports = {
     create: (req, res, next) => {
+        console.log("Made it to create!");
         if(res.locals.skip){
+            console.log("Made it to skip!");
             next();
         }
         let errMessage = "";
@@ -48,79 +50,90 @@ module.exports = {
         if(res.locals.skip){
             next();
         }
-        let userId = res.locals.currentUser._id;
-        let userParams = {
-            fname: req.body.fname,
-            lname: req.body.lname,
-            email: req.body.email,
-            securityQ: req.body.securityQ,
-            securityQAnswer: req.body.securityQAnswer,
-            dateOfBirth: req.body.dateOfBirth,
-            bio: req.body.bio,
-            location: req.body.location,
-            gender: req.body.gender
-        }
-        User.findByIdAndUpdate(userId, userParams)
-        .then(user => {
-            res.locals.redirect = "/profile";
-            next();
-        })
-        .catch(error => {
-            console.error(`Error fetching user by ID: ${error.message}`);
-            res.locals.redirect = "/profile/edit";
-            next(error);
-        });
-    },
-    // TODO: Improve validation and add to all updates and creates
-    validate: (req, res, next) => {
-        req.sanitizeBody("email").trim();
-
-        req.check("email", "Invalid email!").isEmail();
-        req.check("password", "Password cannot be empty!").notEmpty();
-        req.check("password", "Password and 'Confirm Password' must match!").equals("confirmpassword");
-
-        req.sanitizeBody("email").trim();
-
-        req.check("email", "Invalid email!").isEmail();
-        // req.check("password", "Password cannot be empty!").notEmpy()
-        //     .custom((val, {req}) => {
-        //         if(val !== req.body.confirmpassword){
-        //             throw new Error("passwords do not match");
-        //         } else {
-        //             return value;
-        //         }
-        //     });
-
-    //     req.check("password", "Password and 'Confirm Password' must match!").equals("confirmpasswor
-        req.check("username", "Username already exists!").custom((val, {req}) => {
-            return new Promise((resolve, reject) => {
-                User.findOne({username : req.body.username}, function(error, user){
-                    if(err){
-                        reject(new Error("Server Error"))
-                    }
-                    if(Boolean(user)) {
-                        reject(new Error("Username already exists"));
-                    } else {
-                        resolve(true);
-                    }
-                })
+        else {
+            let userId = res.locals.currentUser._id;
+            let userParams = {
+                fname: req.body.fname,
+                lname: req.body.lname,
+                email: req.body.email,
+                securityQ: req.body.securityQ,
+                securityQAnswer: req.body.securityQAnswer,
+                dateOfBirth: req.body.dateOfBirth,
+                bio: req.body.bio,
+                location: req.body.location,
+                gender: req.body.gender
+            }
+            User.findByIdAndUpdate(userId, userParams)
+            .then(user => {
+                res.locals.redirect = "/profile";
+                next();
             })
-        });
+            .catch(error => {
+                console.error(`Error fetching user by ID: ${error.message}`);
+                res.locals.redirect = "/profile/edit";
+                next(error);
+            });
+        }
+    },
+    validateChangePass: (req, res, next) => {
+        req.check("oldpassword", "'Old Password' cannot be empty!").notEmpty();
+        req.check("newpassword", "'New Password' and 'Confirm New Password' must match!").equals(req.body.confirmpassword);
+    },
+    validate: (req, res, next) => {
+        req.check("password", "Password cannot be empty!").notEmpty();
+        req.check("password", "Password and 'Confirm Password' must match!").equals(req.body.confirmpassword);
 
-        req.check("securityQ", "Security Question must be selected").notEmpty();
-        req.check("location", "Location must be at least 20 characters long").isLength({max: 20});
+        req.check("email", "Invalid email!").notEmpty().isEmail();
 
-        req.getValidationResult().then((error) => {
+        req.check("dateOfBirth", "Date of birth must exist.").notEmpty();
+
+        req.check("securityQ", "Please select a security question.").notEmpty().isIn(['favColor', 'firstPet', 'firstCar']);
+        req.check("securityQAnswer", "Security question answer can't be empty!").notEmpty();
+        req.check("gender", "Invalid value for Gender.").isIn(['male', 'female', 'other', undefined]);
+        req.check("location", "Location must be at most 50 characters long").isLength({max: 50});
+
+        req.getValidationResult().then(error => {
+            console.log("Made it to error checks!");
             if(!error.isEmpty()) {
                 let messages = error.array().map(e => e.msg);
-                req.flash("error", messages.join('<br>'));
-                req.skip = true;
-                res.local.redirect = "/users/signup";
+                req.flash("error", messages.join(' '));
+                res.locals.skip = true;
+                res.locals.redirect = "/signup";
                 next();
             }
             else {
                 next();
             }
+        }).catch(error => {
+            console.log(`Error validating: ${error}`);
+            next(error);
+        });
+    },
+    validateUpdate: (req, res, next) => {
+        req.check("email", "Invalid email!").notEmpty().isEmail();
+
+        req.check("dateOfBirth", "Date of birth must exist.").notEmpty();
+
+        req.check("securityQ", "Please select a security question.").notEmpty().isIn(['favColor', 'firstPet', 'firstCar']);
+        req.check("securityQAnswer", "Security question answer can't be empty!").notEmpty();
+        req.check("gender", "Invalid value for Gender.").isIn(['male', 'female', 'other', undefined]);
+        req.check("location", "Location must be at most 50 characters long").isLength({max: 50});
+
+        req.getValidationResult().then(error => {
+            console.log("Made it to error checks!");
+            if(!error.isEmpty()) {
+                let messages = error.array().map(e => e.msg);
+                req.flash("error", messages.join(' '));
+                res.locals.skip = true;
+                res.locals.redirect = "/profile/edit";
+                next();
+            }
+            else {
+                next();
+            }
+        }).catch(error => {
+            console.log(`Error validating: ${error}`);
+            next(error);
         });
     },
     changePassword: (req, res, next) => {
