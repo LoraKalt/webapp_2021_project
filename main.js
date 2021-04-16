@@ -49,7 +49,7 @@ router.use(expressValidator());
 router.use(expressSession({
     secret: "my_passcode",
     cookie: {
-        maxAge: 36000000
+        maxAge: 360000
     },
     resave: false,
     saveUninitialized: true
@@ -79,12 +79,7 @@ router.get("/logout", usersController.logout, commonController.redirectView);
 router.get("/signup", usersController.signUp);
 
 router.post("/signup", usersController.create, commonController.redirectView);
-router.post(
-    "/login",
-    usersController.authenticate,
-    usersController.handleRemember,
-    commonController.redirectView
-);
+router.post("/login",usersController.authenticate,commonController.redirectView);
 
 router.get("/users/:username", usersController.show, usersController.showView);
 router.get("/users/:username/page/:pagenum", usersController.show, usersController.showView);
@@ -94,14 +89,14 @@ router.get("/profile/edit", usersController.authRequired, usersController.edit);
 router.post("/profile/update", usersController.authRequired, usersController.update, commonController.redirectView);
 router.get("/profile/changepassword", usersController.authRequired, usersController.showChangePassword);
 router.post("/profile/changepassword", usersController.authRequired, usersController.changePassword, commonController.redirectView);
-// TODO: Add user deletion.
+router.delete("/profile/delete", usersController.delete, commonController.redirectView);
 
 //Posts. Assuming ability to post/tweet will be on the user's home page. 
 //In this case, /post should be /home...right?
-router.post("/posts/create", usersController.authRequired, postController.create, postController.redirectView);
+router.post("/posts/create", usersController.authRequired, postController.create, commonController.redirectView);
 
 router.get("/posts/:id", postController.show, postController.showView);
-router.delete("/posts/:id/delete", postController.delete, postController.redirectView);
+router.delete("/posts/:id/delete", usersController.authRequired, postController.delete, commonController.redirectView);
 
 
 //error handling

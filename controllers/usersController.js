@@ -125,16 +125,6 @@ module.exports = {
         successRedirect: "/",
         successFlash: "Logged in!"
     }),
-    handleRemember: (req, res, next) => {
-        const TEN_DAYS = 10 * 24 * 60 * 60 * 1000;
-        if(req.body.rememberlogin){
-            req.session.cookie.maxAge = TEN_DAYS;
-        }
-        else {
-            req.session.cookie.expires = false;
-        }
-        next();
-    },
     login: (req, res) => {
         res.render("users/login");
     },
@@ -202,6 +192,36 @@ module.exports = {
     },
     edit: (req, res) => {
         res.render("users/edit");
+    },
+    delete: (req, res, next) => {
+        let user = res.locals.currentUser;
+        // Delete the user's posts
+        Posts.find().populate({
+            path: 'user',
+            match: {username: user.username}
+        }).remove().exec((error, posts) => {
+            if(error) {
+                console.error(`Error deleting posts for user: ${error.message}`);
+                res.locals.redirect = "/";
+                next(error);
+            }
+            else {
+                // Delete the user
+                User.findByIdAndDelete(user._id)
+                .then(() => {
+                    res.locals.redirect = "/";
+                    req.flash("success", "User deleted.");
+                    next();
+                })
+                .catch(error => {
+                    console.log(`Error deleting user: ${error.message}`);
+                    res.locals.redirect = "/";
+                    req.flash("success", `Error deleting user: ${error.message}`);
+                    next();
+                });
+            }
+        });
+        // TODO: Once comments are implemented this will need to delete comments as well.
     },
     authRequired: (req, res, next) => {
         if(res.locals.loggedIn){
