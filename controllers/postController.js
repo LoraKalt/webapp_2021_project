@@ -51,7 +51,7 @@ module.exports = {
             });
     },
     showView: (req, res) => {
-        res.render("posts/show"); //TODO: Change
+        res.render("posts/show");
     },
     delete: (req, res, next) => {
         let user = res.locals.currentUser;

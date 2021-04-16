@@ -144,15 +144,14 @@ module.exports = {
             res.render("error");
         }
         else {
-            Posts.find().limit(5).populate({
-                path: 'user',
-                match: {username: user.username}
-            }).then(posts => {
+            Posts.find({user: user._id})
+            .populate({path: 'user',})
+            .sort({'createdAt': 'desc'}).then(posts => {
                 res.locals.posts = posts;
                 res.locals.displayUser = user;
                 next();
             }).catch(error => {
-                console.error(`Error getting posts for user: ${error.message}`);
+                console.log(`Error fetching subscribers: ${error.message}`);
                 next(error);
             });
         }
@@ -166,19 +165,15 @@ module.exports = {
                 res.render("error");
             }
             else {
-                Posts.find().sort({'createdAt': 'desc'}).populate({
-                    path: 'user',
-                    match: {username: username}
-                }).exec((error, posts) => {
-                    if(error) {
-                        console.error(`Error getting posts for user: ${error.message}`);
-                        next(error);
-                    }
-                    else {
-                        res.locals.posts = posts;
-                        res.locals.displayUser = user;
-                        next();
-                    }
+                Posts.find({user: user._id})
+                .populate({path: 'user',})
+                .sort({'createdAt': 'desc'}).then(posts => {
+                    res.locals.posts = posts;
+                    res.locals.displayUser = user;
+                    next();
+                }).catch(error => {
+                    console.log(`Error fetching subscribers: ${error.message}`);
+                    next(error);
                 });
             }
         })

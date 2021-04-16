@@ -43,12 +43,15 @@ Assignment 4:
 ## Design Decisions and Assumptions - Assignment 4:
  - Database url is stored in a separate config.json for easier configuration and to open up automated configuration in the future.
  - View partial snippets used for dynamic navigation (hide menu options when not logged in).
- - No server-side password strength validation or password hashing for now - we plan to add both of these down the road!
- - The root path ('/') will render login, and '/home' will render the homepage.
  - There is no ability to post multimedia yet, but we hope to have it implemented in the final project.
- - 
+ - Users can view their own page at '/profile', they can view other user's pages at '/users/{username}'
+ - Pagintion of posts was not implement in this version but will be implemented in final.
 
 ## Design Decisions + Future Plans - Overall Project:
+
+### Posts
+
+Users can make posts and delete their own posts.
 
 ### Technical
 ### Hashtags
@@ -61,18 +64,32 @@ The trending hashtags in the sidebar wil be based off the most used hashtags (by
 
 Users will receive notifications if another user follows them or if a user likes, comments on, or shares one of their posts.
 
+### Following
+
+Users will be able to follow other users, and then be able to see their posts on their homepage.
+
+### Sharing
+
+Users will be able to make posts in which they share other users posts.
+
 ### Comments
 
 Comments will function as a simple chain under posts and be displayed in the order they are made.
+
+While there is space to leave comments in the current version they are not yet functional.
 
 ### Messages
 
 Users will be able to message each other, but only if they both follow one another.
 
+### Forgot Password
+
+Users will be able to recover their password using their security question. (In the real world we would also send an email, but that's complicated to set up)
 ### Who to Follow Box
+
 Temporarily displays all users in database and links to their posts. This will be changed in final project to: 
 This will show the top 3 users followed most often by users you follow.
 
 ## Implementation:
 Website uses:
- [Bootstrap 5](https://getbootstrap.com/), html5, css3, javascript, node.js with express, MongoDB package Mongoose, express session, cookie parser, connect-flash express, express validator, and passport
+ [Bootstrap 4](https://getbootstrap.com/), html5, css3, javascript, node.js with express, MongoDB package Mongoose, express session, cookie parser, connect-flash express, express validator, and passport
