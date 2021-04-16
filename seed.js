@@ -2,7 +2,7 @@
 
 const mongoose = require("mongoose"),
     User = require("./models/user");
-const Post = require("./models/posts");
+const Post = require("./models/post");
 
 mongoose.connect("mongodb://localhost:27017/cu_dever_social", 
     { useNewUrlParser: true });
@@ -81,7 +81,11 @@ users.forEach(u => {
             }
         }
         else {
-            Post
+            let newPost = new Post({
+                postText: "How is everyone today?",
+                user: user._id
+            });
+            Post.create(newPost);
             console.log(`User created: ${newUser.username}`);
             i++;
             if(i === users.length){

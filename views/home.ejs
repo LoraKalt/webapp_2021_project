@@ -20,7 +20,7 @@
                     <% posts.forEach(post => { %>
                         <div class="card mx-md-0 mx-3 my-3">
                             <div class="row card-body">
-                                <div class="col-xl-11">
+                                <div class="col-xl-10">
                                     <strong><a href="<%= `/users/${post.user.username}` %>" class="text-secondary"><%= post.user.fullName %></a></strong>
                                     <button type="button" class="btn btn-outline-primary btn-sm">Follow</button>
                                     <div>
@@ -59,7 +59,7 @@
                                         <!-- Comments go here later -->
                                     </div>
                                 </div>
-                                <div class="col-xl-1">
+                                <div class="col-xl-2">
                                     <% if (loggedIn && currentUser.username === post.user.username) {%>
                                         <a 
                                             class="btn btn-danger"
