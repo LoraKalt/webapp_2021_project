@@ -7,7 +7,7 @@
 
 A simple social media site with post, messaging, image posts, hashtags, notifications, post comments and profiles.
 
-login/signup more robust with authentication and validation. Users now have ability to post and view other users posts. Cookies are implemented
+Login/signup more robust with authentication and validation. Users now have ability to post and view other user's posts. Cookies are implemented.
 
 ---
 ## Tasks:

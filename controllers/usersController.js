@@ -29,7 +29,7 @@ module.exports = {
             if (err) {
                 if (err.name == 'ValidationError') {
                     for (field in err.errors) {
-                        errMessage = errMessage + err.errors[field].message + '<br>';
+                        errMessage = errMessage + err.errors[field].message + ' ';
                         errorFields.push(field);
                     }
                     res.locals.redirect = "/signup"

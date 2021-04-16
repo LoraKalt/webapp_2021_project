@@ -43,7 +43,7 @@
                 <div class="card mx-md-0 mx-3 my-3">
                     <div class="row card-body">
                         <div class="col-xl-11">
-                            <strong><a href="#" class="text-secondary"><%= post.user.fullName %></a></strong>
+                            <strong><a href="<%= `/users/${post.user.username}` %>" class="text-secondary"><%= post.user.fullName %></a></strong>
                             <button type="button" class="btn btn-outline-primary btn-sm">Follow</button>
                             <div>
                                 <%= 
@@ -82,7 +82,7 @@
                             </div>
                         </div>
                         <div class="col-xl-1">
-                            <% if (loggedIn && displayUser.username === post.user.username) {%>
+                            <% if (loggedIn && currentUser.username === post.user.username) {%>
                                 <a 
                                     class="btn btn-danger"
                                     href="<%= `/posts/${post._id}/delete?_method=DELETE` %>"

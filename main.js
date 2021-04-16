@@ -49,7 +49,8 @@ router.use(expressValidator());
 router.use(expressSession({
     secret: "my_passcode",
     cookie: {
-        maxAge: 360000
+        maxAge: 360000,
+        sameSite: 'strict'
     },
     resave: false,
     saveUninitialized: true
