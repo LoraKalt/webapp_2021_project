@@ -1,5 +1,5 @@
 "use strict";
-
+const passport = require("passport");
 const Post = require("../models/post"),
     getPostParams = body => {
         return {
@@ -52,6 +52,22 @@ module.exports = {
     },
     showView: (req, res) => {
         res.render("posts/show"); //TODO: Change
+    },
+
+    validate: (req, res, next) => {
+        req.check("postText", "Post must be between 1 and 280 characters").isLength({min: 1, max: 280});
+        req.getValidationResult().then((error) => {
+            if(!error.isEmpty()) {
+                let messages = error.array().map(e => e.msg);
+                req.flash("error", messages.join('<br>'));
+                req.skip = true;
+                res.local.redirect = "/profile";
+                next();
+            }
+            else {
+                next();
+            }
+        });
     },
     delete: (req, res, next) => {
         let user = res.locals.currentUser;

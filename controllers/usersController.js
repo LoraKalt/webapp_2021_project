@@ -79,6 +79,37 @@ module.exports = {
         req.check("password", "Password cannot be empty!").notEmpty();
         req.check("password", "Password and 'Confirm Password' must match!").equals("confirmpassword");
 
+        req.sanitizeBody("email").trim();
+
+        req.check("email", "Invalid email!").isEmail();
+        // req.check("password", "Password cannot be empty!").notEmpy()
+        //     .custom((val, {req}) => {
+        //         if(val !== req.body.confirmpassword){
+        //             throw new Error("passwords do not match");
+        //         } else {
+        //             return value;
+        //         }
+        //     });
+
+    //     req.check("password", "Password and 'Confirm Password' must match!").equals("confirmpasswor
+        req.check("username", "Username already exists!").custom((val, {req}) => {
+            return new Promise((resolve, reject) => {
+                User.findOne({username : req.body.username}, function(error, user){
+                    if(err){
+                        reject(new Error("Server Error"))
+                    }
+                    if(Boolean(user)) {
+                        reject(new Error("Username already exists"));
+                    } else {
+                        resolve(true);
+                    }
+                })
+            })
+        });
+
+        req.check("securityQ", "Security Question must be selected").notEmpty();
+        req.check("location", "Location must be at least 20 characters long").isLength({max: 20});
+
         req.getValidationResult().then((error) => {
             if(!error.isEmpty()) {
                 let messages = error.array().map(e => e.msg);
