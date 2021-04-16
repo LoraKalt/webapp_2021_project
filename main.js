@@ -49,7 +49,7 @@ router.use(expressValidator());
 router.use(expressSession({
     secret: "my_passcode",
     cookie: {
-        maxAge: 360000,
+        maxAge: 3600000000,
         sameSite: 'strict'
     },
     resave: false,
