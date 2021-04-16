@@ -4,7 +4,7 @@ const mongoose = require("mongoose"),
     User = require("./models/user");
 const Post = require("./models/post");
 
-mongoose.connect("mongodb://localhost:27017/cu_dever_social", 
+mongoose.connect("mongodb://localhost:27017/cu_dever_social",
     { useNewUrlParser: true });
 mongoose.connection;
 
@@ -20,7 +20,10 @@ var users = [
         dateOfBirth: "1995-05-05",
         bio: "Just an average guy",
         location: "Denver",
-        gender: "male"
+        gender: "male",
+        posts: [
+            "Yo, it's Jon Doe."
+        ]
     },
     {
         fname: "Jane",
@@ -33,7 +36,10 @@ var users = [
         dateOfBirth: "2000-01-01",
         bio: "Biology Major",
         location: "Littleton",
-        gender: "female"
+        gender: "female",
+        posts: [
+            "Hi there! I'm Jane! Excited to get to know you all!"
+        ]
     },
     {
         fname: "Tester",
@@ -46,62 +52,45 @@ var users = [
         dateOfBirth: "1980-12-12",
         bio: "Just a testing user",
         location: "On the Internet",
-        gender: "other"
+        gender: "other",
+        posts: [
+            "Just testing."
+        ]
     }
 ];
 
-
-User.deleteMany()
-    .exec()
-    .then(() => {
+const genData = async (callback) => {
+    try {
+        let userDeleteResp = await User.deleteMany().exec();
         console.log("User data is empty");
-    }).catch(error => {
-        console.log(error);
-    });
-
-var i = 0;
-users.forEach(u => {
-    console.log(i);
-    let newUser = new User({
-        fname: u.fname,
-        lname: u.lname,
-        username: u.username,
-        email: u.email,
-        securityQ: u.securityQ,
-        securityQAnswer: u.securityQAnswer,
-        dateOfBirth: u.dateOfBirth,
-        bio: u.bio,
-        location: u.location,
-        gender: u.gender
-    });
-    User.register(newUser, u.password, (err, user) => {
-        if (err) {
-            if (err.name == 'ValidationError') {
-                console.log(err.message);
-            }
-        }
-        else {
-            let newPost = new Post({
-                postText: "How is everyone today?",
-                user: user._id
+        let postDeleteResp = await Post.deleteMany().exec();
+        console.log("Posts deleted");
+        for (const u of users) {
+            let newUser = new User({
+                fname: u.fname,
+                lname: u.lname,
+                username: u.username,
+                email: u.email,
+                securityQ: u.securityQ,
+                securityQAnswer: u.securityQAnswer,
+                dateOfBirth: u.dateOfBirth,
+                bio: u.bio,
+                location: u.location,
+                gender: u.gender
             });
-            Post.create(newPost);
-            console.log(`User created: ${newUser.username}`);
-            i++;
-            if(i === users.length){
-                process.exit(0);
+            let user = await User.register(newUser, u.password);
+            for (const postText of u.posts) {
+                let newPost = new Post({
+                    postText: postText,
+                    user: user._id
+                });
+                let postResp = await Post.create(newPost);
             }
+            console.log(`User created: ${u.username}`);
         }
-    });
-});
+    } catch (error) {
+        console.log(error);
+    }
+}
 
-//mongoose.connection.close();
-
-// Promise.all(commands)
-//     .then(r => {
-//         console.log(JSON.stringify(r));
-//         mongoose.connection.close();
-//     })
-//     .catch(error => {
-//         console.log(`ERROR: ${error}`);
-//     });
+genData().then(() => process.exit(0)).catch(error => console.log(error));

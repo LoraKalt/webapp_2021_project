@@ -51,7 +51,7 @@ module.exports = {
             });
     },
     showView: (req, res) => {
-        res.render("posts/show"); //TODO: Change
+        res.render("posts/show");
     },
 
     validate: (req, res, next) => {

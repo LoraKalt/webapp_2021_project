@@ -13,7 +13,7 @@ module.exports = {
         .catch(error => {
             console.log(`Error fetching subscribers: ${error.message}`);
             next(error);
-        })
+        });
     },
     indexView: (req, res) => {
         res.render("home", {page_name: "home"});
