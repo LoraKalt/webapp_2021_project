@@ -269,7 +269,7 @@ module.exports = {
         else {
             req.flash("error", "You don't have permission to do that.");
             res.locals.skip = true;
-            res.redirect("/");
+            res.redirect("/logout");
         }
     }
 }
