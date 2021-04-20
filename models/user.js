@@ -1,6 +1,7 @@
 "use strict";
 
 const mongoose = require("mongoose");
+const { use } = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 
 const userSchema = mongoose.Schema(
@@ -15,15 +16,33 @@ const userSchema = mongoose.Schema(
         bio: {type: String, required: false},
         location: {type: String, required: false},
         gender: { type: String, enum: ['male', 'female', 'other'], required: false},
+        following: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        }],
     },
     {
         timestamps: true
     }
 );
 
+userSchema.methods.isFollowing = function(id) {
+    return this.following && this.following.map(objId => objId.toString()).includes(id);
+}
+
 userSchema.virtual("fullName").get(function() {
     return `${this.fname} ${this.lname}`
 });
+
+userSchema.virtual("posts", {
+    ref: "Post",
+    localField: "_id",
+    foreignField: "user",
+    justOne: false
+});
+
+userSchema.set('toObject', { virtuals: true });
+userSchema.set('toJSON', { virtuals: true });
 
 userSchema.plugin(passportLocalMongoose, {
     usernameField: "email"

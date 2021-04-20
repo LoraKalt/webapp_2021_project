@@ -22,7 +22,10 @@ var users = [
         location: "Denver",
         gender: "male",
         posts: [
-            "Yo, it's Jon Doe."
+            {
+                text: "Yo, it's Jon Doe.",
+                hashtags: ["yo", "idkwhattoputhere"]
+            }
         ]
     },
     {
@@ -38,7 +41,10 @@ var users = [
         location: "Littleton",
         gender: "female",
         posts: [
-            "Hi there! I'm Jane! Excited to get to know you all!"
+            {
+                text: "Hi there! I'm Jane! Excited to get to know you all!",
+                hashtags: ["lorem", "ipsum"]
+            }
         ]
     },
     {
@@ -54,7 +60,10 @@ var users = [
         location: "On the Internet",
         gender: "other",
         posts: [
-            "Just testing."
+            {
+                text: "Just testing.",
+                hashtags: ["lorem", "ipsum"]
+            }
         ]
     }
 ];
@@ -79,10 +88,11 @@ const genData = async (callback) => {
                 gender: u.gender
             });
             let user = await User.register(newUser, u.password);
-            for (const postText of u.posts) {
+            for (const post of u.posts) {
                 let newPost = new Post({
-                    postText: postText,
-                    user: user._id
+                    postText: post.text,
+                    user: user._id,
+                    hashtags: post.hashtags
                 });
                 let postResp = await Post.create(newPost);
             }

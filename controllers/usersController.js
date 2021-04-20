@@ -188,9 +188,9 @@ module.exports = {
             res.render("error");
         }
         else {
-            Posts.find({user: user._id})
-            .populate({path: 'user',})
-            .sort({'createdAt': 'desc'}).then(posts => {
+            User.findById(user._id).populate({path: 'posts', populate: {path: 'user'}, options: { sort: { 'createdAt': -1 } } })
+            .sort({'createdAt': 'desc'}).then(user => {
+                let posts = user.posts;
                 res.locals.posts = posts;
                 res.locals.displayUser = user;
                 next();
@@ -198,7 +198,7 @@ module.exports = {
                 console.log(`Error fetching subscribers: ${error.message}`);
                 next(error);
             });
-        }
+    }
     },
     show: (req, res, next) => {
         let username = req.params.username;
@@ -209,9 +209,9 @@ module.exports = {
                 res.render("error");
             }
             else {
-                Posts.find({user: user._id})
-                .populate({path: 'user',})
-                .sort({'createdAt': 'desc'}).then(posts => {
+                User.findById(user._id).populate({path: 'posts', populate: {path: 'user'}, options: { sort: { 'createdAt': -1 } } })
+                .sort({'createdAt': 'desc'}).then(user => {
+                    let posts = user.posts;
                     res.locals.posts = posts;
                     res.locals.displayUser = user;
                     next();
@@ -235,7 +235,7 @@ module.exports = {
     delete: (req, res, next) => {
         let user = res.locals.currentUser;
         // Delete the user's posts
-        Posts.find().populate({
+        Posts.find({user: user._id}).populate({
             path: 'user',
             match: {username: user.username}
         }).remove().exec((error, posts) => {
@@ -255,21 +255,70 @@ module.exports = {
                 .catch(error => {
                     console.log(`Error deleting user: ${error.message}`);
                     res.locals.redirect = "/";
-                    req.flash("success", `Error deleting user: ${error.message}`);
+                    req.flash("error", `Error deleting user: ${error.message}`);
                     next();
                 });
             }
         });
         // TODO: Once comments are implemented this will need to delete comments as well.
     },
+    follow: (req, res, next) => {
+        let followingUsername = req.params.username;
+        let currentUser = res.locals.currentUser;
+        User.findOne({username: followingUsername}).then(followingUser => {
+            if(followingUser._id.toString() === currentUser._id.toString()){
+                req.flash("error", "You can't follow yourself.");
+                res.locals.redirect = req.get('referer');
+                next();
+            }
+            else{
+                User.findByIdAndUpdate(currentUser._id, { $push: {following: followingUser._id} }).then(user => {
+                    res.locals.redirect = req.get('referer');
+                    next();
+                }).catch(error => {
+                    res.locals.redirect = "/";
+                    req.flash("error", `Error updating followers list: ${error.message}`);
+                    next();
+                });
+            }
+        }).catch(error => {
+            res.locals.redirect = "/";
+            req.flash("error", `Error following user: ${error.message}`);
+            next();
+        });
+    },
+    unfollow: (req, res, next) => {
+        let followingUsername = req.params.username;
+        let currentUser = res.locals.currentUser;
+        User.findOne({username: followingUsername}).then(followingUser => {
+            if(followingUser._id === currentUser._id){
+                req.flash("error", "You can't unfollow yourself.");
+                res.locals.skip = true;
+                next();
+            }
+            User.findByIdAndUpdate(currentUser._id, { $pull: {following: followingUser._id} }).then(user => {
+                res.locals.redirect = req.get('referer');
+                next();
+            }).catch(error => {
+                res.locals.redirect = "/";
+                req.flash("error", `Error updating followers list: ${error.message}`);
+                next();
+            });
+
+        }).catch(error => {
+            res.locals.redirect = "/";
+            req.flash("error", `Error unfollowing user: ${error.message}`);
+            next();
+        });
+    },
     authRequired: (req, res, next) => {
         if(res.locals.loggedIn){
             next();
         }
         else {
-            req.flash("error", "You don't have permission to do that.");
+            req.flash("success", "Join our community to follow users, make posts and leave comments.");
             res.locals.skip = true;
-            res.redirect("/logout");
+            res.redirect("/signup");
         }
     }
 }

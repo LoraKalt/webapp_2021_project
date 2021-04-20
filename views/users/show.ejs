@@ -45,7 +45,11 @@
                         <div class="row">
                             <div class="col-xl-10">
                                 <strong><a href="<%= `/users/${post.user.username}` %>" class="text-secondary"><%= post.user.fullName %></a></strong>
-                                <button type="button" class="btn btn-outline-primary btn-sm">Follow</button>
+                                <% if(loggedIn && currentUser.isFollowing(post.user._id)) { %>
+                                    <a href="<%= `/users/${post.user.username}/unfollow?_method=POST` %>" class="btn btn-outline-primary btn-sm">Unfollow</a>
+                                <% } else if(loggedIn) { %>
+                                    <a href="<%= `/users/${post.user.username}/follow?_method=POST` %>" class="btn btn-outline-primary btn-sm">Follow</a>
+                                <% } %>
                                 <div>
                                     <%= 
                                     post.createdAt.toLocaleString(
@@ -70,8 +74,9 @@
                                 <button type="button" class="btn btn-primary btn-sm">Like</button>
                                 <button type="button" class="btn btn-secondary btn-sm">Share</button>
                                 <div class="my-1">
-                                    <button class="btn btn-outline-secondary btn-sm btn-pill" type="button">#lorem</button>
-                                    <button class="btn btn-outline-secondary btn-sm btn-pill" type="button">#ipsum</button>
+                                    <% post.hashtags.forEach(hashtag => { %>
+                                        <a href="<%= `/hashtags/${hashtag}` %>" class="btn btn-outline-secondary btn-sm btn-pill" role="button">#<%= hashtag %></a>
+                                    <% }); %>
                                 </div>
                             </div>
                             <div class="col-xl-2">

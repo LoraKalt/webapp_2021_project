@@ -11,7 +11,14 @@ var postSchema = new mongoose.Schema(
             min: [1, "Post cannot be empty"],
             max: [280, "Post exceeded max of 280 characters"]
         },
-        user: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true}
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+            required: true
+        },
+        hashtags: {
+            type: [String]
+        }
     },
     {
         timestamps: true

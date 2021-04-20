@@ -18,6 +18,7 @@ const errorController = require("./controllers/errorController");
 const usersController = require("./controllers/usersController");
 const commonController = require("./controllers/commonController");
 const postController = require("./controllers/postController");
+const hashtagController = require("./controllers/hashtagController");
 const layouts = require("express-ejs-layouts");
 const user = require("./models/user");
 
@@ -83,6 +84,8 @@ router.post("/signup", usersController.validate, usersController.create, commonC
 router.post("/login", usersController.authenticate, commonController.redirectView);
 
 router.get("/users/:username", usersController.show, usersController.showView);
+router.post("/users/:username/follow", usersController.authRequired, usersController.follow, commonController.redirectView);
+router.post("/users/:username/unfollow", usersController.authRequired, usersController.unfollow, commonController.redirectView);
 router.get("/profile", usersController.authRequired, usersController.showProfile, usersController.showView);
 router.get("/profile/edit", usersController.authRequired, usersController.edit);
 router.post("/profile/update", usersController.validateUpdate, usersController.authRequired, usersController.update, commonController.redirectView);
@@ -90,13 +93,13 @@ router.get("/profile/changepassword", usersController.authRequired, usersControl
 router.post("/profile/changepassword", usersController.authRequired, usersController.changePassword, commonController.redirectView);
 router.delete("/profile/delete", usersController.delete, commonController.redirectView);
 
-//Posts. Assuming ability to post/tweet will be on the user's home page. 
-//In this case, /post should be /home...right?
+// Posts
 router.post("/posts/create", usersController.authRequired, postController.validate, postController.create, commonController.redirectView);
-
 router.get("/posts/:id", postController.show, postController.showView);
 router.delete("/posts/:id/delete", usersController.authRequired, postController.delete, commonController.redirectView);
 
+// Hashtags
+router.get("/hashtags/:hashtag", hashtagController.show, hashtagController.showView);
 
 //error handling
 router.use(errorController.pageNotFoundError);
