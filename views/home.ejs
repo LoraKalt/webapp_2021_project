@@ -24,9 +24,9 @@
                                     <div class="col-xl-10">
                                         <strong><a href="<%= `/users/${post.user.username}` %>" class="text-secondary"><%= post.user.fullName %></a></strong>
                                         <% if(loggedIn && currentUser.isFollowing(post.user._id)) { %>
-                                            <a href="<%= `/users/${post.user.username}/unfollow?_method=POST` %>" class="btn btn-outline-primary btn-sm">Unfollow</a>
+                                            <a href="<%= `/users/${post.user.username}/unfollow?_method=POST` %>" class="btn btn-outline-primary btn-sm" role="button">Unfollow</a>
                                         <% } else if(loggedIn) { %>
-                                            <a href="<%= `/users/${post.user.username}/follow?_method=POST` %>" class="btn btn-outline-primary btn-sm">Follow</a>
+                                            <a href="<%= `/users/${post.user.username}/follow?_method=POST` %>" class="btn btn-outline-primary btn-sm" role="button">Follow</a>
                                         <% } %>
                                         <div>
                                             <%= 
@@ -47,9 +47,17 @@
                                             <%= post.postText %>
                                         </p>
                                         <div>
-                                            <span class="text-secondary">0 people like this</span>
+                                            <% if (post.likesCount === 1) { %>
+                                                <span class="text-secondary">1 person likes this</span>
+                                            <% } else { %>
+                                                <span class="text-secondary"><%= post.likesCount %> people like this</span>
+                                            <% } %>
                                         </div>
-                                        <button type="button" class="btn btn-primary btn-sm">Like</button>
+                                        <% if(loggedIn && post.isLikedBy(currentUser._id)) { %>
+                                            <a href="<%= `/posts/${post._id}/unlike?_method=post` %>" role="button" class="btn btn-primary btn-sm">Unlike</a>
+                                        <% } else { %>
+                                            <a href="<%= `/posts/${post._id}/like?_method=post` %>" role="button" class="btn btn-primary btn-sm">Like</a>
+                                        <% } %>
                                         <button type="button" class="btn btn-secondary btn-sm">Share</button>
                                         <div class="my-1">
                                             <% post.hashtags.forEach(hashtag => { %>

@@ -34,7 +34,7 @@ module.exports = {
             });
             Post.create(newPost)
             .then(course => {
-                res.locals.redirect = "/profile";
+                res.locals.redirect = req.get('referer');
                 next();
             })
             .catch(error => {
@@ -58,7 +58,6 @@ module.exports = {
     showView: (req, res) => {
         res.render("posts/show");
     },
-
     validate: (req, res, next) => {
         req.check("postText", "Post must be between 1 and 280 characters").isLength({min: 1, max: 280});
         req.getValidationResult().then((error) => {
@@ -72,6 +71,28 @@ module.exports = {
             else {
                 next();
             }
+        });
+    },
+    like: (req, res, next) => {
+        let currentUser = res.locals.currentUser;
+        let postId = req.params.id;
+        Post.findByIdAndUpdate(postId, { $push: {likedBy: currentUser._id} }).then(post => {
+            res.locals.redirect = req.get('referer');
+            next();
+        }).catch(error => {
+            console.log(`Error deleting post by ID: ${error.message}`);
+            next();
+        });
+    },
+    unlike: (req, res, next) =>{
+        let currentUser = res.locals.currentUser;
+        let postId = req.params.id;
+        Post.findByIdAndUpdate(postId, { $pull: {likedBy: currentUser._id} }).then(post => {
+            res.locals.redirect = req.get('referer');
+            next();
+        }).catch(error => {
+            console.log(`Error deleting post by ID: ${error.message}`);
+            next();
         });
     },
     delete: (req, res, next) => {

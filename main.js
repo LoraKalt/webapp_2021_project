@@ -22,7 +22,11 @@ const hashtagController = require("./controllers/hashtagController");
 const layouts = require("express-ejs-layouts");
 const user = require("./models/user");
 
-mongoose.connect(config.databaseUrl, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(config.databaseUrl, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false
+});
 
 app.set("port", process.env.PORT || 3000);
 
@@ -97,6 +101,8 @@ router.delete("/profile/delete", usersController.delete, commonController.redire
 router.post("/posts/create", usersController.authRequired, postController.validate, postController.create, commonController.redirectView);
 router.get("/posts/:id", postController.show, postController.showView);
 router.delete("/posts/:id/delete", usersController.authRequired, postController.delete, commonController.redirectView);
+router.post("/posts/:id/like", usersController.authRequired, postController.like, commonController.redirectView);
+router.post("/posts/:id/unlike", usersController.authRequired, postController.unlike, commonController.redirectView);
 
 // Hashtags
 router.get("/hashtags/:hashtag", hashtagController.show, hashtagController.showView);
