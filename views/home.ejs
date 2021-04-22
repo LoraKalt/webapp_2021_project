@@ -78,12 +78,23 @@
                                 <div class="row">
                                     <div class="w-100 col-xl-12">
                                         <h5>Comments</h5>
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control" placeholder="What do you think?">
-                                            <button class="btn btn-outline-primary" type="button">Reply</button>
-                                        </div>
+                                        <form action="<%= `/posts/${post._id}/comments` %>" method="POST" novalidate>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" name="commentText" placeholder="What do you think?">
+                                                <button class="btn btn-outline-primary" type="submit">Reply</button>
+                                            </div>
+                                        </form>
                                         <div class="mx-3">
-                                            <!-- Comments go here later -->
+                                            <% post.comments.forEach(comment => { %>
+                                            <div>
+                                                <div>
+                                                    <a href="<%= `/users/${comment.user.username}` %>" class="text-secondary"><%= comment.user.fullName %></a>
+                                                </div>
+                                                <div>
+                                                    <%= comment.commentText %>
+                                                </div>
+                                            </div>
+                                            <% }); %>
                                         </div>
                                     </div>
                                 </div>

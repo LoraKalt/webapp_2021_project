@@ -1,11 +1,13 @@
 "use strict";
 const passport = require("passport");
-const Post = require("../models/post"),
-    getPostParams = body => {
-        return {
-            postText: body.postText,
-        };
+const Post = require("../models/post")
+const Comment = require("../models/comment");
+
+const getPostParams = body => {
+    return {
+        postText: body.postText,
     };
+};
 
 module.exports = {
     index: (req, res, next) => {
@@ -118,6 +120,26 @@ module.exports = {
         }).catch(error => {
             console.log(`Error finding post: ${message}`);
         })
+    },
+    createComment: (req, res, next) => {
+        let postId = req.params.id;
+        let currentUser = res.locals.currentUser;
+        let newComment = Comment({
+            user: currentUser._id,
+            commentText: req.body.commentText
+        });
+        Comment.create(newComment).then(() => {
+            Post.findByIdAndUpdate(postId, { $push: {comments: newComment._id} }).then(post => {
+                res.locals.redirect = req.get('referer');
+                next();
+            }).catch(error => {
+                console.log(`Error adding comment to post: ${error.message}`);
+                next();
+            });
+        }).catch(error => {
+            console.log(`Error creating comment: ${error.message}`);
+            next();
+        });
     }
 };
 

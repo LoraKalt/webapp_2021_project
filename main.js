@@ -103,6 +103,8 @@ router.get("/posts/:id", postController.show, postController.showView);
 router.delete("/posts/:id/delete", usersController.authRequired, postController.delete, commonController.redirectView);
 router.post("/posts/:id/like", usersController.authRequired, postController.like, commonController.redirectView);
 router.post("/posts/:id/unlike", usersController.authRequired, postController.unlike, commonController.redirectView);
+router.post("/posts/:id/comments", usersController.authRequired, postController.createComment, commonController.redirectView);
+//router.delete("/posts/:id/comments/:commentId", usersController.authRequired, postController.deleteComment, commonController.redirectView);
 
 // Hashtags
 router.get("/hashtags/:hashtag", hashtagController.show, hashtagController.showView);

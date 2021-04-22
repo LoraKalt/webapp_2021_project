@@ -2,6 +2,7 @@
 
 const mongoose = require("mongoose");
 const User = require("./user");
+const Comment = require("./comment");
 
 var postSchema = new mongoose.Schema(
     {
@@ -16,6 +17,11 @@ var postSchema = new mongoose.Schema(
             ref: 'User',
             required: true
         },
+        comments: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Comment',
+            required: false
+        }],
         hashtags: {
             type: [String]
         },
