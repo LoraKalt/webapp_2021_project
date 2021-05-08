@@ -29,20 +29,39 @@ module.exports = {
             next();
         }
         else {
+            let validPost = true;
             let user = res.locals.currentUser;
-            let newPost = new Post({
-                postText: req.body.postText,
-                user: user._id
-            });
-            Post.create(newPost)
-            .then(course => {
+            let hashtagsRaw = req.body.postHashtags;
+            let hashtags = hashtagsRaw.replace(/\s+/g, '').split(',');
+            for(let i=0; i<hashtags.length; i++){
+                if(!hashtags[i].startsWith('#')){
+                    req.flash("error", "Post contains an invalid value in the hashtag field.");
+                    validPost = false;
+                }
+                else {
+                    hashtags[i] = hashtags[i].slice(1);
+                }
+            }
+            if (validPost){
+                let newPost = new Post({
+                    postText: req.body.postText,
+                    user: user._id,
+                    hashtags: hashtags
+                });
+                Post.create(newPost)
+                .then(post => {
+                    res.locals.redirect = req.get('referer');
+                    next();
+                })
+                .catch(error => {
+                    console.error(`Error saving post: ${error.message}`);
+                    next(error);
+                });
+            }
+            else {
                 res.locals.redirect = req.get('referer');
                 next();
-            })
-            .catch(error => {
-                console.error(`Error saving post: ${error.message}`);
-                next(error);
-            });
+            }
         }
     },
     show: (req, res, next) => {
@@ -67,7 +86,7 @@ module.exports = {
                 let messages = error.array().map(e => e.msg);
                 req.flash("error", messages.join(' '));
                 res.locals.skip = true;
-                res.locals.redirect = "/profile";
+                res.locals.redirect = req.get('referer');
                 next();
             }
             else {
@@ -107,9 +126,10 @@ module.exports = {
                 res.redirect("/");
             }
             else {
+                // #TODO: Delete comments related to a post when deleting the post.
                 Post.findByIdAndDelete(postId)
                 .then(() => {
-                    res.locals.redirect = "/profile";
+                    res.locals.redirect = req.get('referer');
                     next();
                 })
                 .catch(error => {

@@ -30,9 +30,18 @@
             <% if (loggedIn && displayUser.username === currentUser.username) {%>
                 <div class="card mx-md-0 mx-3 my-3">
                     <div class="card-body">
+                        <h5>Make a Post</h5>
                         <form action="/posts/create" method="POST" id="newPostForm">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="postText" id="txtPostText" placeholder="Share something with the world...">
+                                <textarea class="form-control" name="postText" id="txtPostText" placeholder="Say something..."></textarea>
+                            </div>
+                            <div class="input-group">
+                                <input name="postHashtags" id="txtPostHashtags" class="form-control" placeholder="Add hashtags...">
+                            </div>
+                            <div>
+                                <span class="text-muted">Begin each hashtag with a '#' character, separate them with commas (',').</span>
+                            </div>
+                            <div>
                                 <button class="btn btn-outline-primary" type="submit">Post</button>
                             </div>
                         </form>
