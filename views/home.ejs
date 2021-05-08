@@ -106,11 +106,9 @@
                     <div class="card mx-md-0 mx-3 my-3">
                         <div class="card-body">
                             <h5>Trending</h5>
-                            <button class="btn btn-outline-secondary btn-sm btn-pill" type="button">#lorem</button>
-                            <button class="btn btn-outline-secondary btn-sm btn-pill" type="button">#ipsum</button>
-                            <button class="btn btn-outline-secondary btn-sm btn-pill" type="button">#chicago</button>
-                            <button class="btn btn-outline-secondary btn-sm btn-pill" type="button">#photograpy</button>
-                            <button class="btn btn-outline-secondary btn-sm btn-pill" type="button">#itookaphoto</button>
+                            <% trendingHashtags.forEach(hashtag => { %>
+                                <button class="btn btn-outline-secondary btn-sm btn-pill" type="button"><%= hashtag %></button>
+                            <% }); %>
                         </div>
                     </div>
                     <div class="card mx-md-0 mx-3 my-3">

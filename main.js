@@ -77,7 +77,7 @@ router.use((req, res, next) => {
 
 
 // Home
-router.get("/", homeController.index, homeController.indexView);
+router.get("/", homeController.getTrendingHashTags, homeController.index, homeController.indexView);
 
 // Users
 router.get("/login", usersController.login);
@@ -104,7 +104,7 @@ router.delete("/posts/:id/delete", usersController.authRequired, postController.
 router.post("/posts/:id/like", usersController.authRequired, postController.like, commonController.redirectView);
 router.post("/posts/:id/unlike", usersController.authRequired, postController.unlike, commonController.redirectView);
 router.post("/posts/:id/comments", usersController.authRequired, postController.createComment, commonController.redirectView);
-//router.delete("/posts/:id/comments/:commentId", usersController.authRequired, postController.deleteComment, commonController.redirectView);
+// router.delete("/posts/:id/comments/:commentId", usersController.authRequired, postController.deleteComment, commonController.redirectView);
 
 // Hashtags
 router.get("/hashtags/:hashtag", hashtagController.show, hashtagController.showView);
