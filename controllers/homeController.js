@@ -34,7 +34,11 @@ module.exports = {
         });
     },
     getTrendingHashTags: async (req, res, next) => {
-        const postTrenscoreBaseline = 5;
+        // adjusting this value will adjust how much of an impact a post being initially created
+        // has on the trend-score, as compared to the post being liked.
+        // EX: with a value of 5 a post being initially created will have 5 times as much influence
+        // on the trend-score as the post being liked.
+        const postTrendScoreBaseline = 5;
         const trendingHashtagLimit = 5;
         let trendingHashTagData = await Post.aggregate([
             // start by calculating a 'trendScore' for each post
@@ -45,7 +49,10 @@ module.exports = {
                     _id: true,
                     hashtags: true,
                     trendScore: {
-                        $divide: [{$add: [{$size: "$likedBy"}, postTrenscoreBaseline]}, {$subtract: [new Date(), "$createdAt"]}]
+                        $divide: [
+                            {$add: [{$size: "$likedBy"}, postTrendScoreBaseline]},
+                            {$subtract: [new Date(), "$createdAt"]}
+                        ]
                     }
                 }
             },
