@@ -12,4 +12,9 @@ router.post("/:id/unlike", usersController.authRequired, postController.unlike, 
 router.post("/:id/comments", usersController.authRequired, postController.createComment, commonController.redirectView);
 // router.delete("/posts/:id/comments/:commentId", usersController.authRequired, postController.deleteComment, commonController.redirectView);
 
+router.get("/:id/share", usersController.authRequired, postController.showSharePostView);
+router.post("/:id/share", usersController.authRequired, postController.share, postController.create, commonController.redirectView);
+
+
+
 module.exports = router;
