@@ -14,10 +14,14 @@
                             </small>
                         </h5>
                         <div>
+                            <strong>About</strong>
+                        </div>
+                        <div>
                             <%= displayUser.bio %>
                         </div>
                         <div>
-                            <%= displayUser.location %>
+                            <strong>Location</strong>
+                            <span><%= displayUser.location %></span>
                         </div>
                     </div>
                     <div class="col-xl-1">
@@ -81,7 +85,7 @@
                                     <span class="text-secondary">0 people like this</span>
                                 </div>
                                 <button type="button" class="btn btn-primary btn-sm">Like</button>
-                                <button type="button" class="btn btn-secondary btn-sm">Share</button>
+                                <a href="<%= `/posts/${post._id}/share` %>" role="button" class="btn btn-secondary btn-sm">Share</a>
                                 <div class="my-1">
                                     <% post.hashtags.forEach(hashtag => { %>
                                         <a href="<%= `/hashtags/${hashtag}` %>" class="btn btn-outline-secondary btn-sm btn-pill" role="button">#<%= hashtag %></a>
@@ -101,12 +105,23 @@
                         <div class="row">
                             <div class="w-100 col-xl-12">
                                 <h5>Comments</h5>
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="What do you think?">
-                                    <button class="btn btn-outline-primary" type="button">Reply</button>
-                                </div>
+                                <form action="<%= `/posts/${post._id}/comments` %>" method="POST" novalidate>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" name="commentText" placeholder="What do you think?">
+                                        <button class="btn btn-outline-primary" type="submit">Reply</button>
+                                    </div>
+                                </form>
                                 <div class="mx-3">
-                                    <!-- Comments go here later -->
+                                    <% post.comments.forEach(comment => { %>
+                                    <div>
+                                        <div>
+                                            <a href="<%= `/users/${comment.user.username}` %>" class="text-secondary"><%= comment.user.fullName %></a>
+                                        </div>
+                                        <div>
+                                            <%= comment.commentText %>
+                                        </div>
+                                    </div>
+                                    <% }); %>
                                 </div>
                             </div>
                         </div>

@@ -30,6 +30,11 @@ var postSchema = new mongoose.Schema(
             ref: 'User',
             required: true
         }],
+        sharing: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Post',
+            required: false
+        }
     },
     {
         timestamps: true

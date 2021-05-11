@@ -1,4 +1,5 @@
 const { query } = require("express-validator/check");
+const { populate } = require("../models/post");
 const Post = require("../models/post");
 const User = require("../models/user");
 module.exports = {
@@ -14,7 +15,17 @@ module.exports = {
             Post.find(query).sort({createdAt: 'desc'})
             .populate({
                 path: 'user',
-            }).populate({
+            })
+            .populate({
+                path: 'sharing',
+                populate: [
+                    {
+                        path: 'user',
+                        model: 'User'
+                    }
+                ]
+            })
+            .populate({
                 path: 'comments',
                 populate: {
                     path: 'user',
@@ -39,7 +50,7 @@ module.exports = {
         // EX: with a value of 5 a post being initially created will have 5 times as much influence
         // on the trend-score as the post being liked.
         const postTrendScoreBaseline = 5;
-        const trendingHashtagLimit = 5;
+        const trendingHashtagLimit = 10;
         let trendingHashTagData = await Post.aggregate([
             // start by calculating a 'trendScore' for each post
             // this is equal to the trend-score baseline for a post (defined above) plus the number of likes it received
