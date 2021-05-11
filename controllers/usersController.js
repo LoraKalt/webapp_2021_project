@@ -188,8 +188,23 @@ module.exports = {
             res.render("error");
         }
         else {
-            User.findById(user._id).populate({path: 'posts', populate: {path: 'user'}, options: { sort: { 'createdAt': -1 } } })
-            .sort({'createdAt': 'desc'}).then(user => {
+            User.findById(user._id).populate({
+                path: 'posts',
+                populate: [
+                    {path: 'user'},
+                    {
+                        path: 'comments',
+                        populate: 'user'
+                    }
+                ],
+                options: { sort: { 'createdAt': -1 } } }
+            ).populate({
+                path: 'comments',
+                populate: {
+                    path: 'user',
+                    model: 'User'
+                }
+            }).sort({'createdAt': 'desc'}).then(user => {
                 let posts = user.posts;
                 res.locals.posts = posts;
                 res.locals.displayUser = user;
@@ -209,8 +224,17 @@ module.exports = {
                 res.render("error");
             }
             else {
-                User.findById(user._id).populate({path: 'posts', populate: {path: 'user'}, options: { sort: { 'createdAt': -1 } } })
-                .sort({'createdAt': 'desc'}).then(user => {
+                User.findById(user._id).populate({
+                    path: 'posts',
+                    populate: [
+                        {path: 'user'},
+                        {
+                            path: 'comments',
+                            populate: 'user'
+                        }
+                    ],
+                    options: { sort: { 'createdAt': -1 } } }
+                ).sort({'createdAt': 'desc'}).then(user => {
                     let posts = user.posts;
                     res.locals.posts = posts;
                     res.locals.displayUser = user;

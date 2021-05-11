@@ -21,8 +21,21 @@ module.exports = {
                 next(error);
             });
     },
-    indexView: (req, res) => {
-        res.render("posts/index");
+    showSharePostView: (req, res) => {
+         Post.findById(req.params.id).populate('user')
+        .then(post => {
+            res.locals.sharedPost = post;
+            res.render("posts/share");
+            next();
+        }
+        ).catch(error => {
+            console.error(`Error saving post: ${error.message}`);
+            next(error);
+        });
+    },
+    share: (req, res, next) => {
+        res.locals.sharedPostId = req.params.id;
+        next();
     },
     create: (req, res, next) =>{
         if(res.locals.skip){
@@ -43,14 +56,24 @@ module.exports = {
                 }
             }
             if (validPost){
+                let sharedPost = null;
+                if(res.locals.sharedPostId){
+                    sharedPost = res.locals.sharedPostId;
+                }
                 let newPost = new Post({
                     postText: req.body.postText,
                     user: user._id,
-                    hashtags: hashtags
+                    hashtags: hashtags,
+                    sharing: sharedPost
                 });
                 Post.create(newPost)
                 .then(post => {
-                    res.locals.redirect = req.get('referer');
+                    if(sharedPost){
+                        res.locals.redirect = "/";
+                    }
+                    else {
+                        res.locals.redirect = req.get('referer');
+                    }
                     next();
                 })
                 .catch(error => {

@@ -101,6 +101,8 @@ router.delete("/profile/delete", usersController.delete, commonController.redire
 router.post("/posts/create", usersController.authRequired, postController.validate, postController.create, commonController.redirectView);
 router.get("/posts/:id", postController.show, postController.showView);
 router.delete("/posts/:id/delete", usersController.authRequired, postController.delete, commonController.redirectView);
+router.get("/posts/:id/share", usersController.authRequired, postController.showSharePostView);
+router.post("/posts/:id/share", usersController.authRequired, postController.share, postController.create, commonController.redirectView);
 router.post("/posts/:id/like", usersController.authRequired, postController.like, commonController.redirectView);
 router.post("/posts/:id/unlike", usersController.authRequired, postController.unlike, commonController.redirectView);
 router.post("/posts/:id/comments", usersController.authRequired, postController.createComment, commonController.redirectView);
