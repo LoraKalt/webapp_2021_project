@@ -1,4 +1,4 @@
-# CU-Denver Social Project (working title)
+# CU-Denver Social Project
 ## Group:
 + Lora Kalthoff
 + Dax Hurley
@@ -11,12 +11,12 @@ Login/signup more robust with authentication and validation. Users now have abil
 
 ---
 ## Tasks:
-Assignment 4:
-- Lora : postController, post schema, displaying users on follow list, seed, readme, general edits
+Final:
+- Lora : Notifications, Organization, 
 - Dax : updating user model, CRUD for users, sessions and cookies, passport handling for login/sign up, express validator, posts (create, read, delete), general edits
 
 ---
-## Assignment 4 - Usage:
+## Final - Usage:
 
 1. Make sure MongoBD and node.js are installed on your computer.
     - You can download MongoDB from [the project's official download page](https://www.mongodb.com/try/download/community).
