@@ -5,7 +5,7 @@
                 <div class="w-auto">
                     <h5>Edit Profile: @<%= currentUser.username %> </h5>
                 </div>
-                <form action="/profile/update" method="POST" onsubmit="" id="signUpForm" novalidate>
+                <form action="/profile/update" method="POST" onsubmit="return editProfileCheck()" id="editProfile" novalidate>
                     <!--REQUIRED INFORMATION GROUP-->
                     <!--first name (required)-->
                     <div class="input-group">
@@ -167,4 +167,3 @@
         </div>
     </article>
 </main>
-<script src="/js/script.js"></script>

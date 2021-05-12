@@ -14,4 +14,9 @@ router.get("/:id/share", usersController.authRequired, postController.showShareP
 router.post("/:id/share", usersController.authRequired, postController.share, postController.validate, postController.create, commonController.redirectView);
 router.delete("/posts/:id/comments/:commentId/delete", usersController.authRequired, postController.deleteComment, commonController.redirectView);
 
+router.get("/:id/share", usersController.authRequired, postController.showSharePostView);
+router.post("/:id/share", usersController.authRequired, postController.share, postController.create, commonController.redirectView);
+
+
+
 module.exports = router;
