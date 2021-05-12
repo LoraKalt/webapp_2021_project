@@ -187,7 +187,8 @@ module.exports = {
     deleteComment: (req, res, next) => {
         let postId = req.params.id;
         let commentId = req.params.commentId;
-        Post.findByIdAndUpdate(postId, { $pop: {comments: newComment._id} }).then(post => {
+        console.log("Made it here!");
+        Post.findByIdAndUpdate(postId, { $pull: {comments: commentId} }).then(post => {
             Comment.findByIdAndDelete(commentId).then(() => {
                 res.locals.redirect = req.get('referer');
                 next();
