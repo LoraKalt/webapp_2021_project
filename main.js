@@ -13,6 +13,9 @@ const config = require("./config.json");
 User = require("./models/user");
 PostMsg = require("./models/post");
 
+// TODO: Finish adding server side validation.
+// TODO: Fix comment validation to work on all comments
+// TODO: Make it so deleting a post deletes the post's comments as well.
 
 //const notificationsController = require("./controllers/notificationsController")
 const layouts = require("express-ejs-layouts");

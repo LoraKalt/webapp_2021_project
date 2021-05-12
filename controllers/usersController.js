@@ -224,18 +224,22 @@ module.exports = {
                 res.render("error");
             }
             else {
-                User.findById(user._id).populate({
-                    path: 'posts',
-                    populate: [
+                Posts.find({ user:user._id })
+                .populate(
+                    [
                         {path: 'user'},
                         {
                             path: 'comments',
-                            populate: 'user'
+                            populate: {
+                                path: 'user',
+                                model: 'User'
+                            }
                         }
-                    ],
-                    options: { sort: { 'createdAt': -1 } } }
-                ).sort({'createdAt': 'desc'}).then(user => {
-                    let posts = user.posts;
+                    ]
+                )
+                .limit(res.locals.itemCount)
+                .skip(res.locals.skipCount)
+                .sort({'createdAt': 'desc'}).then(posts => {
                     res.locals.posts = posts;
                     res.locals.displayUser = user;
                     next();

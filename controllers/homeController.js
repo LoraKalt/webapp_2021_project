@@ -12,7 +12,10 @@ module.exports = {
                 query = {$or:[{ user: currentUser._id },{ user: { $in: currentUser.following }}]}
             }
             res.locals.users = users;
-            Post.find(query).sort({createdAt: 'desc'})
+            Post.find(query)
+            .limit(res.locals.itemCount)
+            .skip(res.locals.skipCount)
+            .sort({createdAt: 'desc'})
             .populate({
                 path: 'user',
             })
