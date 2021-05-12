@@ -9,15 +9,16 @@
                         <div class="card mx-md-0 mx-3 my-3">
                             <div class="card-body">
                                 <h5>Make a Post</h5>
-                                <form action="/posts/create" method="POST" id="newPostForm">
+                                <form action="/posts/create" method="POST" id="newPostForm" onsubmit="return postValidation()">
                                     <div class="input-group">
-                                        <textarea class="form-control" name="postText" id="txtPostText" placeholder="Say something..."></textarea>
+                                        <textarea type="text" class="form-control" name="postText" id="txtPostText" placeholder="Say something..."></textarea>
                                     </div>
+                                    <span id="char-count">0</span>
                                     <div class="input-group">
                                         <input name="postHashtags" id="txtPostHashtags" class="form-control" placeholder="Add hashtags...">
                                     </div>
                                     <div>
-                                        <span class="text-muted">Begin each hashtag with a '#' character, separate them with commas (',').</span>
+                                        <span id="hash-error" class="text-muted">Begin each hashtag with a '#' character, separate them with commas (',').</span>
                                     </div>
                                     <div>
                                         <button class="btn btn-outline-primary" type="submit">Post</button>
@@ -117,11 +118,12 @@
                                 <div class="row">
                                     <div class="w-100 col-xl-12">
                                         <h5>Comments</h5>
-                                        <form action="<%= `/posts/${post._id}/comments` %>" method="POST" novalidate>
+                                        <form action="<%= `/posts/${post._id}/comments` %>" method="POST" onsubmit="return replyValidation()" novalidate>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" name="commentText" placeholder="What do you think?">
+                                                <input type="text" class="form-control" id="txtComment" name="commentText" placeholder="What do you think?" required>
                                                 <button class="btn btn-outline-primary" type="submit">Reply</button>
                                             </div>
+                                            <div id="comment-count">0</div>
                                         </form>
                                         <div class="mx-3">
                                             <% post.comments.forEach(comment => { %>
