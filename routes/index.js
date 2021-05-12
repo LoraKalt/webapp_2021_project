@@ -6,6 +6,7 @@ const loginRoutes = require("./loginRoutes");
 const signupRoutes = require("./signupRoutes");
 const logoutRoutes = require("./logoutRoutes");
 const homeRoutes = require("./homeRoutes");
+const hashTagRoutes = require("./hashtagRoutes");
 const errorRoutes = require("./errorRoutes");
 
 
@@ -15,6 +16,7 @@ router.use("/signup", signupRoutes);
 router.use("/logout", logoutRoutes);
 router.use("/profile", profileRoutes);
 router.use("/posts", postRoutes);
+router.use("/hashtags", hashTagRoutes);
 router.use("/", homeRoutes);
 router.use("/", errorRoutes);
 

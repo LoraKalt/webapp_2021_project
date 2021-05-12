@@ -5,7 +5,7 @@
 ---
 ## Description:
 
-A simple social media site with posts, hashtags, trending hashtags, post comments and profiles.
+A simple social media site with posts, hashtags, trending hashtags, post comments, post sharing and profiles.
 
 Login/signup more robust with authentication and validation. Users now have ability to post and view other user's posts. Cookies are implemented.
 
