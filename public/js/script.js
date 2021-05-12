@@ -1,4 +1,20 @@
-//const { text } = require("express");
+// Save scroll position between reloads
+
+document.addEventListener("DOMContentLoaded", function(event) {
+    let scrollPos = sessionStorage.getItem('scrollPos');
+    let lastPage = sessionStorage.getItem('lastPage');
+    if (scrollPos > 0 && lastPage === window.location.href) {
+        window.scrollTo(0, scrollPos);
+        sessionStorage.removeItem('scrollPos');
+    }
+});
+
+window.addEventListener("beforeunload", function (e) {
+    sessionStorage.setItem('scrollPos', window.scrollY);
+    sessionStorage.setItem('lastPage', window.location.href);
+});
+
+// Validation
 
 const postText = document.querySelector("#txtPostText");
 const charCount = document.querySelector("#char-count");

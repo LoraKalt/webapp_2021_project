@@ -31,102 +31,11 @@
                     </div>
                 </div>
             </div>
-            <% if (loggedIn && displayUser.username === currentUser.username) {%>
-                <div class="card mx-md-0 mx-3 my-3">
-                    <div class="card-body">
-                        <h5>Make a Post</h5>
-                        <form action="/posts/create" method="POST" id="newPostForm">
-                            <div class="input-group">
-                                <textarea class="form-control" name="postText" id="txtPostText" placeholder="Say something..."></textarea>
-                            </div>
-                            <div class="input-group">
-                                <input name="postHashtags" id="txtPostHashtags" class="form-control" placeholder="Add hashtags...">
-                            </div>
-                            <div>
-                                <span class="text-muted">Begin each hashtag with a '#' character, separate them with commas (',').</span>
-                            </div>
-                            <div>
-                                <button class="btn btn-outline-primary" type="submit">Post</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+            <% if (loggedIn) {%>
+                <%- include('../partials/newPost')  %>
             <% } %>
             <% posts.forEach(post => { %>
-                <div class="card mx-md-0 mx-3 my-3">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-xl-10">
-                                <strong><a href="<%= `/users/${post.user.username}` %>" class="text-secondary"><%= post.user.fullName %></a></strong>
-                                <% if(loggedIn && currentUser.isFollowing(post.user._id)) { %>
-                                    <a href="<%= `/users/${post.user.username}/unfollow?_method=POST` %>" class="btn btn-outline-primary btn-sm">Unfollow</a>
-                                <% } else if(loggedIn) { %>
-                                    <a href="<%= `/users/${post.user.username}/follow?_method=POST` %>" class="btn btn-outline-primary btn-sm">Follow</a>
-                                <% } %>
-                                <div>
-                                    <%= 
-                                    post.createdAt.toLocaleString(
-                                        'en-US',
-                                        {
-                                            year: 'numeric',
-                                            month: 'long',
-                                            day: 'numeric',
-                                            hour: '2-digit',
-                                            minute: '2-digit',
-                                            hour12: true
-                                        }
-                                    ) 
-                                    %>
-                                </div>
-                                <p class="card-text">
-                                    <%= post.postText %>
-                                </p>
-                                <div>
-                                    <span class="text-secondary">0 people like this</span>
-                                </div>
-                                <button type="button" class="btn btn-primary btn-sm">Like</button>
-                                <a href="<%= `/posts/${post._id}/share` %>" role="button" class="btn btn-secondary btn-sm">Share</a>
-                                <div class="my-1">
-                                    <% post.hashtags.forEach(hashtag => { %>
-                                        <a href="<%= `/hashtags/${hashtag}` %>" class="btn btn-outline-secondary btn-sm btn-pill" role="button">#<%= hashtag %></a>
-                                    <% }); %>
-                                </div>
-                            </div>
-                            <div class="col-xl-2">
-                                <% if (loggedIn && currentUser.username === post.user.username) {%>
-                                    <a 
-                                        class="btn btn-danger float-right"
-                                        href="<%= `/posts/${post._id}/delete?_method=DELETE` %>"
-                                        role="button"
-                                    >Delete</a>
-                                <% } %>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="w-100 col-xl-12">
-                                <h5>Comments</h5>
-                                <form action="<%= `/posts/${post._id}/comments` %>" method="POST" novalidate>
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" name="commentText" placeholder="What do you think?">
-                                        <button class="btn btn-outline-primary" type="submit">Reply</button>
-                                    </div>
-                                </form>
-                                <div class="mx-3">
-                                    <% post.comments.forEach(comment => { %>
-                                    <div>
-                                        <div>
-                                            <a href="<%= `/users/${comment.user.username}` %>" class="text-secondary"><%= comment.user.fullName %></a>
-                                        </div>
-                                        <div>
-                                            <%= comment.commentText %>
-                                        </div>
-                                    </div>
-                                    <% }); %>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <%- include('../partials/post', {post: post})  %>
             <% }); %>
     </div>
 </main>

@@ -5,7 +5,7 @@
 ---
 ## Description:
 
-A simple social media site with post, messaging, image posts, hashtags, notifications, post comments and profiles.
+A simple social media site with posts, hashtags, trending hashtags, post comments and profiles.
 
 Login/signup more robust with authentication and validation. Users now have ability to post and view other user's posts. Cookies are implemented.
 
@@ -16,7 +16,7 @@ Final:
 - Dax : updating user model, CRUD for users, sessions and cookies, passport handling for login/sign up, express validator, posts (create, read, delete), general edits
 
 ---
-## Final - Usage:
+## Final - Running Locally:
 
 1. Make sure MongoBD and node.js are installed on your computer.
     - You can download MongoDB from [the project's official download page](https://www.mongodb.com/try/download/community).
