@@ -128,6 +128,13 @@
                                             <div>
                                                 <div>
                                                     <a href="<%= `/users/${comment.user.username}` %>" class="text-secondary"><%= comment.user.fullName %></a>
+                                                    <% if (loggedIn && currentUser.username === comment.user.username) {%>
+                                                        <a 
+                                                            class="btn btn-danger btn-sm float-right"
+                                                            href="<%= `/posts/${post._id}/comments/${comment._id}/delete?_method=DELETE` %>"
+                                                            role="button"
+                                                        >Delete</a>
+                                                    <% } %>
                                                 </div>
                                                 <div>
                                                     <%= comment.commentText %>

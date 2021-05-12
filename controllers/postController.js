@@ -183,6 +183,21 @@ module.exports = {
             console.log(`Error creating comment: ${error.message}`);
             next();
         });
+    },
+    deleteComment: (req, res, next) => {
+        let postId = req.params.id;
+        let commentId = req.params.commentId;
+        Post.findByIdAndUpdate(postId, { $pop: {comments: newComment._id} }).then(post => {
+            Comment.findByIdAndDelete(commentId).then(() => {
+                res.locals.redirect = req.get('referer');
+                next();
+            }).then().catch(error => {
+                console.log(`Error deleting comment: ${error.message}`);
+            });
+        }).catch(error => {
+            console.log(`Error removing comment from post: ${error.message}`);
+            next();
+        });
     }
 };
 
