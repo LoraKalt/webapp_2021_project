@@ -18,11 +18,13 @@ PostMsg = require("./models/post");
 const layouts = require("express-ejs-layouts");
 const user = require("./models/user");
 
-mongoose.connect(config.databaseUrl, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false
-});
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/cu_dever_social",
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useFindAndModify: false
+    }
+);
 
 app.set("port", process.env.PORT || 3000);
 
