@@ -50,8 +50,8 @@ postSchema.virtual("likesCount").get(function() {
 });
 
 // clean up comments on post deletion
-postSchema.pre('remove', (post) => {
-    Comment.remove({_id: { $in: post.comments }});
+postSchema.pre('remove', (callback) => {
+    Comment.remove({_id: { $in: this.comments }});
 });
 
 
