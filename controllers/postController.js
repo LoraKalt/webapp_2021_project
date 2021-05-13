@@ -47,7 +47,7 @@ module.exports = {
             let hashtagsRaw = req.body.postHashtags;
             let hashtags = [];
             if (hashtagsRaw != ""){
-                let hashtags = hashtagsRaw.replace(/\s+/g, '').split(',');
+                hashtags = hashtagsRaw.replace(/\s+/g, '').split(',');
                 for(let i=0; i<hashtags.length; i++){
                     if(!hashtags[i].startsWith('#')){
                         req.flash("error", "Post contains an invalid value in the hashtag field.");

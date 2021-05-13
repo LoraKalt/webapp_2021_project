@@ -316,7 +316,6 @@ module.exports = {
                 });
             }
         });
-        // TODO: Once comments are implemented this will need to delete comments as well.
     },
     follow: (req, res, next) => {
         let followingUsername = req.params.username;

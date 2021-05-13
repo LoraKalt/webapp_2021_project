@@ -39,7 +39,6 @@ document.querySelectorAll('.comment-msg').forEach(function(item){
         let textLength = event.target.value.length;
         var id = item.id.slice(4);
         var errId = "count-" + id;
-        console.log(errId);
         // var reply = document.getElementById(msgId);
         var count = document.getElementById(errId);
         if (textLength > 280) {
@@ -294,7 +293,6 @@ function editProfileCheck() {
     //First Name Check:
     var firstName = document.querySelector("#txtFirstName");
     var errorName = document.querySelector("#divErrorName");
-    console.log(firstName);
 
     if (firstName.value == "") {
         firstName.classList.add("is-invalid");
@@ -479,14 +477,12 @@ function postValidation() {
     var hashtags = document.querySelector("#txtPostHashtags");
     var errorHash = document.querySelector("#hash-error");
 
-    console.log(hashtags.value);
 
     if (hashtags.value != "") {
         hashes = hashtags.value.split(",")
-        console.log(hashes);
         var invalidHash = false;
         for (let i = 0; i < hashes.length; i++) {
-            if (!hashes[i].match(/^#[a-zA-Z0-9_]*$/)) {
+            if (!hashes[i].strip().match(/^#[a-zA-Z0-9_]*$/)) {
                 invalidHash = true;
                 formIsValid = false;
             }
