@@ -606,6 +606,10 @@ function replyValidation(event) {
         error.innerHTML = "This field cannot be blank";
         formIsValid = false;
     }
+    else if (reply.value.length > 280) {
+        reply.classList.add("is-invalid");
+        formIsValid = false;
+    }
     else {
         reply.classList.remove("is-invalid");
         error.classList.remove("text-danger");
