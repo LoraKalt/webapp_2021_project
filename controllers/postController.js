@@ -172,14 +172,19 @@ module.exports = {
                 res.redirect("/");
             }
             else {
-                // #TODO: Delete comments related to a post when deleting the post.
-                Post.findByIdAndDelete(postId)
+                Comment.remove({_id: { $in: post.comments }})
                 .then(() => {
-                    res.locals.redirect = req.get('referer');
-                    next();
-                })
-                .catch(error => {
-                    console.log(`Error deleting post by ID: ${error.message}`);
+                    Post.findByIdAndDelete(postId)
+                    .then(() => {
+                        res.locals.redirect = req.get('referer');
+                        next();
+                    })
+                    .catch(error => {
+                        console.log(`Error deleting post by ID: ${error.message}`);
+                        next();
+                    });
+                }).catch(error => {
+                    console.log(`Error deleting post comments: ${error.message}`);
                     next();
                 });
             }
