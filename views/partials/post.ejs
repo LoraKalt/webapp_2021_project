@@ -89,11 +89,11 @@
             <div class="w-100 col-xl-12">
                 <h5>Comments</h5>
                 <form id="<%= `form-${post._id}` %>" action="<%= `/posts/${post._id}/comments` %>" method="POST" onsubmit="return replyValidation(event)" novalidate>
-                    <div class="input-group mb-3">
+                    <div class="input-group">
                         <input type="text" class="form-control comment-msg" id="<%= `msg-${post._id}` %>" name="commentText" placeholder="What do you think?" required>
                         <button class="btn btn-outline-primary" type="submit">Reply</button>
                     </div>
-                    <div id="<%= `count-${post._id}` %>">0/280</div>
+                    <div class="mb-3" id="<%= `count-${post._id}` %>">0 / 280 characters</div>
                 </form>
                 <div class="mx-3">
                     <% post.comments.forEach(comment => { %>
