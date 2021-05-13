@@ -1,6 +1,6 @@
 // Save scroll position between reloads
 
-document.addEventListener("DOMContentLoaded", function(event) {
+document.addEventListener("DOMContentLoaded", function (event) {
     let scrollPos = sessionStorage.getItem('scrollPos');
     let lastPage = sessionStorage.getItem('lastPage');
     if (scrollPos > 0 && lastPage === window.location.href) {
@@ -15,32 +15,41 @@ window.addEventListener("beforeunload", function (e) {
 });
 
 // Validation
-
-const postText = document.querySelector("#txtPostText");
-const charCount = document.querySelector("#char-count");
-const commentCount = document.querySelector("#comment-count");
-
-postText.addEventListener('keyup', (event) => {
-    let textLength = event.target.value.length;
-    if(textLength > 280){
-        charCount.classList.add("text-danger");
-    }
-    else{
-        charCount.classList.remove("text-danger");
-    }
-    charCount.innerHTML = "" + textLength;
+document.querySelectorAll('.comment-msg').forEach(function(item){
+    item.addEventListener('keyup', function(event){
+        let textLength = event.target.value.length;
+        var id = item.id.slice(4);
+        var errId = "count-" + id;
+        console.log(errId);
+        // var reply = document.getElementById(msgId);
+        var count = document.getElementById(errId);
+        if (textLength > 280) {
+            count.classList.add("text-danger");
+        }
+        else {
+            count.classList.remove("text-danger");
+        }
+        count.innerHTML = "" + textLength + " / 280 characters";
+    });
 });
-// commentCount.addEventListener('keyup', (event) => {
-//     let textLength = event.target.value.length;
-//     if(textLength > 280){
-//         commentCount.innerHTML ="Exceeded limit of 280 characters";
-//         commentCount.classList.add("text-danger");
-//     }
-//     else{
-//         commentCount.classList.remove("text-danger");
-//         commentCount.innerHTML = "" + textLength;
-//     }
-// });
+
+$(document).ready(function () {
+    const postText = document.querySelector("#txtPostText");
+    const charCount = document.querySelector("#char-count");
+    postText.addEventListener('keyup', (event) => {
+        let textLength = event.target.value.length;
+        if (textLength > 280) {
+            charCount.classList.add("text-danger");
+        }
+        else {
+            charCount.classList.remove("text-danger");
+        }
+        charCount.innerHTML = "" + textLength;
+    });
+
+});
+
+
 
 /**
  * Checks each input for sign-in to see if valid on client-side
@@ -209,7 +218,7 @@ function validateSignUp() {
     //checks each element to see if contains invalid char
     for (let i = 0; i < elements.length; i++) {
         for (let j = 0; j < invalidChars.length; j++) {
-            if(elements[i].value.includes(invalidChars[j])){
+            if (elements[i].value.includes(invalidChars[j])) {
                 elements[i].classList.add("is-invalid");
                 formIsValid = false;
                 test = elements[i].id;
@@ -219,8 +228,8 @@ function validateSignUp() {
                     errorMsgs[0].innerHTML = "Contains <, >, #, -, {, }, (, ), \', \", or \`";
                 }
                 else {
-                    errorMsgs[i-1].classList.remove("invisible");
-                    errorMsgs[i-1].innerHTML = "Contains <, >, #, -, {, }, (, ), \', \", or \` ";
+                    errorMsgs[i - 1].classList.remove("invisible");
+                    errorMsgs[i - 1].innerHTML = "Contains <, >, #, -, {, }, (, ), \', \", or \` ";
                 }
             }
         }//end loop invalidChars
@@ -228,11 +237,11 @@ function validateSignUp() {
 
     //Error Message
     var submitError = document.getElementById("divSubmitError");
-    if(!formIsValid)
+    if (!formIsValid)
         submitError.classList.remove("invisible");
     else
         submitError.classList.add("invisible");
-    
+
 
     return formIsValid;
 }
@@ -272,7 +281,7 @@ function validateSignIn() {
     return formIsValid;
 }
 
-function editProfileCheck(){
+function editProfileCheck() {
     var formIsValid = true;
 
     //First Name Check:
@@ -378,7 +387,7 @@ function editProfileCheck(){
     //checks each element to see if contains invalid char
     for (let i = 0; i < elements.length; i++) {
         for (let j = 0; j < invalidChars.length; j++) {
-            if(elements[i].value.includes(invalidChars[j])){
+            if (elements[i].value.includes(invalidChars[j])) {
                 elements[i].classList.add("is-invalid");
                 formIsValid = false;
                 test = elements[i].id;
@@ -388,8 +397,8 @@ function editProfileCheck(){
                     errorMsgs[0].innerHTML = "Contains <, >, #, -, {, }, (, ), \', \", or \`";
                 }
                 else {
-                    errorMsgs[i-1].classList.remove("invisible");
-                    errorMsgs[i-1].innerHTML = "Contains <, >, #, -, {, }, (, ), \', \", or \` ";
+                    errorMsgs[i - 1].classList.remove("invisible");
+                    errorMsgs[i - 1].innerHTML = "Contains <, >, #, -, {, }, (, ), \', \", or \` ";
                 }
             }
         }//end loop invalidChars
@@ -397,11 +406,11 @@ function editProfileCheck(){
 
     //Error Message
     var submitError = document.getElementById("divSubmitError");
-    if(!formIsValid)
+    if (!formIsValid)
         submitError.classList.remove("invisible");
     else
         submitError.classList.add("invisible");
-    
+
 
     return formIsValid;
 }
@@ -418,10 +427,10 @@ function clearErrorMsgs() {
     for (let i = 0; i < elements.length; i++) {
         elements[i].classList.remove("is-invalid");
     }
-    if(securityQ != null){
+    if (securityQ != null) {
         securityQ.classList.remove("is-invalid");
     }
-    
+
     for (let j = 0; j < errorMsgs.length; j++) {
         errorMsgs[j].classList.add("invisible");
     }
@@ -440,23 +449,18 @@ function updateSecurityAnswer() {
     }
 }
 
-function postValidation(){
+function postValidation() {
     var formIsValid = true;
     var messageText = document.querySelector("#txtPostText");
     var messageError = document.querySelector("#char-count");
 
-
-    //280
-    //Hashtags need to be comma separated and actual hashtags (start with #)
-    if (messageText.value == ""){
+    if (messageText.value == "") {
         messageText.classList.add("is-invalid");
         messageError.classList.add("text-danger");
         messageError.innerHTML = "Message cannot be blank";
-        //errorPost.classList.remove("invisible");
-        //errorPost.innerHTML = "Message is empty";
         formIsValid = false;
     }
-    else if(messageText.value.length > 280){
+    else if (messageText.value.length > 280) {
         messageText.classList.add("is-invalid");
         formIsValid = false;
     }
@@ -470,27 +474,27 @@ function postValidation(){
 
     console.log(hashtags.value);
 
-    if(hashtags.value != ""){
+    if (hashtags.value != "") {
         hashes = hashtags.value.split(",")
         console.log(hashes);
         var invalidHash = false;
-        for(let i =0; i<hashes.length; i++){
-            if(!hashes[i].match(/^#[a-zA-Z0-9_]*$/)){
+        for (let i = 0; i < hashes.length; i++) {
+            if (!hashes[i].match(/^#[a-zA-Z0-9_]*$/)) {
                 invalidHash = true;
                 formIsValid = false;
             }
-            if(hashes[i].length > 21 || hashes[i].length < 4){
+            if (hashes[i].length > 21 || hashes[i].length < 4) {
                 errorHash.innerHTML = "Hashtags must be between 3 and 20 characters long not including '#'.";
                 invalidHash = true;
                 formIsValid = false;
             }
         }
-        if(invalidHash){
+        if (invalidHash) {
             hashtags.classList.add("is-invalid");
             errorHash.classList.remove("text-muted");
             errorHash.classList.add("text-danger");
         }
-        else{
+        else {
             hashtags.classList.remove("is-invalid");
             errorHash.classList.add("text-muted");
             errorHash.classList.remove("text-danger");
@@ -506,14 +510,90 @@ function postValidation(){
     return formIsValid;
 }//post validation end
 
-function replyValidation(){
+function validatePssdChange() {
+    var formIsValid = true;
+    var oldPassword = document.querySelector("#txtOldPassword");
+    var password = document.querySelector("#txtPassword");
+    var confirmPssd = document.querySelector("#confirmpassword");
+    var errorOldPssd = document.querySelector("#divOldPasswordErr");
+    var errorPassword = document.querySelector("#divPasswordErr");
+    var errorConfirmPssd = document.querySelector("#divPasswordErr2");
+
+    if (oldPassword.value == "") {
+        oldPassword.classList.add("is-invalid");
+        errorOldPssd.classList.remove("invisible");
+        errorOldPssd.innerHTML = "Required: Old Password";
+    }
+
+    if (password.value == "" || confirmPssd.value == "") {
+        password.classList.add("is-invalid");
+        confirmPssd.classList.add("is-invalid");
+        errorPassword.classList.remove("invisible");
+        errorPassword.innerHTML = "Required: New Password";
+        errorConfirmPssd.classList.remove("invisible");
+        errorConfirmPssd.innerHTML = "Required: Confirm New Password";
+        formIsValid = false;
+
+    } else {
+        if (password.value != confirmPssd.value) {
+            //Make text visible
+            password.classList.add("is-invalid");
+            confirmPssd.classList.add("is-invalid");
+            errorPassword.classList.remove("invisible");
+            errorPassword.innerHTML = "The two entered passwords do not match";
+            errorConfirmPssd.classList.remove("invisible");
+            errorConfirmPssd.innerHTML = "The two entered passwords do not match";
+            formIsValid = false;
+            //Makes sure password contains a small letter, a capital letter, and a number. 
+        } else {
+            if (!password.value.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/)) {
+                password.classList.add("is-invalid");
+                confirmPssd.classList.add("is-invalid");
+                errorPassword.classList.remove("invisible");
+                errorPassword.innerHTML = "Password must contain at least one lowercase letter, one uppercase letter and a number";
+                errorConfirmPssd.classList.remove("invisible");
+                errorConfirmPssd.innerHTML = "Password must contain at least one lowercase letter, one uppercase letter and a number";
+                formIsValid = false;
+            } else {
+                confirmPssd.classList.remove("is-invalid");
+                password.classList.remove("is-invalid");
+                errorPassword.classList.add("invisible");
+                errorConfirmPssd.classList.add("invisible");
+            }
+        }
+    }
+
+    var elements = document.getElementsByClassName("char-check");
+    var errorMsgs = document.getElementsByClassName("err-msg");
+    var invalidChars = ["<", ">", "#", "-", "{", "}", "(", ")", "\'", "\"", "/`"];
+
+    //checks each element to see if contains invalid char
+    for (let i = 0; i < elements.length; i++) {
+        for (let j = 0; j < invalidChars.length; j++) {
+            if (elements[i].value.includes(invalidChars[j])) {
+                elements[i].classList.add("is-invalid");
+                errorMsgs[i].classList.remove("invisible");
+                errorMsgs[i].innerHTML = "Contains <, >, #, -, {, }, (, ), \', \", or \`";
+
+                formIsValid = false;
+            }
+        }//end loop invalidChars
+    }//end loop elements
+
+    return formIsValid;
+}
+
+function replyValidation(event) {
     var formIsValid = true;
 
-    var reply = document.querySelector("#txtComment");
-    var error = document.querySelector("#comment-count");
+    var postId = event.target.id;
+    var id = postId.slice(5);
+    var msgId = "msg-" + id;
+    var errId = "count-" + id;
+    var reply = document.getElementById(msgId);
+    var error = document.getElementById(errId);
 
-
-    if(reply.value == ""){
+    if (reply.value == "") {
         reply.classList.add("is-invalid");
         error.classList.add("text-danger");
         error.innerHTML = "This field cannot be blank";
@@ -522,9 +602,9 @@ function replyValidation(){
     else {
         reply.classList.remove("is-invalid");
         error.classList.remove("text-danger");
-        error.innerHTML = "This field cannot be blank";
     }
-    
-    return formIsValid;
 
+    return formIsValid;
 }
+
+

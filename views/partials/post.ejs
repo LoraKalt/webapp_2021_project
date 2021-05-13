@@ -88,12 +88,12 @@
         <div class="row">
             <div class="w-100 col-xl-12">
                 <h5>Comments</h5>
-                <form action="<%= `/posts/${post._id}/comments` %>" method="POST" onsubmit="return replyValidation()" novalidate>
+                <form id="<%= `form-${post._id}` %>" action="<%= `/posts/${post._id}/comments` %>" method="POST" onsubmit="return replyValidation(event)" novalidate>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" id="txtComment" name="commentText" placeholder="What do you think?" required>
+                        <input type="text" class="form-control comment-msg" id="<%= `msg-${post._id}` %>" name="commentText" placeholder="What do you think?" required>
                         <button class="btn btn-outline-primary" type="submit">Reply</button>
                     </div>
-                    <div id="comment-count">0</div>
+                    <div id="<%= `count-${post._id}` %>">0/280</div>
                 </form>
                 <div class="mx-3">
                     <% post.comments.forEach(comment => { %>

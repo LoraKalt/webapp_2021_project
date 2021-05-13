@@ -12,7 +12,7 @@ Login/signup more robust with authentication and validation. Users now have abil
 ---
 ## Tasks:
 Final:
-- Lora : Notifications, Organization, 
+- Lora : Notifications, Organization, Client-Side validation
 - Dax : updating user model, CRUD for users, sessions and cookies, passport handling for login/sign up, express validator, posts (create, read, delete), general edits
 
 ---
