@@ -13,11 +13,8 @@ const config = require("./config.json");
 User = require("./models/user");
 PostMsg = require("./models/post");
 
-// TODO: Finish adding server side validation.
 // TODO: Fix comment validation to work on all comments
-// TODO: Make it so deleting a post deletes the post's comments as well.
 
-//const notificationsController = require("./controllers/notificationsController")
 const layouts = require("express-ejs-layouts");
 const user = require("./models/user");
 
@@ -43,8 +40,6 @@ app.use(
 app.use(express.json());
 
 app.use(connectFlash());
-
-//router = express.Router();
 
 app.use(methodOverride("_method", { methods: ["POST", "GET"] }));
 
@@ -73,9 +68,6 @@ app.use((req, res, next) => {
     res.locals.errorFields = [];
     next();
 });
-
-//notifications
-//router.get("/notifications", notificationsController.index, notificationsController.indexView);
 
 app.use("/", router);
 

@@ -49,10 +49,5 @@ postSchema.virtual("likesCount").get(function() {
     return this.likedBy.length;
 });
 
-// clean up comments on post deletion
-postSchema.pre('remove', (post) => {
-    Comment.remove({_id: { $in: post.comments }});
-});
-
 
 module.exports = mongoose.model("Post", postSchema);

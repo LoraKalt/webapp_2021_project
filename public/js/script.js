@@ -14,7 +14,26 @@ window.addEventListener("beforeunload", function (e) {
     sessionStorage.setItem('lastPage', window.location.href);
 });
 
+
 // Validation
+const postText = document.querySelector("#txtPostText");
+const charCount = document.querySelector("#char-count");
+const commentCount = document.querySelector("#comment-count");
+
+if(postText) {
+    postText.addEventListener('keyup', (event) => {
+        let textLength = event.target.value.length;
+        if(textLength > 280){
+            charCount.classList.add("text-danger");
+        }
+        else{
+            charCount.classList.remove("text-danger");
+        }
+        charCount.innerHTML = "" + textLength;
+    });
+}
+
+
 document.querySelectorAll('.comment-msg').forEach(function(item){
     item.addEventListener('keyup', function(event){
         let textLength = event.target.value.length;
@@ -32,23 +51,6 @@ document.querySelectorAll('.comment-msg').forEach(function(item){
         count.innerHTML = "" + textLength + " / 280 characters";
     });
 });
-
-$(document).ready(function () {
-    const postText = document.querySelector("#txtPostText");
-    const charCount = document.querySelector("#char-count");
-    postText.addEventListener('keyup', (event) => {
-        let textLength = event.target.value.length;
-        if (textLength > 280) {
-            charCount.classList.add("text-danger");
-        }
-        else {
-            charCount.classList.remove("text-danger");
-        }
-        charCount.innerHTML = "" + textLength;
-    });
-
-});
-
 
 
 /**
@@ -92,10 +94,15 @@ function validateSignUp() {
         errorUser.classList.remove("invisible");
         errorUser.innerHTML = "Required: Username";
         formIsValid = false;
+    } 
+    else if (!username.value.match(/[a-z-_0-9]{4,20}/)) {
+        username.classList.add("is-invalid");
+        errorUser.classList.remove("invisible");
+        errorUser.innerHTML = "Username must be lowercase, and between 4 and 20 characters in length and can only contain alphanumeric characters and '-' and '_'";
+        formIsValid = false;
     } else {
         errorUser.classList.remove("is-invalid");
         errorUser.classList.add("invisible");
-
     }
 
     //Email Check:

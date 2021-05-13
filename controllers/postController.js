@@ -45,16 +45,20 @@ module.exports = {
             let validPost = true;
             let user = res.locals.currentUser;
             let hashtagsRaw = req.body.postHashtags;
-            let hashtags = hashtagsRaw.replace(/\s+/g, '').split(',');
-            for(let i=0; i<hashtags.length; i++){
-                if(!hashtags[i].startsWith('#')){
-                    req.flash("error", "Post contains an invalid value in the hashtag field.");
-                    validPost = false;
-                }
-                else {
-                    hashtags[i] = hashtags[i].slice(1);
+            let hashtags = [];
+            if (hashtagsRaw != ""){
+                let hashtags = hashtagsRaw.replace(/\s+/g, '').split(',');
+                for(let i=0; i<hashtags.length; i++){
+                    if(!hashtags[i].startsWith('#')){
+                        req.flash("error", "Post contains an invalid value in the hashtag field.");
+                        validPost = false;
+                    }
+                    else {
+                        hashtags[i] = hashtags[i].slice(1);
+                    }
                 }
             }
+
             if (validPost){
                 let sharedPost = null;
                 if(res.locals.sharedPostId){
@@ -107,7 +111,7 @@ module.exports = {
         let hashtagsRaw = req.body.postHashtags;
         req.body.hashtags = hashtagsRaw.replace(/\s+/g, '').split(',');
         req.check("hashtags.*", "Hashtags must start with '#' and be between 3 and 20 characters long not including '#'.")
-        .isLength({min: 4, max: 21}).matches(/^#[a-zA-Z0-9_]*$/);
+        .optional({ checkFalsy: true }).isLength({min: 4, max: 21}).matches(/^#[a-zA-Z0-9_]*$/);
         req.getValidationResult().then((error) => {
             if(!error.isEmpty()) {
                 let messages = error.array().map(e => e.msg);
@@ -168,14 +172,19 @@ module.exports = {
                 res.redirect("/");
             }
             else {
-                // #TODO: Delete comments related to a post when deleting the post.
-                Post.findByIdAndDelete(postId)
+                Comment.remove({_id: { $in: post.comments }})
                 .then(() => {
-                    res.locals.redirect = req.get('referer');
-                    next();
-                })
-                .catch(error => {
-                    console.log(`Error deleting post by ID: ${error.message}`);
+                    Post.findByIdAndDelete(postId)
+                    .then(() => {
+                        res.locals.redirect = req.get('referer');
+                        next();
+                    })
+                    .catch(error => {
+                        console.log(`Error deleting post by ID: ${error.message}`);
+                        next();
+                    });
+                }).catch(error => {
+                    console.log(`Error deleting post comments: ${error.message}`);
                     next();
                 });
             }

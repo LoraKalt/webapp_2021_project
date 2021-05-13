@@ -1,8 +1,9 @@
 "use strict";
 
-const mongoose = require("mongoose"),
-    User = require("./models/user");
+const mongoose = require("mongoose");
+const User = require("./models/user");
 const Post = require("./models/post");
+const Comment = require("./models/comment");
 
 mongoose.connect("mongodb://localhost:27017/cu_dever_social",
     { useNewUrlParser: true });
@@ -24,7 +25,7 @@ var users = [
         posts: [
             {
                 text: "Yo, it's Jon Doe.",
-                hashtags: ["yo", "idkwhattoputhere"]
+                hashtags: ["yoyoyo", "idkwhattoputhere"]
             }
         ]
     },
@@ -74,6 +75,8 @@ const genData = async (callback) => {
         console.log("User data is empty");
         let postDeleteResp = await Post.deleteMany().exec();
         console.log("Posts deleted");
+        let commentDeleteResp = await Comment.deleteMany().exec();
+        console.log("Comments deleted");
         for (const u of users) {
             let newUser = new User({
                 fname: u.fname,
