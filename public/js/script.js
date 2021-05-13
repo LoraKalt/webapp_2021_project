@@ -23,13 +23,12 @@ const commentCount = document.querySelector("#comment-count");
 postText.addEventListener('keyup', (event) => {
     let textLength = event.target.value.length;
     if(textLength > 280){
-        charCount.innerHTML ="Exceeded limit of 280 characters";
         charCount.classList.add("text-danger");
     }
     else{
         charCount.classList.remove("text-danger");
-        charCount.innerHTML = "" + textLength;
     }
+    charCount.innerHTML = "" + textLength;
 });
 // commentCount.addEventListener('keyup', (event) => {
 //     let textLength = event.target.value.length;
@@ -470,39 +469,40 @@ function postValidation(){
     var errorHash = document.querySelector("#hash-error");
 
     console.log(hashtags.value);
-    hashes = hashtags.value.split(",")
-    console.log(hashes);
-    if (hashtags.value == ""){
-        hashtags.classList.add("is-invalid");
-        errorHash.classList.add("text-danger");
-        errorHash.innerHTML = "This field cannot be blank";
-        formIsValid = false;
+
+    if(hashtags.value != ""){
+        hashes = hashtags.value.split(",")
+        console.log(hashes);
+        var invalidHash = false;
+        for(let i =0; i<hashes.length; i++){
+            if(!hashes[i].match(/^#[a-zA-Z0-9_]*$/)){
+                invalidHash = true;
+                formIsValid = false;
+            }
+            if(hashes[i].length > 21 || hashes[i].length < 4){
+                errorHash.innerHTML = "Hashtags must be between 3 and 20 characters long not including '#'.";
+                invalidHash = true;
+                formIsValid = false;
+            }
+        }
+        if(invalidHash){
+            hashtags.classList.add("is-invalid");
+            errorHash.classList.remove("text-muted");
+            errorHash.classList.add("text-danger");
+        }
+        else{
+            hashtags.classList.remove("is-invalid");
+            errorHash.classList.add("text-muted");
+            errorHash.classList.remove("text-danger");
+            errorHash.innerHTML = "Begin each hashtag with a '#' character, separate them with commas (',').";
+        }
     }
     else {
         hashtags.classList.remove("is-invalid");
         errorHash.classList.add("text-muted");
         errorHash.classList.remove("text-danger");
-        errorHash.innerHTML = "Begin each hashtag with a '#' character, separate them with commas (',').";
     }
-    var invalidHash = false;
-    for(let i =0; i<hashes.length; i++){
-        if(!hashes[i].match(/^#[a-zA-Z0-9_]*$/)){
-            invalidHash = true;
-            formIsValid = false;
-        }
-    }
-    if(invalidHash){
-        hashtags.classList.add("is-invalid");
-        errorHash.classList.remove("text-muted");
-        errorHash.classList.add("text-danger");
-       
-    }
-    else{
-        hashtags.classList.remove("is-invalid");
-        errorHash.classList.add("text-muted");
-        errorHash.classList.remove("text-danger");
-    }
-    
+
     return formIsValid;
 }//post validation end
 

@@ -103,7 +103,26 @@ module.exports = {
         res.render("posts/show");
     },
     validate: (req, res, next) => {
-        req.check("postText", "Post must be between 1 and 280 characters").isLength({min: 1, max: 280});
+        req.check("postText", "Post must be between 1 and 280 characters").isLength({min: 1, max: 280}).trim();
+        let hashtagsRaw = req.body.postHashtags;
+        req.body.hashtags = hashtagsRaw.replace(/\s+/g, '').split(',');
+        req.check("hashtags.*", "Hashtags must start with '#' and be between 3 and 20 characters long not including '#'.")
+        .isLength({min: 4, max: 21}).matches(/^#[a-zA-Z0-9_]*$/);
+        req.getValidationResult().then((error) => {
+            if(!error.isEmpty()) {
+                let messages = error.array().map(e => e.msg);
+                req.flash("error", messages.join(' '));
+                res.locals.skip = true;
+                res.locals.redirect = req.get('referer');
+                next();
+            }
+            else {
+                next();
+            }
+        });
+    },
+    validateComment: (req, res, next) => {
+        req.check("commentText", "Comment must be between 1 and 280 characters").isLength({min: 1, max: 280}).trim();
         req.getValidationResult().then((error) => {
             if(!error.isEmpty()) {
                 let messages = error.array().map(e => e.msg);
@@ -165,24 +184,29 @@ module.exports = {
         })
     },
     createComment: (req, res, next) => {
-        let postId = req.params.id;
-        let currentUser = res.locals.currentUser;
-        let newComment = Comment({
-            user: currentUser._id,
-            commentText: req.body.commentText
-        });
-        Comment.create(newComment).then(() => {
-            Post.findByIdAndUpdate(postId, { $push: {comments: newComment._id} }).then(post => {
-                res.locals.redirect = req.get('referer');
-                next();
+        if(res.locals.skip){
+            next();
+        }
+        else {
+            let postId = req.params.id;
+            let currentUser = res.locals.currentUser;
+            let newComment = Comment({
+                user: currentUser._id,
+                commentText: req.body.commentText
+            });
+            Comment.create(newComment).then(() => {
+                Post.findByIdAndUpdate(postId, { $push: {comments: newComment._id} }).then(post => {
+                    res.locals.redirect = req.get('referer');
+                    next();
+                }).catch(error => {
+                    console.log(`Error adding comment to post: ${error.message}`);
+                    next();
+                });
             }).catch(error => {
-                console.log(`Error adding comment to post: ${error.message}`);
+                console.log(`Error creating comment: ${error.message}`);
                 next();
             });
-        }).catch(error => {
-            console.log(`Error creating comment: ${error.message}`);
-            next();
-        });
+        }
     },
     deleteComment: (req, res, next) => {
         let postId = req.params.id;

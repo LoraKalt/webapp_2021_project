@@ -23,13 +23,15 @@
                     </div>
                 <% } %>
                 <div class="row">
-                    <div class="col-xl-6">
+                    <div class="<%= (posts.length <= 0) ? "col-xl-12" : "col-xl-6" %>">
                         <% if(!isFirstPage) { %>
                             <a role="button" href="<%= `/page/${prevPage}` %>" class="btn btn-outline-primary btn-block">&larr; Newer posts</a>
                         <% } %>
                     </div>
                     <div class="<%= isFirstPage ? "col-xl-12" : "col-xl-6" %>">
-                        <a role="button" href="<%= `/page/${nextPage}` %>" class="btn btn-outline-primary btn-block">Older posts &rarr;</a>
+                        <% if(!(posts.length <= 0)) { %>
+                            <a role="button" href="<%= `/page/${nextPage}` %>" class="btn btn-outline-primary btn-block">Older posts &rarr;</a>
+                        <% } %>
                     </div>
                 </div>
             </div>
