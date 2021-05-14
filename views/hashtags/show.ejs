@@ -5,9 +5,32 @@
                 <!-- Left column, empty for now -->
             </div>
             <div class="col-xl-8">
-                <% posts.forEach(post => { %>
+                <% posts.length > 0 && posts.forEach(post => { %>
                     <%- include('../partials/post', {post: post})  %>
                 <% }); %>
+                <% if(posts.length <= 0) { %>
+                    <div class="card mx-md-0 mx-3 my-3">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-xl-10">
+                                    <h2>There were no more posts to load...</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
+                <div class="row">
+                    <div class="<%= (posts.length <= 0) ? "col-xl-12" : "col-xl-6" %>">
+                        <% if(!isFirstPage) { %>
+                            <a role="button" href="<%= `/hashtags/${hashtag}/page/${prevPage}` %>" class="btn btn-outline-primary btn-block">&larr; Newer posts</a>
+                        <% } %>
+                    </div>
+                    <div class="<%= isFirstPage ? "col-xl-12" : "col-xl-6" %>">
+                        <% if(!(posts.length <= 0)) { %>
+                            <a role="button" href="<%= `/hashtags/${hashtag}/page/${nextPage}` %>" class="btn btn-outline-primary btn-block">Older posts &rarr;</a>
+                        <% } %>
+                    </div>
+                </div>
             </div>
             <div class="col-xl-2">
                 
