@@ -223,6 +223,13 @@ module.exports = {
                     {
                         path: 'comments',
                         populate: 'user'
+                    },
+                    {
+                        path: 'sharing',
+                        populate:{
+                            path: 'user',
+                            model: 'User'
+                        }
                     }
                 ],
                 options: { sort: { 'createdAt': -1 } } }
@@ -232,7 +239,8 @@ module.exports = {
                     path: 'user',
                     model: 'User'
                 }
-            }).sort({'createdAt': 'desc'}).then(user => {
+            })
+            .sort({'createdAt': 'desc'}).then(user => {
                 let posts = user.posts;
                 res.locals.posts = posts;
                 res.locals.displayUser = user;
@@ -262,10 +270,16 @@ module.exports = {
                                 path: 'user',
                                 model: 'User'
                             }
+                        },
+                        {
+                            path: 'sharing',
+                            populate:{
+                                path: 'user',
+                                model: 'User'
+                            }
                         }
                     ]
-                )
-                .limit(res.locals.itemCount)
+                ).limit(res.locals.itemCount)
                 .skip(res.locals.skipCount)
                 .sort({'createdAt': 'desc'}).then(posts => {
                     res.locals.posts = posts;

@@ -7,7 +7,16 @@ module.exports = {
         .limit(res.locals.itemCount)
         .skip(res.locals.skipCount)
         .sort({createdAt: 'desc'})
-        .populate({path: 'user'}).then(posts => {
+        .populate([
+            {path: 'user'},
+            {
+                path: 'sharing',
+                populate:{
+                    path: 'user',
+                    model: 'User'
+                }
+            }
+        ]).then(posts => {
             res.locals.posts = posts;
             res.locals.hashtag = hashtag;
             next();
