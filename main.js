@@ -48,7 +48,6 @@ app.use(expressValidator());
 app.use(expressSession({
     secret: "my_passcode",
     cookie: {
-        maxAge: 3600000000,
         sameSite: 'strict'
     },
     resave: false,

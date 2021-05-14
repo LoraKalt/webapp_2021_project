@@ -71,7 +71,7 @@ module.exports = {
             })
             .catch(error => {
                 console.error(`Error fetching user by ID: ${error.message}`);
-                res.locals.redirect = "/profile/edit";
+                res.locals.redirect = "/profile/";
                 next(error);
             });
         }
