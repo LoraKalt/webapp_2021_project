@@ -51,17 +51,14 @@ different on the actual site):
 ---
 
 ## Design Decisions and Assumptions - Final:
- - View partial snippets used for dynamic navigation (hide menu options when not logged in).
- - There is no ability to post multimedia yet, but we hope to have it implemented in the final project.
- - Users can view their own page at '/profile', they can view other user's pages at '/users/{username}'
- - Users can create their account and edit
-- Users are allowed to post as many comments they want on other user's posts.
-- In editing profile, changing your email will log you out and require you to log back in (as your session with old email has expired).
+ - When not logged in, users can see other users posts and profiles, but can't comment, post, like or share.
+ - Users are allowed to post as many comments they want on other user's posts.
+ - In editing profile, changing your email will log you out and require you to log back in (as your session with old email has expired).
 
 ## Design Decisions - Final:
 
 ### Home page
-Visitors will see all the latest posts by users on the website however they will not be able to do any interaction such as post, comment, like, or share until they either log in or sign up. 
+Visitors will see all the latest posts by users on the website however they will not be able to do any interaction such as post, comment, like, or share until they either log in or sign up.
 
 Logged in users will be able to see all the posts from other users that they follow (or not if they do not follow anyone) and are able to comment, like, and share on other user's posts as well as make their own post.
 
@@ -77,13 +74,15 @@ Successfully signing in will direct the newly registered user to the login page.
 Users can login via the login page where they provide their email and their password. If the credentials are correct, they are redirected to the home page where they can begin interacting with the site. 
 
 ### Edit Profile
-Users can edit their profile by either clicking on their profile and then on edit or they can click on user settings. They can edit any field they want except for username as that is their unique identifier. 
+Users can edit their profile by either clicking on their profile and then on edit or they can click on user settings. They can edit any field they want except for username as that is their unique identifier.
+
+They can change their password, but must do so through a separate page.
 
 ### Delete User
 Likewise, the logged in user can also delete their account if they so desired, which in return deletes all their posts and any interaction they had on the site (comments, follows, shares).
 
 ### Posts
-Logged in users can create and deleteposts whether they are on the homepage or their personal profile. They can also include hashtags on their post. If the message is blank or exceeds the character limit, they won't be able to post.
+Logged in users can create and delete posts whether they are on the homepage or their personal profile. They can also include hashtags on their post. If the message is blank or exceeds the character limit, they won't be able to post.
 
 ### Hashtags
 Hashtags function similar to most social media sites. Clicking on a hashtag show posts by other users with that same hashtag. The posts shown be sorted by number of likes and number of comments.
