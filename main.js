@@ -8,8 +8,6 @@ const methodOverride = require("method-override");
 const connectFlash = require("connect-flash");
 const passport = require("passport");
 
-const config = require("./config.json");
-
 User = require("./models/user");
 PostMsg = require("./models/post");
 
