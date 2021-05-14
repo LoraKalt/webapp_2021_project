@@ -3,11 +3,11 @@
 + Lora Kalthoff
 + Dax Hurley
 
-## Website:
-[cu-denver-social](https://cu-denver-social.herokuapp.com/)
+---
 
-## Video Demo:
-[Youtube](https://www.youtube.com/watch?v=fAGVmWUuL54)
+Website: [cu-denver-social](https://cu-denver-social.herokuapp.com/)
+
+Video Demo: [Youtube](https://www.youtube.com/watch?v=fAGVmWUuL54)
 
 ---
 ## Description:
